@@ -33,6 +33,10 @@ build/
 
 ### VS Code ###
 .vscode/
+.idea/
 
 ### Mac OS ###
 .DS_Store
+
+### Config ###
+src/main/resources/datasource.properties
