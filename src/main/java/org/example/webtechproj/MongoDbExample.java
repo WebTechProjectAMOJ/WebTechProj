@@ -15,8 +15,7 @@ public class MongoDbExample {
     public static void main( String[] args ) {
         Document searchQuery = new Document();
         searchQuery.put("x", 1);
-        new DbConnection("testData");
-        ArrayList<Document> doc = DbConnection.find(searchQuery);
+        ArrayList<Document> doc = DbConnection.find("testData", searchQuery);
         System.out.println(doc);
     }
 }
