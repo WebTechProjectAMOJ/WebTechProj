@@ -32,12 +32,12 @@ public class TestDBConnection extends HttpServlet {
         response.setContentType("text/html");
         int num = Integer.parseInt(request.getParameter("no"));
         System.out.println(num);
-        Document searchQuery = new Document();
-        searchQuery.put("x", num);
-        Document doc = DbConnection.findOne("testData",searchQuery);
+        Document object = new Document();
+        object.put("x", num);
+        boolean doc = DbConnection.insertOne("testData", object);
         PrintWriter out = response.getWriter();
         out.println("<html><body>");
-        out.println("<h1>" + doc.toJson() + "</h1>");
+        out.println("<h1>" + doc + "</h1>");
         out.println("</body></html>");
     }
 
