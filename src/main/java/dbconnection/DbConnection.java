@@ -1,17 +1,13 @@
 package dbconnection;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.*;
-import com.mongodb.client.model.Filters;
 import org.bson.Document;
 
 import java.util.ArrayList;
 
-import static com.mongodb.client.model.Filters.eq;
-
 public class DbConnection {
-
-    static String collectionName = null;
-    static String dbname = "testdb";
+    static String dbname = "admin";
     static String uri = "mongodb://mongo:example@localhost:27017/";
 
     public static Document findOne(String collectionName, Document searchQuery){
@@ -31,5 +27,36 @@ public class DbConnection {
         }
     }
 
+    public static boolean insertOne(String collectionName, Document object){
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase(dbname);
+            MongoCollection<Document> collection = database.getCollection(collectionName);
+            return collection.insertOne(object).wasAcknowledged();
+        }
+    }
+
+    public static boolean deleteOne(String collectionName, Document searchQuery){
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase(dbname);
+            MongoCollection<Document> collection = database.getCollection(collectionName);
+            return collection.deleteOne(searchQuery).wasAcknowledged();
+        }
+    }
+
+    public static boolean deleteMany(String collectionName, Document searchQuery){
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase(dbname);
+            MongoCollection<Document> collection = database.getCollection(collectionName);
+            return collection.deleteMany(searchQuery).wasAcknowledged();
+        }
+    }
+
+    public static boolean updateOne(String collectionName, Document searchQuery, BasicDBObject updateQuery){
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase(dbname);
+            MongoCollection<Document> collection = database.getCollection(collectionName);
+            return collection.updateOne(searchQuery, updateQuery).wasAcknowledged();
+        }
+    }
 
 }
