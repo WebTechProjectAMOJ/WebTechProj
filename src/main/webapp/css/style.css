@@ -1,0 +1,101 @@
+#login-cloud {
+    background: #B5C964;
+    margin: 0 auto auto;
+    display: block;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+#login-cloud > div{
+    display: block;
+    width: 80%;
+    height: 40px;
+    padding: 30px;
+    margin: auto auto 10px;
+}
+
+input {
+    all : unset;
+    border: #4B4C49 1px solid;
+    border-radius: 10px;
+    background: white;
+}
+
+#login-cloud > div > label{
+    display: block;
+    padding-bottom: 10px;
+}
+
+#login-cloud > div >input {
+    height: 40px;
+    width: 100%;
+    display: block;
+}
+
+#logo-login{
+    width: 100%;
+}
+
+#login-logo-img{
+    width: 200px;
+    margin: auto;
+    display: block;
+}
+
+.login-tab {
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+    margin-bottom: 0;
+}
+
+.login-tabs{
+    display: flex;
+    margin-bottom: 0;
+}
+
+.login-tabs > div {
+    float: left;
+    width : 33.3%;
+    margin: 20px 20px 0;
+    background: #4B4C49;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 1%;
+    color: white;
+    border-radius: 10px 10px 0 0;
+}
+
+.container{
+    width: 80%;
+    margin: auto;
+}
+
+.tab-active {
+    background: #B5C964!important;
+    color: black !important;
+}
+
+#login-btn {
+    display: block;
+    width: 80%;
+    background: #1b3722;
+    color: white;
+    height: 3em;
+    border:none;
+    border-radius: 10em;
+    margin: 4em auto 1em;
+}
+
+.register-here > a {
+    text-decoration: none;
+    color: #1b3722;
+}
+
+.register-here {
+    width: 80%;
+    display: block;
+    text-align: center;
+    margin: auto auto 1em;
+}
