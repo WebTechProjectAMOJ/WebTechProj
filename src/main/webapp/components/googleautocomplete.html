@@ -1,0 +1,40 @@
+<!--
+    To use, include this HTML file in the JSP.
+    you can style the input using #pac-input
+
+
+    The variable will be stored in 'placedata'
+-->
+<script>    function initMap(){
+    const center = { lat: 50.064192, lng: -130.605469 };
+    // Create a bounding box with sides ~10km away from the center point
+    const defaultBounds = {
+        north: center.lat + 0.1,
+        south: center.lat - 0.1,
+        east: center.lng + 0.1,
+        west: center.lng - 0.1,
+    };
+    const input = document.getElementById("pac-input");
+    const options = {
+        bounds: defaultBounds,
+        componentRestrictions: { country: "fr" },
+        fields: ["address_components", "geometry", "name"],
+        strictBounds: false,
+    };
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+        document.getElementById('placedata').value = JSON.stringify(autocomplete.getPlace())
+    });
+}
+</script>
+
+
+<input type="text" id="pac-input"/>
+
+<textarea name="placedata" id="placedata" style="display: none"></textarea>
+
+<script id="maps-load"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJGCGB21QZejkivSsR5u9iIe_lp-cYTPY&loading=async&libraries=places&callback=initMap">
+</script>
+
