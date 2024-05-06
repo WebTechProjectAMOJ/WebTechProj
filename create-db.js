@@ -25,7 +25,7 @@ db.consumers.insertOne(
         preferences: {
             likes: [],
             dislikes: [],
-            allorgens: []
+            allergens: []
         },
         email: "pierre@france.fr",
         credentials: {username: "Pierre", password: "1234"}
@@ -129,7 +129,13 @@ db.restaurants.updateOne({name: "Panini Land"}, {$push: {orders: order_id}})
 db.drivers.updateOne({_id: driver_id}, {$push: {orders: order_id}})
 
 db.tags.insertOne({
-    name: "vegeterian"
+    name: "vegeterian",
+    type: "preference",
+})
+
+db.tags.insertOne({
+    name: "peanuts",
+    type: "allergen",
 })
 
 db.tools.insertOne({
