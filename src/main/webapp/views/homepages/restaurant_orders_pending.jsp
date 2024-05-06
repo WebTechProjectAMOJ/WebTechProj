@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: margotrichez
-  Date: 04/05/2024
-  Time: 13:33
+  Date: 06/05/2024
+  Time: 13:25
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -16,13 +16,14 @@
 </head>
 <body>
 <div class="page">
-    <jsp:include page="../components/user_navbar.jsp" />
+    <jsp:include page="../components/restaurant_navbar.jsp" />
     <div class="window">
-        <jsp:include page="../components/search_header.jsp" />
-        <jsp:include page="../components/section_row_scroll.jsp" />
+        <jsp:include page="../components/header.jsp" />
+        <jsp:include page="../components/section_grid_scroll.jsp" />
     </div>
 
 </div>
 
 </body>
 </html>
+
