@@ -210,7 +210,7 @@ img {
     display: flex;
     flex-direction: column;
     width: 80%;
-    height: 75%;
+    height: 78%;
     background-color: #D7D8D5;
     color: black;
     border-radius: 10px;
@@ -227,6 +227,7 @@ img {
 
 .popup_window .header_row {
     align-items: flex-start;
+    height: auto
 }
 
 .popup_window .search_bar {
@@ -235,5 +236,22 @@ img {
 
 .popup_window .header_text_container{
     margin: 0 2%
+}
+
+.stars {
+    display: flex;
+    justify-content: flex-start;
+    margin-right: 3%;
+    fill: #F09B1C;
+}
+
+.popup_window .popup_window{
+    background-color: #ffffff;
+    overflow: auto;
+    height: 60%;
+}
+
+.popup_window .grid_container{
+    grid-template-columns: repeat(5, 1fr);
 }
 

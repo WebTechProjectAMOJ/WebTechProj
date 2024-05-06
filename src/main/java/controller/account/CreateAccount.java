@@ -34,7 +34,7 @@ public class CreateAccount extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        RequestDispatcher view = req.getRequestDispatcher("/views/AccountCreations/CreateAccount.jsp");
+        RequestDispatcher view = req.getRequestDispatcher("/views/AccountCreations/CreateAccountCustomers.jsp");
         view.forward(req, resp);
     }
 
