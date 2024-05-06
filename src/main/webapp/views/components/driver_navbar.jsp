@@ -12,7 +12,6 @@
     <a>Pending</a>
     <a>Open</a>
     <a>History</a>
-    <h3>Vehicle</h3>
     <h3>Reviews</h3>
 
     <div class="user_nav">
