@@ -39,30 +39,35 @@ var americano_id = ObjectId()
 var delivery_service_id = ObjectId()
 var driver_id = ObjectId()
 
+db.food_items.insertOne(
+    {
+        _id: coke_id,
+        name: "Coca-Cola",
+        price: 0.5,
+        tags: [],
+        tools_req: [],
+        photo_url: "",
+        ratings: []
+    }
+)
+
+db.food_items.insertOne(
+    {
+        _id: americano_id,
+        name: "The americano",
+        price: 2,
+        tags: [],
+        tools_req: [],
+        photo_url: "",
+        ratings: []
+    }
+)
+
+
 db.restaurants.insertOne(
     {
         name: "Panini Land",
-        food_items: [
-            {
-                _id: coke_id,
-                name: "Coca-Cola",
-                price: 0.5,
-                tags: [],
-                tools_req: [],
-                photo_url: "",
-                ratings: []
-            },
-
-            {
-                _id: americano_id,
-                name: "The americano",
-                price: 2,
-                tags: [],
-                tools_req: [],
-                photo_url: "",
-                ratings: []
-            }
-        ],
+        food_items: [coke_id, americano_id],
         combos: [
             {name: "Formula A", price: 6.2, tags: [], food_items: [coke_id, americano_id]}
         ],
