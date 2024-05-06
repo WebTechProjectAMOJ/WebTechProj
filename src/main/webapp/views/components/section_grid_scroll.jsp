@@ -2,13 +2,13 @@
   Created by IntelliJ IDEA.
   User: margotrichez
   Date: 02/05/2024
-  Time: 10:53
+  Time: 10:50
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div class="box_container">
-    <div class="box"></div>
-    <h3>Food Name </h3>
-    <a>Category</a>
+<a class="section_title">category</a>
+<div class="grid_container">
+    <jsp:include page="./item_box.jsp" />
 </div>
+
