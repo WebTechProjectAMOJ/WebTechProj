@@ -1,6 +1,6 @@
 db.dropDatabase("food_dispatch")
 
-db =db.getSiblingDB("food_dispatch")
+db = db.getSiblingDB("food_dispatch")
 
 db.createCollection("restaurants")
 db.createCollection("delivery_services")
@@ -22,57 +22,70 @@ db.consumers.insertOne(
         addresses: [
             "Isep Issy 306",
             "Isep NDC 28"],
-        preferences: [
-            {type:"like", tag:"sandwich"},
-            {type:"dislike", tag:"malaisan"},
-            {type:"alergic", tag: "peanut"}],
+        preferences: {
+            likes: [],
+            dislikes: [],
+            allorgens: []
+        },
         email: "pierre@france.fr",
-        credentials: {username:"Pierre", password:"1234"}
+        credentials: {username: "Pierre", password: "1234"}
     })
 
+var rating_id1 = ObjectId()
+var rating_id2 = ObjectId()
 var coke_id = ObjectId()
 var americano_id = ObjectId()
 
 var delivery_service_id = ObjectId()
 var driver_id = ObjectId()
+var combo_id = ObjectId()
+
+db.food_items.insertOne(
+    {
+        _id: coke_id,
+        name: "Coca-Cola",
+        price: 0.5,
+        tags: [],
+        tools_req: [],
+        photo_url: "",
+        ratings: []
+    }
+)
+
+db.food_items.insertOne(
+    {
+        _id: americano_id,
+        name: "The americano",
+        price: 2,
+        tags: [],
+        tools_req: [],
+        photo_url: "",
+        ratings: []
+    }
+)
+
+db.combos.insertOne({_id: combo_id, name: "Formula A", price: 6.2, tags: [], food_items: [coke_id, americano_id]})
+
 
 db.restaurants.insertOne(
     {
-        name:"Panini Land",
-        food_items: [
-            {_id:coke_id,
-                name:"Coca-Cola",
-                price:0.5,
-                tags:["sugar", "drink"],
-                tools_req: [{type:"allowed", name:"bevrage"}],
-                photo_url: "",
-                ratings: []},
-
-            {_id:americano_id,
-                name:"The americano",
-                price:2,
-                tags:["panini", 'meat'],
-                tools_req: [],
-                photo_url: "",
-                ratings: []}
-        ],
-        combos: [
-            {name:"Formula A", price: 6.2, tags:["lunch"], food_items:[coke_id, americano_id]}
-        ],
+        name: "Panini Land",
+        food_items: [coke_id, americano_id],
+        combos: [combo_id],
         ratings: [],
         address: "A cote de notra-dame",
-        tags:['sandwich'],
+        tags: [],
         delivery_services: [delivery_service_id],
         orders: [],
         email: "panini.land@france.fr",
-        credentials: {username:"panini", password:"1234"},
+        credentials: {username: "panini", password: "1234"},
     })
 
 db.restaurants.updateOne({name: "Panini Land"},
-    {$push: {ratings: {feedback: "Great Value", value: 5, consumer_id: consumer_id} } })
+    {$push: {ratings: {_id: rating_id1, feedback: "Great Value", value: 5, consumer_id: consumer_id}}})
 
-db.restaurants.find({name:"Panini Land"}, {ratings:{consumer_id:1}})
-db.restaurants.find({name:"Panini Land"})
+db.restaurants.find({name: "Panini Land"}, {ratings: {consumer_id: 1}})
+db.restaurants.find({name: "Panini Land"})
 
 
 db.delivery_services.insertOne({
@@ -85,10 +98,10 @@ db.drivers.insertOne({
     _id: driver_id,
     first_name: "Patrick",
     last_name: "Star",
-    ratings:[{feedback: "All the food arrived soaked wet", value: 1, consumer_id: consumer_id}],
+    ratings: [rating_id2],
     email: "under.rock@france.fr",
-    credentials: {username:"patric", password:"1234"},
-    tools: [{type:"vehicle", name:"bike"},{type:"allowed", name:"drink"}],
+    credentials: {username: "patric", password: "1234"},
+    tools: [],
     current_pos: "",
     orders: []
 })
@@ -102,15 +115,31 @@ db.orders.insertOne({
     status: "complete",
     driver: driver_id,
     delivery_address: "Isep NDC 28",
-    payment: {method:"card", type: "visa"}
+    payment: {method: "card", type: "visa"}
 })
 
 
-db.restaurants.find({name: "Panini Land"},{food_items:1}).forEach(i => {
-    db.orders.updateOne({_id: order_id}, {$push: {items: i} })
+db.restaurants.find({name: "Panini Land"}, {food_items: 1}).forEach(i => {
+    db.orders.updateOne({_id: order_id}, {$push: {items: i}})
 })
 
 
-db.consumers.updateOne({_id: consumer_id},{$push: {orders: order_id} })
+db.consumers.updateOne({_id: consumer_id}, {$push: {orders: order_id}})
 db.restaurants.updateOne({name: "Panini Land"}, {$push: {orders: order_id}})
-db.drivers.updateOne({_id: driver_id},{$push: {orders: order_id} })
+db.drivers.updateOne({_id: driver_id}, {$push: {orders: order_id}})
+
+db.tags.insertOne({
+    name: "vegeterian"
+})
+
+db.tools.insertOne({
+    name: "bike",
+    type: "vehicle"
+})
+
+db.ratings.insertOne({
+    _id: rating_id2,
+    feedback: "All the food arrived soaked wet",
+    value: 1,
+    consumer_id: consumer_id
+})
