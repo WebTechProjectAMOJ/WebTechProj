@@ -29,6 +29,7 @@ input {
 #login-cloud > div >input {
     height: 40px;
     width: 100%;
+    padding-left: 0.5em;
     display: block;
 }
 
@@ -99,3 +100,17 @@ input {
     text-align: center;
     margin: auto auto 1em;
 }
+
+select.chosen-select{
+    width: 100%;
+
+}
+
+ul.chosen-choices{
+    border: #4B4C49 1px solid !important;
+    border-radius: 10px !important;
+    background: white !important;
+    height: 40px !important;
+}
+
+
