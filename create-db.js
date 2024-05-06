@@ -38,6 +38,7 @@ var americano_id = ObjectId()
 
 var delivery_service_id = ObjectId()
 var driver_id = ObjectId()
+var combo_id = ObjectId()
 
 db.food_items.insertOne(
     {
@@ -63,14 +64,14 @@ db.food_items.insertOne(
     }
 )
 
+db.combos.insertOne({_id: combo_id, name: "Formula A", price: 6.2, tags: [], food_items: [coke_id, americano_id]})
+
 
 db.restaurants.insertOne(
     {
         name: "Panini Land",
         food_items: [coke_id, americano_id],
-        combos: [
-            {name: "Formula A", price: 6.2, tags: [], food_items: [coke_id, americano_id]}
-        ],
+        combos: [combo_id],
         ratings: [],
         address: "A cote de notra-dame",
         tags: [],
