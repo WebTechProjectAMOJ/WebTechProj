@@ -227,7 +227,7 @@ img {
 
 .popup_window .header_row {
     align-items: flex-start;
-    height: 18%
+    height: auto
 }
 
 .popup_window .search_bar {
@@ -248,8 +248,7 @@ img {
 .popup_window .popup_window{
     background-color: #ffffff;
     overflow: auto;
-    height: 65%;
-    margin: 1% 0;
+    height: 60%;
 }
 
 .popup_window .grid_container{
