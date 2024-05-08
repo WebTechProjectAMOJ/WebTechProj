@@ -12,15 +12,15 @@ import jakarta.servlet.http.HttpSession;
 import org.bson.Document;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
-@WebServlet(name = "Creating An Account", value = "/create-account")
-public class CreateAccount extends HttpServlet {
+@WebServlet(name = "Creating An Account - Drivers", value = "/create-account-restaurants")
+public class CreateAccountRestaurants extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String name = request.getParameter("name");
+        String email = request.getParameter("email");
         Document object = new Document();
         object.put("username", username);
         String hashed = Pash.hashPassword(password);
@@ -34,7 +34,7 @@ public class CreateAccount extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        RequestDispatcher view = req.getRequestDispatcher("/views/AccountCreations/CreateAccountCustomers.jsp");
+        RequestDispatcher view = req.getRequestDispatcher("/views/AccountCreations/CreateAccountRestaurants.jsp");
         view.forward(req, resp);
     }
 

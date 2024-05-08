@@ -3,17 +3,14 @@
 <html>
 <head>
     <title>JSP - Hello World</title>
-    <link rel="stylesheet" href="../../css/login-page-style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
-    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
+    <jsp:include page="includecsscreate.jsp"/>
 </head>
 <body>
 <div class="container">
     <div id="logo-login">
         <img id="login-logo-img" src="${pageContext.request.contextPath}/assets/food-dispatch-logo.png" alt="logo">
     </div>
-    <form action="${pageContext.request.contextPath}/create-account" method="POST">
+    <form action="${pageContext.request.contextPath}/create-account-restaurants" method="POST">
         <div class="login-tabs">
             <div>
                 <label>Customers</label>
@@ -28,33 +25,30 @@
         <div id="login-cloud">
             <div>
                 <label for='username'>Username:</label>
-                <input id='username' type="text" name="username"/>
+                <input id='username' type="text" name="username" required/>
             </div>
             <div>
                 <label for="password">Password:</label>
-                <input id="password" type="password" name="password"/>
+                <input id="password" type="password" name="password" required/>
             </div>
             <div>
                 <label for="name">Name:</label>
-                <input id="name" type="text" name="name"/>
+                <input id="name" type="text" name="name" required/>
+            </div>
+            <div>
+                <label for="firstname">First Name:</label>
+                <input id="firstname" type="text" name="firstname"/>
             </div>
             <div>
                 <label for="Email">Email:</label>
-                <input id="Email" type="text" name="Email"/>
+                <input id="Email" type="email" name="Email" required/>
             </div>
             <div>
-                <label for="Likes">Your Tags:</label>
-                <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select" name="Likes" id="Likes">
+                <label for="Tags">Your Tags:</label>
+                <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select" name="Tags" id="Tags">
                     <option value=""></option>
-                    <option>American Black Bear</option>
-                    <option>Asiatic Black Bear</option>
-                    <option>Brown Bear</option>
-                    <option>Giant Panda</option>
-                    <option>Sloth Bear</option>
-                    <option>Sun Bear</option>
-                    <option>Polar Bear</option>
-                    <option>Spectacled Bear</option>
                 </select>
+                <textarea name="Tags" style="display: none"></textarea>
             </div>
             <div>
                 <jsp:include page="../../components/googleautocomplete.html"/>
@@ -67,6 +61,11 @@
     </form>
 </div>
 <script src="${pageContext.request.contextPath}/js/loginflow/login-flow.js">
+</script>
+<script>
+    $("#Tags").chosen().change(function (){
+        $("textarea[name='tags']").get(0).value = $(this).val()
+    })
 </script>
 </body>
 </html>
