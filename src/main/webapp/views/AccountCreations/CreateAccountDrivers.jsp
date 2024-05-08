@@ -50,9 +50,6 @@
                 </select>
                 <textarea name="tools" style="display: none"></textarea>
             </div>
-            <div>
-                <jsp:include page="../../components/googleautocomplete.html"/>
-            </div>
             <button type="submit" id="login-btn">Submit</button>
             <span class="register-here">
             <a href="${pageContext.request.contextPath}/create-account">Not Registered? Click Here</a>

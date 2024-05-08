@@ -23,14 +23,18 @@ public class CheckCount extends HttpServlet {
             {
                 Document doc = new Document("credentials.username",value);
                 System.out.println(doc.toJson());
-                returnValue = DbConnection.getCount("consumers", doc);
+                returnValue = DbConnection.getCount("consumers", doc) +
+                        DbConnection.getCount("drivers", doc) +
+                        DbConnection.getCount("restaurants", doc);
                 break;
             }
             case "email":
             {
                 Document doc = new Document("email",value);
                 System.out.println(doc.toJson());
-                returnValue = DbConnection.getCount("consumers", doc);
+                returnValue = DbConnection.getCount("consumers", doc) +
+                        DbConnection.getCount("drivers", doc) +
+                        DbConnection.getCount("restaurants", doc);
                 break;
             }
         }

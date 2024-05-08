@@ -48,6 +48,7 @@ public class CreateAccountCustomers extends HttpServlet {
         prefs.put("allergens", allergens);
         Document user = new Document();
         Document credentials = new Document();
+        user.put("preferences", prefs);
         credentials.put("username", username);
         String hashed = Pash.hashPassword(password);
         credentials.put("password", hashed);

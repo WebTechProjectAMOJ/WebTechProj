@@ -32,12 +32,8 @@
                 <input id="password" type="password" name="password" required/>
             </div>
             <div>
-                <label for="name">Name:</label>
+                <label for="name">Restaurant Name:</label>
                 <input id="name" type="text" name="name" required/>
-            </div>
-            <div>
-                <label for="firstname">First Name:</label>
-                <input id="firstname" type="text" name="firstname"/>
             </div>
             <div>
                 <label for="Email">Email:</label>
@@ -51,7 +47,7 @@
                 <textarea name="Tags" style="display: none"></textarea>
             </div>
             <div>
-                <jsp:include page="../../components/googleautocomplete.html"/>
+                <jsp:include page="googleautocomplete.html"/>
             </div>
             <button type="submit" id="login-btn">Submit</button>
             <span class="register-here">
