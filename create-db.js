@@ -138,6 +138,31 @@ db.tags.insertOne({
     type: "allergen",
 })
 
+db.tags.insertMany([
+    { name: "milk", type: "allergen" },
+    { name: "eggs", type: "allergen" },
+    { name: "wheat", type: "allergen" },
+    { name: "soy", type: "allergen" },
+    { name: "fish", type: "allergen" },
+    { name: "shellfish", type: "allergen" },
+    { name: "tree nuts", type: "allergen" },
+    { name: "sesame", type: "allergen" },
+    { name: "gluten", type: "allergen" }
+])
+
+db.tags.insertMany([
+    { name: "chinese", type: "preference" },
+    { name: "italian", type: "preference" },
+    { name: "mexican", type: "preference" },
+    { name: "indian", type: "preference" },
+    { name: "japanese", type: "preference" },
+    { name: "thai", type: "preference" },
+    { name: "mediterranean", type: "preference" },
+    { name: "french", type: "preference" },
+    { name: "korean", type: "preference" },
+    { name: "american", type: "preference" }
+])
+
 db.tools.insertOne({
     name: "bike",
     type: "vehicle"

@@ -7,7 +7,7 @@ import org.bson.Document;
 import java.util.ArrayList;
 
 public class DbConnection {
-    static String dbname = "admin";
+    static String dbname = "food_dispatch";
     static String uri = "mongodb://mongo:example@localhost:27017/";
 
     public static Document findOne(String collectionName, Document searchQuery){
@@ -56,6 +56,14 @@ public class DbConnection {
             MongoDatabase database = mongoClient.getDatabase(dbname);
             MongoCollection<Document> collection = database.getCollection(collectionName);
             return collection.updateOne(searchQuery, updateQuery).wasAcknowledged();
+        }
+    }
+
+    public static long getCount(String collectionName, Document searchQuery){
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase(dbname);
+            MongoCollection<Document> collection = database.getCollection(collectionName);
+            return collection.countDocuments(searchQuery);
         }
     }
 
