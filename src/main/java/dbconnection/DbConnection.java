@@ -2,6 +2,7 @@ package dbconnection;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.*;
+import com.mongodb.client.result.InsertOneResult;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -27,11 +28,11 @@ public class DbConnection {
         }
     }
 
-    public static boolean insertOne(String collectionName, Document object){
+    public static InsertOneResult insertOne(String collectionName, Document object){
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase(dbname);
             MongoCollection<Document> collection = database.getCollection(collectionName);
-            return collection.insertOne(object).wasAcknowledged();
+            return collection.insertOne(object);
         }
     }
 

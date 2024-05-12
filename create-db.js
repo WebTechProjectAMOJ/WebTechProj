@@ -17,7 +17,7 @@ db.consumers.insertOne(
     {
         _id: consumer_id,
         first_name: "Pierre",
-        last_name: "The Frenchie",
+        name: "The Frenchie",
         orders: [],
         addresses: [
             "Isep Issy 306",
@@ -97,7 +97,7 @@ db.delivery_services.insertOne({
 db.drivers.insertOne({
     _id: driver_id,
     first_name: "Patrick",
-    last_name: "Star",
+    name: "Star",
     ratings: [rating_id2],
     email: "under.rock@france.fr",
     credentials: {username: "patric", password: "1234"},

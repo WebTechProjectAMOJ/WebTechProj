@@ -9,7 +9,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import models.user.Driver;
 import org.bson.Document;
+import org.bson.json.JsonObject;
+import org.bson.types.ObjectId;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,25 +27,15 @@ public class CreateAccountDrivers extends HttpServlet {
         String firstname = request.getParameter("firstname");
         String email = request.getParameter("Email");
         String toolsList = request.getParameter("tools");
-        ArrayList<Document> tools = new ArrayList<>();
+        ArrayList<ObjectId> tools = new ArrayList<>();
         for(String s : toolsList.split(",")) {
             Document tool = new Document("name", s);
-            tools.add(DbConnection.findOne("tools", tool));
+            tools.add((ObjectId) DbConnection.findOne("tools", tool).get("_id"));
         }
-        Document user = new Document();
-        Document credentials = new Document();
-        credentials.put("username", username);
         String hashed = Pash.hashPassword(password);
-        credentials.put("password", hashed);
-        user.put("credentials", credentials);
-        user.put("email", email);
-        user.put("first_name", firstname);
-        user.put("last_name", name);
-        user.put("tools", tools);
-        user.put("ratings", new ArrayList<>());
-        user.put("orders", new ArrayList<>());
-        user.put("current_pos", "");
-        boolean doc = DbConnection.insertOne("drivers", user);
+        Driver d = new Driver(username, hashed, name, email,
+                new ArrayList<ObjectId>(), firstname, tools, new ArrayList<ObjectId>(), new JsonObject("{\"set\":false}"));
+        boolean doc = d.write();
         RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
         HttpSession session = request.getSession(true);
         session.setAttribute("createdAccount", doc);
