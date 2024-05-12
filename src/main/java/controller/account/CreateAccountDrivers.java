@@ -32,26 +32,13 @@ public class CreateAccountDrivers extends HttpServlet {
             Document tool = new Document("name", s);
             tools.add((ObjectId) DbConnection.findOne("tools", tool).get("_id"));
         }
-//        Document user = new Document();
-//        Document credentials = new Document();
-//        credentials.put("username", username);
         String hashed = Pash.hashPassword(password);
-//        credentials.put("password", hashed);
-//        user.put("credentials", credentials);
-//        user.put("email", email);
-//        user.put("first_name", firstname);
-//        user.put("name", name);
-//        user.put("tools", tools);
-//        user.put("ratings", new ArrayList<>());
-//        user.put("orders", new ArrayList<>());
-//        user.put("current_pos", "");
         Driver d = new Driver(username, hashed, name, email,
                 new ArrayList<ObjectId>(), firstname, tools, new ArrayList<ObjectId>(), new JsonObject("{\"set\":false}"));
         boolean doc = d.write();
-//        boolean doc = DbConnection.insertOne("drivers", user);
         RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
         HttpSession session = request.getSession(true);
-//        session.setAttribute("createdAccount", doc);
+        session.setAttribute("createdAccount", doc);
         view.forward(request, response);
     }
 
