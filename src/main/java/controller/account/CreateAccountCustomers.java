@@ -9,7 +9,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import models.user.Consumer;
 import org.bson.Document;
+import org.bson.json.JsonObject;
+import org.bson.types.ObjectId;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,41 +30,30 @@ public class CreateAccountCustomers extends HttpServlet {
         String dislikesList = request.getParameter("dislikes");
         String allergensList = request.getParameter("allergens");
         String address = request.getParameter("placedata");
-        ArrayList<Document> likes = new ArrayList<>();
+        ArrayList<ObjectId> likes = new ArrayList<>();
         Document prefs = new Document();
         for(String s : likesList.split(",")) {
             Document tag = new Document("name", s);
-            likes.add(DbConnection.findOne("tags", tag));
+            likes.add((ObjectId) DbConnection.findOne("tags", tag).get("_id"));
         }
-        ArrayList<Document> dislikes = new ArrayList<>();
+        ArrayList<ObjectId> dislikes = new ArrayList<>();
         for(String s : dislikesList.split(",")) {
             Document tag = new Document("name", s);
-            dislikes.add(DbConnection.findOne("tags", tag));
+            dislikes.add((ObjectId) DbConnection.findOne("tags", tag).get("_id"));
         }
-        ArrayList<Document> allergens = new ArrayList<>();
+        ArrayList<ObjectId> allergens = new ArrayList<>();
         for(String s : allergensList.split(",")) {
             Document tag = new Document("name", s);
-            allergens.add(DbConnection.findOne("tags", tag));
+            allergens.add((ObjectId) DbConnection.findOne("tags", tag).get("_id"));
         }
         prefs.put("likes", likes);
         prefs.put("dislikes", dislikes);
         prefs.put("allergens", allergens);
-        Document user = new Document();
-        Document credentials = new Document();
-        user.put("preferences", prefs);
-        credentials.put("username", username);
+        ArrayList<JsonObject> addresses = new ArrayList<>();
+        addresses.add(new JsonObject(address));
         String hashed = Pash.hashPassword(password);
-        credentials.put("password", hashed);
-        user.put("credentials", credentials);
-        user.put("email", email);
-        user.put("first_name", firstname);
-        user.put("last_name", name);
-        ArrayList<String> addresses = new ArrayList<>();
-        addresses.add(address);
-        user.put("address", addresses);
-        user.put("orders", new ArrayList<>());
-        System.out.println(user.toJson());
-        boolean doc = DbConnection.insertOne("consumers", user);
+        Consumer c = new Consumer(username, hashed, name, email, prefs, new ArrayList<ObjectId>(), firstname, addresses);
+        boolean doc = c.write();
         RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
         HttpSession session = request.getSession(true);
         session.setAttribute("createdAccount", doc);

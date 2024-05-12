@@ -9,7 +9,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import models.user.Restaurant;
 import org.bson.Document;
+import org.bson.json.JsonObject;
+import org.bson.types.ObjectId;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,30 +27,16 @@ public class CreateAccountRestaurants extends HttpServlet {
         String email = request.getParameter("Email");
         String tagsList = request.getParameter("Tags");
         String address = request.getParameter("placedata");
-
-        Document restaurant = new Document();
-        Document credentials = new Document();
-        credentials.put("username", username);
         String hashed = Pash.hashPassword(password);
-        credentials.put("password", hashed);
-        restaurant.put("credentials", credentials);
-        restaurant.put("food_items", new ArrayList<>());
-        restaurant.put("combos", new ArrayList<>());
-        restaurant.put("name", name);
-        restaurant.put("email", email);
-        restaurant.put("ratings",new ArrayList<>());
-        restaurant.put("address", address);
-        restaurant.put("delivery_services", new ArrayList<>());
-        restaurant.put("orders", new ArrayList<>());
-        ArrayList<Document> tags = new ArrayList<>();
+        ArrayList<ObjectId> tags = new ArrayList<>();
         for(String s : tagsList.split(",")) {
             Document tag = new Document("name", s);
-            tags.add(DbConnection.findOne("tags", tag));
+            tags.add((ObjectId) DbConnection.findOne("tags", tag).get("_id"));
         }
-        restaurant.put("tags", tags);
-
-
-        boolean doc = DbConnection.insertOne("restaurants", restaurant);
+        Restaurant res = new Restaurant(username, hashed, name, email,new ArrayList<ObjectId>(),
+                new ArrayList<ObjectId>(), new ArrayList<ObjectId>(), new ArrayList<ObjectId>(),
+                new ArrayList<ObjectId>(), new ArrayList<ObjectId>(), new JsonObject(address));
+        boolean doc = res.write();
         RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
         HttpSession session = request.getSession(true);
         session.setAttribute("createdAccount", doc);
