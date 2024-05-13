@@ -41,10 +41,17 @@
             </div>
             <div>
                 <label for="Tags">Your Tags:</label>
-                <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select" name="Tags" id="Tags">
+                <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select" name="tags" id="Tags">
                     <option value=""></option>
                 </select>
                 <textarea name="Tags" style="display: none"></textarea>
+            </div>
+            <div>
+                <label for="delivery_services">Choose your Delivery Services:</label>
+                <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select" name="delivery_services" id="delivery_services">
+                    <option value=""></option>
+                </select>
+                <textarea name="delivery_service" style="display: none"></textarea>
             </div>
             <div>
                 <jsp:include page="googleautocomplete.html"/>
@@ -60,7 +67,10 @@
 </script>
 <script>
     $("#Tags").chosen().change(function (){
-        $("textarea[name='tags']").get(0).value = $(this).val()
+        $("textarea[name='Tags']").get(0).value = $(this).val()
+    })
+    $("#delivery_services").chosen().change(function (){
+        $("textarea[name='delivery_service']").get(0).value = $(this).val()
     })
 </script>
 </body>

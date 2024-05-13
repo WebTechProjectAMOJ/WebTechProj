@@ -27,15 +27,22 @@ public class CreateAccountRestaurants extends HttpServlet {
         String email = request.getParameter("Email");
         String tagsList = request.getParameter("Tags");
         String address = request.getParameter("placedata");
+        String servicesList = request.getParameter("delivery_service");
+        System.out.println(servicesList);
         String hashed = Pash.hashPassword(password);
         ArrayList<ObjectId> tags = new ArrayList<>();
         for(String s : tagsList.split(",")) {
             Document tag = new Document("name", s);
             tags.add((ObjectId) DbConnection.findOne("tags", tag).get("_id"));
         }
+        ArrayList<ObjectId> services = new ArrayList<>();
+        for(String s : servicesList.split(",")) {
+            Document tag = new Document("name", s);
+            services.add((ObjectId) DbConnection.findOne("delivery_services", tag).get("_id"));
+        }
         Restaurant res = new Restaurant(username, hashed, name, email,new ArrayList<ObjectId>(),
                 new ArrayList<ObjectId>(), new ArrayList<ObjectId>(), new ArrayList<ObjectId>(),
-                new ArrayList<ObjectId>(), new ArrayList<ObjectId>(), new JsonObject(address));
+                services, tags, new JsonObject(address));
         boolean doc = res.write();
         RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
         HttpSession session = request.getSession(true);

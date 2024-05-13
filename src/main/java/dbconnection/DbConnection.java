@@ -3,6 +3,7 @@ package dbconnection;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.*;
 import com.mongodb.client.result.InsertOneResult;
+import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -52,11 +53,11 @@ public class DbConnection {
         }
     }
 
-    public static boolean updateOne(String collectionName, Document searchQuery, BasicDBObject updateQuery){
+    public static UpdateResult updateOne(String collectionName, Document searchQuery, BasicDBObject updateQuery){
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase(dbname);
             MongoCollection<Document> collection = database.getCollection(collectionName);
-            return collection.updateOne(searchQuery, updateQuery).wasAcknowledged();
+            return collection.updateOne(searchQuery, updateQuery);
         }
     }
 
