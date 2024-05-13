@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="navbar">
-    <h3>Dashboard</h3>
-    <h3>Orders</h3>
-    <a>Basket</a>
+    <a href="../homepages/consumer_dashboard.jsp"> <h3>Dashboard</h3> </a>
+    <a href="../homepages/consumer_basket.jsp"> <h3>Orders</h3> </a>
+    <a href="../homepages/consumer_basket.jsp">Basket</a>
     <a>Ongoing</a>
     <a>History</a>
 
