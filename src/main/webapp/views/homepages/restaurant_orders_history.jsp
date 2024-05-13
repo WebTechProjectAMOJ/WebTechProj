@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Order Pending</title>
+    <title>Order History</title>
 
     <link rel="stylesheet" href="../../css/login-page-style.css">
     <link rel="stylesheet" href="../../css/style.css">

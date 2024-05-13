@@ -8,14 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="navbar">
-    <h3>Orders</h3>
-    <a>Pending</a>
-    <a>Open</a>
-    <a>History</a>
-    <h3>Menu</h3>
-    <a>Manage</a>
-    <a>Offers</a>
-    <h3>Reviews</h3>
+    <a href="../homepages/restaurant_orders_pending.jsp"><h3>Orders</h3></a>
+    <a href="../homepages/restaurant_orders_pending.jsp">Pending</a>
+    <a href="../homepages/restaurant_orders_open.jsp">Open</a>
+    <a href="../homepages/restaurant_orders_history.jsp">History</a>
+    <a href=""><h3>Menu</h3></a>
+    <a href="">Manage</a>
+    <a href="">Offers</a>
+    <a href=""><h3>Reviews</h3></a>
 
     <div class="user_nav">
         <div class="account">
