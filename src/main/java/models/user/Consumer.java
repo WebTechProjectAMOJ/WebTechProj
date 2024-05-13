@@ -14,7 +14,7 @@ import org.bson.types.ObjectId;
 import java.util.ArrayList;
 
 
-public class Consumer extends User {
+public class Consumer extends User implements login {
 
     public Consumer(Document document){
         super(document);

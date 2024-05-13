@@ -10,6 +10,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.user.Consumer;
+import models.user.Driver;
+import models.user.Restaurant;
+import models.user.login;
 import org.bson.Document;
 
 import java.io.IOException;
@@ -25,20 +28,24 @@ public class VerifyLogin extends HttpServlet {
         object.put("credentials.username", username);
         Document user = null;
         String link="";
+        login obj = null;
         switch (accountType) {
             case "Customers":{
                 user = DbConnection.findOne("consumers", object);
                 link = "customer";
+                obj = new Consumer(user);
                 break;
             }
             case "Restaurants":{
                 user = DbConnection.findOne("restaurants", object);
                 link = "restaurant";
+                obj = new Restaurant(user);
                 break;
             }
             case "Drivers":{
                 user = DbConnection.findOne("drivers", object);
                 link = "driver";
+                obj = new Driver(user);
                 break;
             }
         }
@@ -47,13 +54,11 @@ public class VerifyLogin extends HttpServlet {
         session.setAttribute("failedLogin", false);
         boolean pass = false;
         if (user != null){
-            Document creds = (Document) user.get("credentials");
-            boolean doc = Pash.verify(creds.getString("password"), password);
+            boolean doc = obj.verify(password);
             response.getWriter().println(doc ? "Yes" : "No");
             session.setAttribute("failedLogin", !doc);
             if (doc) {
-                Consumer u = new Consumer(user);
-                session.setAttribute("user", u);
+                session.setAttribute("user", obj);
                 session.setAttribute("accountType", link);
                 response.sendRedirect(request.getContextPath() + "/home-" + link);
                 pass = true;

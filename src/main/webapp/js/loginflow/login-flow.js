@@ -80,3 +80,14 @@ else {
         })
 }
 
+if(window.location.pathname.includes('drivers') || window.location.pathname.includes("restaurants")){
+    $.get(`${link}get-all-delivery-service-names`).done(function (data) {
+        let arr = data.split(',');
+        console.log(arr);
+        arr.forEach(str => {
+            $('#delivery_services').append(`<option value="${str}">${str}</option>`)
+        })
+        $("#delivery_services").trigger("chosen:updated");
+    })
+}
+

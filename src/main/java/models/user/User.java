@@ -1,6 +1,7 @@
 package models.user;
 
 import dbconnection.DbConnection;
+import dbconnection.Pash;
 import org.bson.Document;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.codecs.pojo.annotations.BsonProperty;
@@ -87,5 +88,9 @@ public class User {
 
     public void setOrders(ArrayList<ObjectId> orders) {
         this.orders = orders;
+    }
+
+    public boolean verify(String password){
+        return Pash.verify(this.credentials.getPassword(), password);
     }
 }

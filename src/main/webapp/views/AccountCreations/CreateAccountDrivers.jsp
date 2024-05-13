@@ -44,6 +44,13 @@
                 <input id="Email" type="email" name="Email" required/>
             </div>
             <div>
+                <label for="delivery_services">Choose your Delivery Service:</label>
+                <select data-placeholder="Select Delivery Service" class="chosen-select" name="delivery_services" id="delivery_services">
+                    <option value=""></option>
+                </select>
+                <textarea name="delivery_service" style="display: none"></textarea>
+            </div>
+            <div>
                 <label for="Tools">Your Tools:</label>
                 <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select" name="Tools" id="Tools">
                     <option value=""></option>
