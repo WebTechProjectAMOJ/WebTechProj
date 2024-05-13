@@ -11,8 +11,8 @@
     <a href="../homepages/consumer_dashboard.jsp"> <h3>Dashboard</h3> </a>
     <a href="../homepages/consumer_basket.jsp"> <h3>Orders</h3> </a>
     <a href="../homepages/consumer_basket.jsp">Basket</a>
-    <a>Ongoing</a>
-    <a>History</a>
+    <a href="../homepages/consumer_ongoing.jsp">Ongoing</a>
+    <a href="../homepages/consumer_history.jsp">History</a>
 
     <div class="user_nav">
         <div class="account">

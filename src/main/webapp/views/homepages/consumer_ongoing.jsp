@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Order basket</title>
+    <title>Order Ongoing</title>
 
     <link rel="stylesheet" href="../../css/login-page-style.css">
     <link rel="stylesheet" href="../../css/style.css">
@@ -21,7 +21,6 @@
     <div class="window">
         <jsp:include page="../components/search_header.jsp" />
         <jsp:include page="../components/section_grid_scroll.jsp" />
-        <button class="confirm_button">Go to checkout</button>
     </div>
 </div>
 </body>
