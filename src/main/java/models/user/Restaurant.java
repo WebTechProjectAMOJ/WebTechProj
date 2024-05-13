@@ -10,6 +10,7 @@ import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.json.JsonObject;
 import org.bson.types.ObjectId;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class Restaurant extends User {
@@ -29,7 +30,14 @@ public class Restaurant extends User {
 
     public Restaurant(Document document) {
         super(document);
-        setAddress((JsonObject) document.get("address"));
+
+        Object addrs = document.get("address");
+        System.out.println(addrs);
+
+        Field[] fields = addrs.getClass().getDeclaredFields();
+//        TODO: Convert to JsonObject to set the address
+//        TODO: Possibly implement a method to do it
+//        setAddress(jsonAddrs);
         setTags((ArrayList<ObjectId>) document.get("tags"));
         setDeliveryServices((ArrayList<ObjectId>) document.get("delivery_services"));
         setFoodItems((ArrayList<ObjectId>) document.get("food_items"));

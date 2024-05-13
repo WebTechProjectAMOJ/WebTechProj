@@ -73,7 +73,46 @@ db.restaurants.insertOne(
         food_items: [coke_id, americano_id],
         combos: [combo_id],
         ratings: [],
-        address: "A cote de notra-dame",
+        address: {
+            address_components: [
+                {
+                    long_name: 'Ussel',
+                    short_name: 'Ussel',
+                    types: [ 'locality', 'political' ]
+                },
+                {
+                    long_name: 'Correze',
+                    short_name: 'Correze',
+                    types: [ 'administrative_area_level_2', 'political' ]
+                },
+                {
+                    long_name: 'Nouvelle-Aquitaine',
+                    short_name: 'Nouvelle-Aquitaine',
+                    types: [ 'administrative_area_level_1', 'political' ]
+                },
+                {
+                    long_name: 'France',
+                    short_name: 'FR',
+                    types: [ 'country', 'political' ]
+                },
+                {
+                    long_name: '19200',
+                    short_name: '19200',
+                    types: [ 'postal_code' ]
+                }
+            ],
+            geometry: {
+                location: { lat: 45.548905, lng: 2.313835 },
+                viewport: {
+                    south: 45.50605089319001,
+                    west: 2.231891973590724,
+                    north: 45.60142415049019,
+                    east: 2.35602320081504
+                }
+            },
+            name: 'Ussel',
+            html_attributions: []
+        },
         tags: [],
         delivery_services: [delivery_service_id],
         orders: [],
