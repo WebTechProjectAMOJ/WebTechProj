@@ -1,14 +1,13 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: margotrichez
-  Date: 02/05/2024
-  Time: 10:50
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:useBean id="categories" scope="request" type="java.util.Arrays"/>
 
-<a class="section_title">category</a>
-<div class="grid_container">
-    <jsp:include page="./item_box.jsp" />
-</div>
+<c:forEach var="cat" items="${categories}">
+    <a class="section_title">${cat}</a>
+    <div class="grid_container">
+        <jsp:include page="./item_box.jsp" />
+    </div>
+</c:forEach>
+
+
 

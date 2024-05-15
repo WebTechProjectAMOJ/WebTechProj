@@ -1,12 +1,5 @@
-<jsp:useBean id="resto" scope="application" class="models.user.Restaurant"/>
-<%--
-  Created by IntelliJ IDEA.
-  User: margotrichez
-  Date: 06/05/2024
-  Time: 13:25
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="user" scope="application" class="models.user.User"/>
 <html>
 <head>
     <title>Dashboard</title>
@@ -25,7 +18,6 @@
     <div class="window">
         <jsp:include page="../components/header.jsp"/>
         <jsp:include page="../components/section_grid_scroll.jsp"/>
-
     </div>
 </div>
 </body>

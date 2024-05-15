@@ -38,6 +38,22 @@ public class restaurantLanding extends HttpServlet {
 
         req.setAttribute("user", resto);
 
+        List<String> categories = Arrays.asList("pending", "cooking", "on it's way", "complete");
+
+        req.setAttribute("categories", categories);
+
+        List<Order> orders = List.of();
+        for (ObjectId order: resto.getOrders()) {
+            Document order_to_find = new Document("_id", order);
+            Document order_found = DbConnection.findOne(
+                    "orders",
+                    order_to_find
+            );
+
+            orders.add(new Order(order_found));
+        }
+
+
         RequestDispatcher dispatcher = req
                 .getRequestDispatcher("/views/homepages/restaurant_orders_pending.jsp");
 
