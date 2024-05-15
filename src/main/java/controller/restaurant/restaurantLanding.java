@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import models.order.Order;
 import models.user.Driver;
 import models.user.Restaurant;
 import org.bson.Document;
@@ -19,6 +20,8 @@ import org.bson.types.ObjectId;
 import javax.print.Doc;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 @WebServlet(name = "Restaurants Landing", value = "/restaurant-landing")
@@ -27,7 +30,7 @@ public class restaurantLanding extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         resp.setContentType("text/html");
 
-        Document to_find = new Document("_id", new ObjectId("6644be0705f3893e58e45614"));
+        Document to_find = new Document("_id", new ObjectId("6645179c3418530bd4e7e158"));
 
         Document found = DbConnection.findOne(
                 "restaurants",
@@ -42,7 +45,7 @@ public class restaurantLanding extends HttpServlet {
 
         req.setAttribute("categories", categories);
 
-        List<Order> orders = List.of();
+        ArrayList<Order> orders = new ArrayList<Order>();
         for (ObjectId order: resto.getOrders()) {
             Document order_to_find = new Document("_id", order);
             Document order_found = DbConnection.findOne(

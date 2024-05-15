@@ -11,17 +11,26 @@ import org.bson.types.ObjectId;
 import java.util.ArrayList;
 
 public class Driver extends User {
+    @BsonProperty(value = "first_name")
+    private String firstName;
+    @BsonProperty(value = "tools")
+    private ArrayList<ObjectId> tools;
+    @BsonProperty(value = "ratings")
+    private ArrayList<ObjectId> ratings;
+    @BsonProperty(value = "current_pos")
+    private Object currentPos;
+
     public Driver(Document document) {
         super(document);
         setFirstName(document.getString("first_name"));
         setTools((ArrayList<ObjectId>) document.get("tools"));
         setRatings((ArrayList<ObjectId>) document.get("ratings"));
-        setCurrentPos((JsonObject) document.get("current_pos"));
+        setCurrentPos(document.get("current_pos"));
     }
 
     public Driver(String username, String password, String name, String email,
                   ArrayList<ObjectId> orders, String firstName, ArrayList<ObjectId> tools,
-                  ArrayList<ObjectId> ratings, JsonObject current_pos) {
+                  ArrayList<ObjectId> ratings, Object current_pos) {
         super(username, password, name, email, orders);
         setFirstName(firstName);
         setTools(tools);
@@ -40,15 +49,6 @@ public class Driver extends User {
         this.setId(new ObjectId(String.valueOf(id.getValue())));
         return written.wasAcknowledged();
     }
-
-    @BsonProperty(value = "first_name")
-    private String firstName;
-    @BsonProperty(value = "tools")
-    private ArrayList<ObjectId> tools;
-    @BsonProperty(value = "ratings")
-    private ArrayList<ObjectId> ratings;
-    @BsonProperty(value = "current_pos")
-    private JsonObject currentPos;
 
     public String getFirstName() {
         return firstName;
@@ -74,11 +74,17 @@ public class Driver extends User {
         this.ratings = ratings;
     }
 
-    public JsonObject getCurrentPos() {
+    public Object getCurrentPos() {
         return currentPos;
     }
 
-    public void setCurrentPos(JsonObject currentPos) {
+    public void setCurrentPos(Object currentPos) {
         this.currentPos = currentPos;
     }
+
+    public JsonObject getJsonCurrentPos() {
+        org.bson.Document doc = (Document) this.currentPos;
+        return new JsonObject(doc.toJson());
+    }
+
 }
