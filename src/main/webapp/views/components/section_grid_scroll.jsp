@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:useBean id="categories" scope="request" type="java.util.Arrays"/>
+<jsp:useBean id="categories" scope="request" type="java.util.List"/>
 
 <c:forEach var="cat" items="${categories}">
     <a class="section_title">${cat}</a>
