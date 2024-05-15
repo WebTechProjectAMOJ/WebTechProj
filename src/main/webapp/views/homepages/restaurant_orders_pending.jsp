@@ -1,4 +1,4 @@
-<jsp:useBean id="resto" scope="request" class="models.user.Restaurant"/>
+<jsp:useBean id="resto" scope="application" class="models.user.Restaurant"/>
 <%--
   Created by IntelliJ IDEA.
   User: margotrichez
@@ -20,9 +20,6 @@
 <jsp:include page="../includes.jsp"/>
 
 <body>
-<h1>
-    Hi: ${resto.name}
-</h1>
 <div class="page">
     <jsp:include page="../components/restaurant_navbar.jsp"/>
     <div class="window">

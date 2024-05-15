@@ -9,7 +9,7 @@
 
 <div class="header_row">
   <div class="header_text_container">
-    <h1>Restuarant/Driver Name</h1>
+    <h1>${user.name}</h1>
     <h2>View Name</h2>
   </div>
   <img src="${pageContext.request.contextPath}/assets/food-dispatch-logo.png" alt="logo">

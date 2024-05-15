@@ -19,7 +19,7 @@ public class Restaurant extends User {
     @BsonProperty(value = "ratings")
     private ArrayList<ObjectId> ratings;
     @BsonProperty(value = "address")
-    private JsonObject address;
+    private Object address;
     @BsonProperty(value = "delivery_services")
     private ArrayList<ObjectId> deliveryServices;
     @BsonProperty(value = "tags")
@@ -28,16 +28,13 @@ public class Restaurant extends User {
     @BsonProperty(value = "combos")
     private ArrayList<ObjectId> combos;
 
+    public Restaurant() {
+        super();
+    }
+
     public Restaurant(Document document) {
         super(document);
-
-        Object addrs = document.get("address");
-        System.out.println(addrs);
-
-        Field[] fields = addrs.getClass().getDeclaredFields();
-//        TODO: Convert to JsonObject to set the address
-//        TODO: Possibly implement a method to do it
-//        setAddress(jsonAddrs);
+        setAddress(document.get("address"));
         setTags((ArrayList<ObjectId>) document.get("tags"));
         setDeliveryServices((ArrayList<ObjectId>) document.get("delivery_services"));
         setFoodItems((ArrayList<ObjectId>) document.get("food_items"));
@@ -89,11 +86,11 @@ public class Restaurant extends User {
         this.ratings = ratings;
     }
 
-    public JsonObject getAddress() {
+    public Object getAddress() {
         return address;
     }
 
-    public void setAddress(JsonObject address) {
+    public void setAddress(Object address) {
         this.address = address;
     }
 
@@ -119,5 +116,10 @@ public class Restaurant extends User {
 
     public void setCombos(ArrayList<ObjectId> combos) {
         this.combos = combos;
+    }
+
+    public JsonObject getJsonAddress() {
+        org.bson.Document doc = (Document) this.address;
+        return new JsonObject(doc.toJson());
     }
 }

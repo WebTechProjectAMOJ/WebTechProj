@@ -27,28 +27,21 @@ public class restaurantLanding extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         resp.setContentType("text/html");
 
-        Document to_find = new Document("_id", new ObjectId("66421f2ce572bf32194cf00c"));
-        System.out.print(to_find);
+        Document to_find = new Document("_id", new ObjectId("6644be0705f3893e58e45614"));
 
         Document found = DbConnection.findOne(
                 "restaurants",
                 to_find
         );
-        System.out.println(found);
-
 
         Restaurant resto = new Restaurant(found);
-        System.out.print(resto);
 
-
-        req.setAttribute("resto", resto);
-
+        req.setAttribute("user", resto);
 
         RequestDispatcher dispatcher = req
                 .getRequestDispatcher("/views/homepages/restaurant_orders_pending.jsp");
 
         dispatcher.forward(req, resp);
-
 
     }
 
