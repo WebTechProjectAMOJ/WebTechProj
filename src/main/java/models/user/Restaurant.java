@@ -2,6 +2,7 @@ package models.user;
 
 import com.mongodb.client.result.InsertOneResult;
 import dbconnection.DbConnection;
+import models.order.Order;
 import models.ratings.Rating;
 import org.bson.BsonObjectId;
 import org.bson.Document;
@@ -24,7 +25,6 @@ public class Restaurant extends User {
     private ArrayList<ObjectId> deliveryServices;
     @BsonProperty(value = "tags")
     private ArrayList<ObjectId> tags;
-
     @BsonProperty(value = "combos")
     private ArrayList<ObjectId> combos;
 
@@ -42,11 +42,17 @@ public class Restaurant extends User {
         setCombos((ArrayList<ObjectId>) document.get("combos"));
     }
 
-    public Restaurant(String username, String password, String name,
-                      String email, ArrayList<ObjectId> orders, ArrayList<ObjectId> foodItems,
+    public Restaurant(String username,
+                      String password,
+                      String name,
+                      String email,
+                      ArrayList<ObjectId> orders,
+                      ArrayList<ObjectId> foodItems,
                       ArrayList<ObjectId> combos,
-                      ArrayList<ObjectId> ratings, ArrayList<ObjectId> deliveryServices,
-                      ArrayList<ObjectId> tags, JsonObject address){
+                      ArrayList<ObjectId> ratings,
+                      ArrayList<ObjectId> deliveryServices,
+                      ArrayList<ObjectId> tags,
+                      JsonObject address){
         super(username, password, name, email, orders);
         setFoodItems(foodItems);
         setRatings(ratings);
@@ -121,5 +127,18 @@ public class Restaurant extends User {
     public JsonObject getJsonAddress() {
         org.bson.Document doc = (Document) this.address;
         return new JsonObject(doc.toJson());
+    }
+
+    public ArrayList<Order> getListOrders() {
+        ArrayList<Order> orders = new ArrayList<Order>();
+        for (ObjectId order: this.getOrders()) {
+            Document order_to_find = new Document("_id", order);
+            Document order_found = DbConnection.findOne(
+                    "orders",
+                    order_to_find
+            );
+            orders.add(new Order(order_found));
+        }
+        return orders;
     }
 }

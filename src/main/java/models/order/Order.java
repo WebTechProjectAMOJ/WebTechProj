@@ -43,4 +43,59 @@ public class Order {
         this.items = (ArrayList<ObjectId>) orderFound.get("items");
     }
 
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }
+
+    public Document getDelivery_address() {
+        return delivery_address;
+    }
+
+    public void setDelivery_address(Document delivery_address) {
+        this.delivery_address = delivery_address;
+    }
+
+    public Document getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Document payment) {
+        this.payment = payment;
+    }
+
+    public ArrayList<ObjectId> getItems() {
+        return items;
+    }
+
+    public void setItems(ArrayList<ObjectId> items) {
+        this.items = items;
+    }
 }

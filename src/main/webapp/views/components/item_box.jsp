@@ -1,14 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: margotrichez
-  Date: 02/05/2024
-  Time: 10:53
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="item" scope="request" class="models.order.Order"/>
 
 <div class="box_container">
     <div class="box"></div>
-    <h3>Element Name </h3>
-    <a>sub name</a>
+    <h3>Element Name:</h3>
+    <a>${item.id}</a>
 </div>
