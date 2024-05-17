@@ -1,6 +1,7 @@
 package models.ui_util;
 
 public class ItemBoxUi {
+    //* A class to be used to represent an Order/Restaurant/Food Item in the UI
     private String name;
     private String sub_name;
     private String photo_url;

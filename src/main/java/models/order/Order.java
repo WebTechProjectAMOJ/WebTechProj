@@ -104,7 +104,8 @@ public class Order {
 
 
     public ItemBoxUi getUiItemBox() {
-        /*Creates the string from an address object*/
+        //*Creates a ItemBox object to display in an item box element
+        //*Creates the string from an address object
         ArrayList<Object> addrs_doc = (ArrayList<Object>) this.delivery_address.get("address_components");
         StringBuilder addrs_str = new StringBuilder();
         for (Object obj : addrs_doc) {
