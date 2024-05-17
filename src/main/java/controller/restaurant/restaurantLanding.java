@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.order.Order;
+import models.ui_util.ItemBoxUi;
 import models.user.Restaurant;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -33,13 +34,13 @@ public class restaurantLanding extends HttpServlet {
         Restaurant resto = new Restaurant(found);
 
         // Makes a hashmap with list of all status and a list of all orders
-        HashMap<String, ArrayList<Order>> order_hash = new HashMap<String, ArrayList<Order>>();
+        HashMap<String, ArrayList<ItemBoxUi>> order_hash = new HashMap<String, ArrayList<ItemBoxUi>>();
         for (Order ord : resto.getListOrders()) {
             if (order_hash.get(ord.getStatus()) != null) {
-                order_hash.get(ord.getStatus()).add(ord);
+                order_hash.get(ord.getStatus()).add(ord.getUiItemBox());
             } else {
-                ArrayList<Order> new_stat = new ArrayList<Order>();
-                new_stat.add(ord);
+                ArrayList<ItemBoxUi> new_stat = new ArrayList<ItemBoxUi>();
+                new_stat.add(ord.getUiItemBox());
                 order_hash.put(ord.getStatus(), new_stat);
             }
         }

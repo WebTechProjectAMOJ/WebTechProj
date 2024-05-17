@@ -1,13 +1,14 @@
 package models.order;
 
 import dbconnection.DbConnection;
-import models.items.Item;
+import models.ui_util.ItemBoxUi;
 import org.bson.Document;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 import models.user.Driver;
 
+import javax.print.Doc;
 import java.util.ArrayList;
 
 public class Order {
@@ -26,7 +27,8 @@ public class Order {
     @BsonProperty(value = "items")
     private ArrayList<ObjectId> items;
 
-    public Order() {}
+    public Order() {
+    }
 
     public Order(Document orderFound) {
         this.id = orderFound.getObjectId("_id");
@@ -37,7 +39,8 @@ public class Order {
                 "drivers",
                 to_find
         );
-        this.driver = new Driver(found);;
+        this.driver = new Driver(found);
+        ;
         this.delivery_address = (Document) orderFound.get("delivery_address");
         this.payment = (Document) orderFound.get("payment");
         this.items = (ArrayList<ObjectId>) orderFound.get("items");
@@ -98,4 +101,24 @@ public class Order {
     public void setItems(ArrayList<ObjectId> items) {
         this.items = items;
     }
+
+
+    public ItemBoxUi getUiItemBox() {
+        /*Creates the string from an address object*/
+        ArrayList<Object> addrs_doc = (ArrayList<Object>) this.delivery_address.get("address_components");
+        StringBuilder addrs_str = new StringBuilder();
+        for (Object obj : addrs_doc) {
+            Document doc = (Document) obj;
+            addrs_str.append(doc.getString("short_name"));
+            addrs_str.append(", ");
+        }
+
+        /*TODO:Change photo_url and action url*/
+        return new ItemBoxUi(
+                addrs_str.toString(),
+                this.id.toString(),
+                "",
+                "");
+    }
+
 }
