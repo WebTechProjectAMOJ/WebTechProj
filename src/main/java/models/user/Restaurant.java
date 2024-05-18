@@ -2,19 +2,14 @@ package models.user;
 
 import com.mongodb.client.result.InsertOneResult;
 import dbconnection.DbConnection;
-import models.order.Order;
-import models.ratings.Rating;
 import org.bson.BsonObjectId;
 import org.bson.Document;
-import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.json.JsonObject;
 import org.bson.types.ObjectId;
-
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
-public class Restaurant extends User implements login{
+public class Restaurant extends User implements login {
     @BsonProperty(value = "food_items")
     private ArrayList<ObjectId> foodItems;
     @BsonProperty(value = "ratings")
@@ -52,7 +47,7 @@ public class Restaurant extends User implements login{
                       ArrayList<ObjectId> ratings,
                       ArrayList<ObjectId> deliveryServices,
                       ArrayList<ObjectId> tags,
-                      JsonObject address){
+                      JsonObject address) {
         super(username, password, name, email, orders);
         setFoodItems(foodItems);
         setRatings(ratings);
@@ -62,7 +57,7 @@ public class Restaurant extends User implements login{
         setCombos(combos);
     }
 
-    public boolean write(){
+    public boolean write() {
         Document doc = this.toDocument();
         doc.put("address", getAddress());
         doc.put("food_items", getFoodItems());
@@ -70,7 +65,7 @@ public class Restaurant extends User implements login{
         doc.put("delivery_services", getDeliveryServices());
         doc.put("tags", getTags());
         doc.put("combos", getCombos());
-        InsertOneResult written = DbConnection.insertOne("restaurants",doc);
+        InsertOneResult written = DbConnection.insertOne("restaurants", doc);
         BsonObjectId id = (BsonObjectId) written.getInsertedId();
         this.setId(new ObjectId(String.valueOf(id.getValue())));
         return written.wasAcknowledged();
@@ -127,18 +122,5 @@ public class Restaurant extends User implements login{
     public JsonObject getJsonAddress() {
         org.bson.Document doc = (Document) this.address;
         return new JsonObject(doc.toJson());
-    }
-
-    public ArrayList<Order> getListOrders() {
-        ArrayList<Order> orders = new ArrayList<Order>();
-        for (ObjectId order: this.getOrders()) {
-            Document order_to_find = new Document("_id", order);
-            Document order_found = DbConnection.findOne(
-                    "orders",
-                    order_to_find
-            );
-            orders.add(new Order(order_found));
-        }
-        return orders;
     }
 }

@@ -11,7 +11,7 @@ import org.bson.types.ObjectId;
 import java.util.ArrayList;
 
 
-public class Driver extends User implements login{
+public class Driver extends User implements login {
     @BsonProperty(value = "first_name")
     private String firstName;
     @BsonProperty(value = "tools")
@@ -29,9 +29,15 @@ public class Driver extends User implements login{
         setCurrentPos(document.get("current_pos"));
     }
 
-    public Driver(String username, String password, String name, String email,
-                  ArrayList<ObjectId> orders, String firstName, ArrayList<ObjectId> tools,
-                  ArrayList<ObjectId> ratings, Object current_pos) {
+    public Driver(String username,
+                  String password,
+                  String name,
+                  String email,
+                  ArrayList<ObjectId> orders,
+                  String firstName,
+                  ArrayList<ObjectId> tools,
+                  ArrayList<ObjectId> ratings,
+                  Object current_pos) {
         super(username, password, name, email, orders);
         setFirstName(firstName);
         setTools(tools);
@@ -39,13 +45,13 @@ public class Driver extends User implements login{
         setCurrentPos(current_pos);
     }
 
-    public boolean write(){
+    public boolean write() {
         Document doc = this.toDocument();
         doc.put("current_pos", getCurrentPos());
         doc.put("ratings", getRatings());
         doc.put("tools", getTools());
         doc.put("first_name", getFirstName());
-        InsertOneResult written = DbConnection.insertOne("drivers",doc);
+        InsertOneResult written = DbConnection.insertOne("drivers", doc);
         BsonObjectId id = (BsonObjectId) written.getInsertedId();
         this.setId(id.getValue());
         return written.wasAcknowledged();
@@ -87,5 +93,4 @@ public class Driver extends User implements login{
         org.bson.Document doc = (Document) this.currentPos;
         return new JsonObject(doc.toJson());
     }
-
 }

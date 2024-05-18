@@ -2,15 +2,18 @@ package models.user;
 
 import dbconnection.DbConnection;
 import dbconnection.Pash;
+import models.order.Order;
+import models.ui_util.ItemBoxUi;
 import org.bson.Document;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class User {
-    public User(Document document){
+    public User(Document document) {
         this.id = document.getObjectId("_id");
         this.name = document.getString("name");
         this.credentials = new Credential((Document) document.get("credentials"));
@@ -18,7 +21,7 @@ public class User {
         setOrders((ArrayList<ObjectId>) document.get("orders"));
     }
 
-    public User(String username, String password, String name, String email, ArrayList<ObjectId> orders){
+    public User(String username, String password, String name, String email, ArrayList<ObjectId> orders) {
         this.credentials = new Credential(username, password);
         this.name = name;
         this.email = email;
@@ -36,9 +39,10 @@ public class User {
     @BsonId
     private ObjectId id;
 
-    public User() {}
+    public User() {
+    }
 
-    public Document toDocument(){
+    public Document toDocument() {
         Document document = new Document();
         document.put("name", name);
         document.put("credentials", credentials.toDocument());
@@ -83,7 +87,7 @@ public class User {
         return orders;
     }
 
-    public ArrayList<ObjectId> addOrder(ObjectId order){
+    public ArrayList<ObjectId> addOrder(ObjectId order) {
         this.orders.add(order);
         return orders;
     }
@@ -92,7 +96,35 @@ public class User {
         this.orders = orders;
     }
 
-    public boolean verify(String password){
+    public boolean verify(String password) {
         return Pash.verify(this.credentials.getPassword(), password);
     }
+
+    public ArrayList<Order> getListOrders() {
+        ArrayList<Order> orders = new ArrayList<Order>();
+        for (ObjectId order : this.getOrders()) {
+            Document order_to_find = new Document("_id", order);
+            Document order_found = DbConnection.findOne(
+                    "orders",
+                    order_to_find
+            );
+            orders.add(new Order(order_found));
+        }
+        return orders;
+    }
+
+    public HashMap<String, ArrayList<ItemBoxUi>> getUIHashStatus() {
+        HashMap<String, ArrayList<ItemBoxUi>> order_hash = new HashMap<String, ArrayList<ItemBoxUi>>();
+        for (Order ord : this.getListOrders()) {
+            if (order_hash.get(ord.getStatus()) != null) {
+                order_hash.get(ord.getStatus()).add(ord.getUiItemBox());
+            } else {
+                ArrayList<ItemBoxUi> new_stat = new ArrayList<ItemBoxUi>();
+                new_stat.add(ord.getUiItemBox());
+                order_hash.put(ord.getStatus(), new_stat);
+            }
+        }
+        return order_hash;
+    }
+
 }
