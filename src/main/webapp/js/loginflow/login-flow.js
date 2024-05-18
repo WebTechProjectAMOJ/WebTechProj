@@ -53,18 +53,7 @@ $.post(`${link}get-all-tag-names`, {type: "allergen"})
     })
 }
 
-if(window.location.pathname.includes('drivers')){
-    $.get(`${link}get-all-tool-names`)
-        .done(function(data){
-            let arr = data.split(',');
-            console.log(arr)
-            arr.forEach(str => {
-                $('#Tools').append(`<option value="${str}">${str}</option>`)
-            })
-            $("#Tools").trigger("chosen:updated");
-        })
-}
-else {
+function populateAllTags(){
     $.post(`${link}get-all-tag-names`, {type: "preference"})
         .done(function(data) {
             let arr = data.split(',');
@@ -78,6 +67,24 @@ else {
             $("#Dislikes").trigger("chosen:updated");
             $("#Tags").trigger("chosen:updated");
         })
+}
+
+if(window.location.pathname.includes('drivers') || window.location.pathname.includes("food-item")){
+    $.get(`${link}get-all-tool-names`)
+        .done(function(data){
+            let arr = data.split(',');
+            console.log(arr)
+            arr.forEach(str => {
+                $('#Tools').append(`<option value="${str}">${str}</option>`)
+            })
+            $("#Tools").trigger("chosen:updated");
+        })
+    if(window.location.pathname.includes("food-item")){
+        populateAllTags()
+    }
+}
+else {
+    populateAllTags()
 }
 
 if(window.location.pathname.includes('drivers') || window.location.pathname.includes("restaurants")){
