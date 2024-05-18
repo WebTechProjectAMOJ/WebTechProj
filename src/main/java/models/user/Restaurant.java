@@ -2,6 +2,7 @@ package models.user;
 
 import com.mongodb.client.result.InsertOneResult;
 import dbconnection.DbConnection;
+import models.order.Order;
 import models.ratings.Rating;
 import org.bson.BsonObjectId;
 import org.bson.Document;
@@ -10,6 +11,7 @@ import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.json.JsonObject;
 import org.bson.types.ObjectId;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class Restaurant extends User implements login{
@@ -18,18 +20,21 @@ public class Restaurant extends User implements login{
     @BsonProperty(value = "ratings")
     private ArrayList<ObjectId> ratings;
     @BsonProperty(value = "address")
-    private JsonObject address;
+    private Object address;
     @BsonProperty(value = "delivery_services")
     private ArrayList<ObjectId> deliveryServices;
     @BsonProperty(value = "tags")
     private ArrayList<ObjectId> tags;
-
     @BsonProperty(value = "combos")
     private ArrayList<ObjectId> combos;
 
+    public Restaurant() {
+        super();
+    }
+
     public Restaurant(Document document) {
         super(document);
-        setAddress((JsonObject) document.get("address"));
+        setAddress(document.get("address"));
         setTags((ArrayList<ObjectId>) document.get("tags"));
         setDeliveryServices((ArrayList<ObjectId>) document.get("delivery_services"));
         setFoodItems((ArrayList<ObjectId>) document.get("food_items"));
@@ -37,11 +42,17 @@ public class Restaurant extends User implements login{
         setCombos((ArrayList<ObjectId>) document.get("combos"));
     }
 
-    public Restaurant(String username, String password, String name,
-                      String email, ArrayList<ObjectId> orders, ArrayList<ObjectId> foodItems,
+    public Restaurant(String username,
+                      String password,
+                      String name,
+                      String email,
+                      ArrayList<ObjectId> orders,
+                      ArrayList<ObjectId> foodItems,
                       ArrayList<ObjectId> combos,
-                      ArrayList<ObjectId> ratings, ArrayList<ObjectId> deliveryServices,
-                      ArrayList<ObjectId> tags, JsonObject address){
+                      ArrayList<ObjectId> ratings,
+                      ArrayList<ObjectId> deliveryServices,
+                      ArrayList<ObjectId> tags,
+                      JsonObject address){
         super(username, password, name, email, orders);
         setFoodItems(foodItems);
         setRatings(ratings);
@@ -81,11 +92,11 @@ public class Restaurant extends User implements login{
         this.ratings = ratings;
     }
 
-    public JsonObject getAddress() {
+    public Object getAddress() {
         return address;
     }
 
-    public void setAddress(JsonObject address) {
+    public void setAddress(Object address) {
         this.address = address;
     }
 
@@ -111,5 +122,23 @@ public class Restaurant extends User implements login{
 
     public void setCombos(ArrayList<ObjectId> combos) {
         this.combos = combos;
+    }
+
+    public JsonObject getJsonAddress() {
+        org.bson.Document doc = (Document) this.address;
+        return new JsonObject(doc.toJson());
+    }
+
+    public ArrayList<Order> getListOrders() {
+        ArrayList<Order> orders = new ArrayList<Order>();
+        for (ObjectId order: this.getOrders()) {
+            Document order_to_find = new Document("_id", order);
+            Document order_found = DbConnection.findOne(
+                    "orders",
+                    order_to_find
+            );
+            orders.add(new Order(order_found));
+        }
+        return orders;
     }
 }

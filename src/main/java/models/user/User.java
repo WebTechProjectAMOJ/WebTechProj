@@ -36,6 +36,8 @@ public class User {
     @BsonId
     private ObjectId id;
 
+    public User() {}
+
     public Document toDocument(){
         Document document = new Document();
         document.put("name", name);

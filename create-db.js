@@ -20,8 +20,86 @@ db.consumers.insertOne(
         name: "The Frenchie",
         orders: [],
         addresses: [
-            "Isep Issy 306",
-            "Isep NDC 28"],
+            {
+                address_components: [
+                    {
+                        long_name: 'Ussel',
+                        short_name: 'Ussel',
+                        types: [ 'locality', 'political' ]
+                    },
+                    {
+                        long_name: 'Correze',
+                        short_name: 'Correze',
+                        types: [ 'administrative_area_level_2', 'political' ]
+                    },
+                    {
+                        long_name: 'Nouvelle-Aquitaine',
+                        short_name: 'Nouvelle-Aquitaine',
+                        types: [ 'administrative_area_level_1', 'political' ]
+                    },
+                    {
+                        long_name: 'France',
+                        short_name: 'FR',
+                        types: [ 'country', 'political' ]
+                    },
+                    {
+                        long_name: '19200',
+                        short_name: '19200',
+                        types: [ 'postal_code' ]
+                    }
+                ],
+                geometry: {
+                    location: { lat: 45.548905, lng: 2.313835 },
+                    viewport: {
+                        south: 45.50605089319001,
+                        west: 2.231891973590724,
+                        north: 45.60142415049019,
+                        east: 2.35602320081504
+                    }
+                },
+                name: 'Ussel',
+                html_attributions: []
+            },
+            {
+                address_components: [
+                    {
+                        long_name: 'Ussel',
+                        short_name: 'Ussel',
+                        types: [ 'locality', 'political' ]
+                    },
+                    {
+                        long_name: 'Correze',
+                        short_name: 'Correze',
+                        types: [ 'administrative_area_level_2', 'political' ]
+                    },
+                    {
+                        long_name: 'Nouvelle-Aquitaine',
+                        short_name: 'Nouvelle-Aquitaine',
+                        types: [ 'administrative_area_level_1', 'political' ]
+                    },
+                    {
+                        long_name: 'France',
+                        short_name: 'FR',
+                        types: [ 'country', 'political' ]
+                    },
+                    {
+                        long_name: '19200',
+                        short_name: '19200',
+                        types: [ 'postal_code' ]
+                    }
+                ],
+                geometry: {
+                    location: { lat: 45.548905, lng: 2.313835 },
+                    viewport: {
+                        south: 45.50605089319001,
+                        west: 2.231891973590724,
+                        north: 45.60142415049019,
+                        east: 2.35602320081504
+                    }
+                },
+                name: 'Ussel',
+                html_attributions: []
+            }],
         preferences: {
             likes: [],
             dislikes: [],
@@ -73,7 +151,46 @@ db.restaurants.insertOne(
         food_items: [coke_id, americano_id],
         combos: [combo_id],
         ratings: [],
-        address: "A cote de notra-dame",
+        address: {
+            address_components: [
+                {
+                    long_name: 'Ussel',
+                    short_name: 'Ussel',
+                    types: [ 'locality', 'political' ]
+                },
+                {
+                    long_name: 'Correze',
+                    short_name: 'Correze',
+                    types: [ 'administrative_area_level_2', 'political' ]
+                },
+                {
+                    long_name: 'Nouvelle-Aquitaine',
+                    short_name: 'Nouvelle-Aquitaine',
+                    types: [ 'administrative_area_level_1', 'political' ]
+                },
+                {
+                    long_name: 'France',
+                    short_name: 'FR',
+                    types: [ 'country', 'political' ]
+                },
+                {
+                    long_name: '19200',
+                    short_name: '19200',
+                    types: [ 'postal_code' ]
+                }
+            ],
+            geometry: {
+                location: { lat: 45.548905, lng: 2.313835 },
+                viewport: {
+                    south: 45.50605089319001,
+                    west: 2.231891973590724,
+                    north: 45.60142415049019,
+                    east: 2.35602320081504
+                }
+            },
+            name: 'Ussel',
+            html_attributions: []
+        },
         tags: [],
         delivery_services: [delivery_service_id],
         orders: [],
@@ -114,7 +231,46 @@ db.orders.insertOne({
     total: 6.2,
     status: "complete",
     driver: driver_id,
-    delivery_address: "Isep NDC 28",
+    delivery_address: {
+        address_components: [
+            {
+                long_name: 'Ussel',
+                short_name: 'Ussel',
+                types: [ 'locality', 'political' ]
+            },
+            {
+                long_name: 'Correze',
+                short_name: 'Correze',
+                types: [ 'administrative_area_level_2', 'political' ]
+            },
+            {
+                long_name: 'Nouvelle-Aquitaine',
+                short_name: 'Nouvelle-Aquitaine',
+                types: [ 'administrative_area_level_1', 'political' ]
+            },
+            {
+                long_name: 'France',
+                short_name: 'FR',
+                types: [ 'country', 'political' ]
+            },
+            {
+                long_name: '19200',
+                short_name: '19200',
+                types: [ 'postal_code' ]
+            }
+        ],
+        geometry: {
+            location: { lat: 45.548905, lng: 2.313835 },
+            viewport: {
+                south: 45.50605089319001,
+                west: 2.231891973590724,
+                north: 45.60142415049019,
+                east: 2.35602320081504
+            }
+        },
+        name: 'Ussel',
+        html_attributions: []
+    },
     payment: {method: "card", type: "visa"}
 })
 
