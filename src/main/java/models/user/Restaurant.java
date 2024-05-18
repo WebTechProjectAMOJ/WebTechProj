@@ -14,7 +14,7 @@ import org.bson.types.ObjectId;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
-public class Restaurant extends User {
+public class Restaurant extends User implements login{
     @BsonProperty(value = "food_items")
     private ArrayList<ObjectId> foodItems;
     @BsonProperty(value = "ratings")

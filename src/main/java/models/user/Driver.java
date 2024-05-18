@@ -10,7 +10,8 @@ import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 
-public class Driver extends User {
+
+public class Driver extends User implements login{
     @BsonProperty(value = "first_name")
     private String firstName;
     @BsonProperty(value = "tools")
@@ -46,7 +47,7 @@ public class Driver extends User {
         doc.put("first_name", getFirstName());
         InsertOneResult written = DbConnection.insertOne("drivers",doc);
         BsonObjectId id = (BsonObjectId) written.getInsertedId();
-        this.setId(new ObjectId(String.valueOf(id.getValue())));
+        this.setId(id.getValue());
         return written.wasAcknowledged();
     }
 

@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import models.delivery.DeliveryService;
 import models.user.Driver;
 import org.bson.Document;
 import org.bson.json.JsonObject;
@@ -27,15 +28,20 @@ public class CreateAccountDrivers extends HttpServlet {
         String firstname = request.getParameter("firstname");
         String email = request.getParameter("Email");
         String toolsList = request.getParameter("tools");
+        String deliveryService = request.getParameter("delivery_services");
         ArrayList<ObjectId> tools = new ArrayList<>();
         for(String s : toolsList.split(",")) {
             Document tool = new Document("name", s);
             tools.add((ObjectId) DbConnection.findOne("tools", tool).get("_id"));
         }
         String hashed = Pash.hashPassword(password);
+        DeliveryService service = new DeliveryService(deliveryService);
         Driver d = new Driver(username, hashed, name, email,
                 new ArrayList<ObjectId>(), firstname, tools, new ArrayList<ObjectId>(), new JsonObject("{\"set\":false}"));
         boolean doc = d.write();
+        if(doc) {
+            doc = service.insertDriver(d.getId());
+        }
         RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
         HttpSession session = request.getSession(true);
         session.setAttribute("createdAccount", doc);
