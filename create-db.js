@@ -12,6 +12,7 @@ db.createCollection("consumers")
 db.createCollection("orders")
 
 var consumer_id = ObjectId()
+var t1 = ObjectId()
 
 db.consumers.insertOne(
     {
@@ -191,7 +192,7 @@ db.restaurants.insertOne(
             name: 'Ussel',
             html_attributions: []
         },
-        tags: [],
+        tags: [t1],
         delivery_services: [delivery_service_id],
         orders: [],
         email: "panini.land@france.fr",
@@ -316,7 +317,8 @@ db.tags.insertMany([
     { name: "mediterranean", type: "preference" },
     { name: "french", type: "preference" },
     { name: "korean", type: "preference" },
-    { name: "american", type: "preference" }
+    { name: "american", type: "preference" },
+    { _id: t1, name: "sandwiches", type: "preference"}
 ])
 
 db.tools.insertOne({

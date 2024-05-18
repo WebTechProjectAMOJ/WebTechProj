@@ -13,6 +13,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class User {
+    @BsonProperty(value = "last_name")
+    private String name;
+    @BsonProperty(value = "credentials")
+    private Credential credentials;
+    @BsonProperty(value = "email")
+    private String email;
+    @BsonProperty(value = "orders")
+    private ArrayList<ObjectId> orders;
+    @BsonId
+    private ObjectId id;
+
     public User(Document document) {
         this.id = document.getObjectId("_id");
         this.name = document.getString("name");
@@ -27,17 +38,6 @@ public class User {
         this.email = email;
         this.orders = orders;
     }
-
-    @BsonProperty(value = "last_name")
-    private String name;
-    @BsonProperty(value = "credentials")
-    private Credential credentials;
-    @BsonProperty(value = "email")
-    private String email;
-    @BsonProperty(value = "orders")
-    private ArrayList<ObjectId> orders;
-    @BsonId
-    private ObjectId id;
 
     public User() {
     }
@@ -113,7 +113,7 @@ public class User {
         return orders;
     }
 
-    public HashMap<String, ArrayList<ItemBoxUi>> getUIHashStatus() {
+    public HashMap<String, ArrayList<ItemBoxUi>> getUIHashOrderStatus() {
         HashMap<String, ArrayList<ItemBoxUi>> order_hash = new HashMap<String, ArrayList<ItemBoxUi>>();
         for (Order ord : this.getListOrders()) {
             if (order_hash.get(ord.getStatus()) != null) {
