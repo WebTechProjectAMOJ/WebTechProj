@@ -2,6 +2,7 @@ package models.user;
 
 import com.mongodb.client.result.InsertOneResult;
 import dbconnection.DbConnection;
+import models.ui_util.ItemBoxUi;
 import org.bson.BsonObjectId;
 import org.bson.Document;
 import org.bson.codecs.pojo.annotations.BsonProperty;
@@ -122,5 +123,25 @@ public class Restaurant extends User implements login {
     public JsonObject getJsonAddress() {
         org.bson.Document doc = (Document) this.address;
         return new JsonObject(doc.toJson());
+    }
+
+    public ItemBoxUi getUiItemBox() {
+        //*Creates a ItemBox object to display in an item box element
+        //*Creates the string from an address object
+        Document addrs = (Document) this.address;
+        ArrayList<Object> addrs_doc = (ArrayList<Object>) addrs.get("address_components");
+        StringBuilder addrs_str = new StringBuilder();
+        for (Object obj : addrs_doc) {
+            Document doc = (Document) obj;
+            addrs_str.append(doc.getString("short_name"));
+            addrs_str.append(", ");
+        }
+
+        /*TODO:Change photo_url and action url*/
+        return new ItemBoxUi(
+                this.getName(),
+                addrs_str.toString(),
+                "",
+                "");
     }
 }

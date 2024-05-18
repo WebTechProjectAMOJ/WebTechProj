@@ -31,10 +31,10 @@ public class driverLanding extends HttpServlet {
         Driver driver = new Driver(found);
 
         // Makes a hashmap with list of all status and a list of all orders
-        HashMap<String, ArrayList<ItemBoxUi>> order_hash = driver.getUIHashStatus();
+        HashMap<String, ArrayList<ItemBoxUi>> order_hash = driver.getUIHashOrderStatus();
 
         // Sets attributes for the view
-         req.setAttribute("user", driver);
+        req.setAttribute("user", driver);
         req.setAttribute("items_to_scroll", order_hash);
 
         RequestDispatcher dispatcher = req

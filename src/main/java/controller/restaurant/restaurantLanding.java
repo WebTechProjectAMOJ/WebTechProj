@@ -31,7 +31,7 @@ public class restaurantLanding extends HttpServlet {
         Restaurant resto = new Restaurant(found);
 
         // Makes a hashmap with list of all status and a list of all orders
-        HashMap<String, ArrayList<ItemBoxUi>> order_hash = resto.getUIHashStatus();
+        HashMap<String, ArrayList<ItemBoxUi>> order_hash = resto.getUIHashOrderStatus();
 
 
         // Sets attributes for the view
