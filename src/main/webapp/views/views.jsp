@@ -20,7 +20,6 @@
 </head>
 <body>
 <h1>comments</h1>
-
 <%
     MongoClient mongoClient = null;
     try {
