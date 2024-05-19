@@ -21,6 +21,7 @@
 <body>
 <h1>comments</h1>
 <%
+
     MongoClient mongoClient = null;
     try {
         String uri = "mongodb://mongo:example@localhost:27017/";
