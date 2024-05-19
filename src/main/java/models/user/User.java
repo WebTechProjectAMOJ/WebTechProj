@@ -116,7 +116,7 @@ public class User {
         return orders;
     }
 
-    public HashMap<String, ArrayList<ItemBoxUi>> getUIHashStatus() {
+    public HashMap<String, ArrayList<ItemBoxUi>> getUIHashOrderStatus() {
         HashMap<String, ArrayList<ItemBoxUi>> order_hash = new HashMap<String, ArrayList<ItemBoxUi>>();
         for (Order ord : this.getListOrders()) {
             if (order_hash.get(ord.getStatus()) != null) {
