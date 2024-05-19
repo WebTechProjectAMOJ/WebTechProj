@@ -22,7 +22,7 @@ public class Driver extends User implements login {
     private Object currentPos;
 
     public Driver(Document document) {
-        super(document);
+        super(document, "driver");
         setFirstName(document.getString("first_name"));
         setTools((ArrayList<ObjectId>) document.get("tools"));
         setRatings((ArrayList<ObjectId>) document.get("ratings"));
@@ -38,7 +38,7 @@ public class Driver extends User implements login {
                   ArrayList<ObjectId> tools,
                   ArrayList<ObjectId> ratings,
                   Object current_pos) {
-        super(username, password, name, email, orders);
+        super(username, password, name, email, orders, "driver");
         setFirstName(firstName);
         setTools(tools);
         setRatings(ratings);

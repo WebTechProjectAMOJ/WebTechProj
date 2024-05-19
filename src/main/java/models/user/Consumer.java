@@ -17,13 +17,13 @@ import java.util.ArrayList;
 public class Consumer extends User implements login {
 
     public Consumer(Document document){
-        super(document);
+        super(document, "customer");
         setFirst_name(document.getString("first_name"));
         setAddress((ArrayList<JsonObject>) document.get("address"));
     }
 
     public Consumer(String username, String password, String name, String email, Document preferences,ArrayList<ObjectId> orders, String first_name, ArrayList<JsonObject> address){
-        super(username, password, name, email, orders);
+        super(username, password, name, email, orders, "customer");
         setFirst_name(first_name);
         setAddress(address);
         setPreferences(preferences);
