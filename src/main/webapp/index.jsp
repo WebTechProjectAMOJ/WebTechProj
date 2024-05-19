@@ -51,7 +51,7 @@
             </div>
         <button type="submit" id="login-btn">Submit</button>
             <span class="register-here">
-            <a href="${pageContext.request.contextPath}/create-account">Not Registered? Click Here</a>
+            <a href="${pageContext.request.contextPath}/create-account-customers">Not Registered? Click Here</a>
             </span>
         </div>
     </form>

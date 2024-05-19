@@ -1,14 +1,15 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: margotrichez
-  Date: 02/05/2024
-  Time: 10:50
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="items_to_scroll" scope="request" type="java.util.HashMap"/>
 
-<a class="section_title">category</a>
-<div class="grid_container">
-    <jsp:include page="./item_box.jsp" />
-</div>
+
+<c:forEach var="key" items="${items_to_scroll.keySet()}">
+    <a class="section_title">${key}</a>
+    <div class="grid_container">
+        <c:forEach var="item" items="${items_to_scroll.get(key)}">
+            <c:set var="item" value="${item}" scope="request"/>
+            <jsp:include page="./item_box.jsp"/>
+        </c:forEach>
+    </div>
+</c:forEach>
 

@@ -42,4 +42,4 @@ data/
 .DS_Store
 
 ### Config ###
-src/main/resources/datasource.properties
+src/main/resources/
