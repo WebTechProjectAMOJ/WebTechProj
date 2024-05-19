@@ -13,6 +13,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class User {
+    public User(Document document, String accountType) {
+        this.id = document.getObjectId("_id");
+        this.name = document.getString("name");
+        this.credentials = new Credential((Document) document.get("credentials"));
+        setEmail(document.getString("email"));
+        setOrders((ArrayList<ObjectId>) document.get("orders"));
+        this.accountType = accountType;
+    }
+
+    public User(String username, String password, String name, String email, ArrayList<ObjectId> orders, String accountType) {
+        this.credentials = new Credential(username, password);
+        this.name = name;
+        this.email = email;
+        this.orders = orders;
+        this.accountType = accountType;
+    }
+
     @BsonProperty(value = "last_name")
     private String name;
     @BsonProperty(value = "credentials")
@@ -23,21 +40,7 @@ public class User {
     private ArrayList<ObjectId> orders;
     @BsonId
     private ObjectId id;
-
-    public User(Document document) {
-        this.id = document.getObjectId("_id");
-        this.name = document.getString("name");
-        this.credentials = new Credential((Document) document.get("credentials"));
-        setEmail(document.getString("email"));
-        setOrders((ArrayList<ObjectId>) document.get("orders"));
-    }
-
-    public User(String username, String password, String name, String email, ArrayList<ObjectId> orders) {
-        this.credentials = new Credential(username, password);
-        this.name = name;
-        this.email = email;
-        this.orders = orders;
-    }
+    public String accountType;
 
     public User() {
     }
@@ -125,6 +128,10 @@ public class User {
             }
         }
         return order_hash;
+    }
+
+    public String getAccountType(){
+        return accountType;
     }
 
 }

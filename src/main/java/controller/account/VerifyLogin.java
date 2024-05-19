@@ -26,46 +26,57 @@ public class VerifyLogin extends HttpServlet {
         System.out.println(username + " " + password + " " + accountType);
         Document object = new Document();
         object.put("credentials.username", username);
-        Document user = null;
-        String link="";
-        login obj = null;
-        switch (accountType) {
-            case "Customers":{
-                user = DbConnection.findOne("consumers", object);
-                link = "customer";
-                obj = new Consumer(user);
-                break;
-            }
-            case "Restaurants":{
-                user = DbConnection.findOne("restaurants", object);
-                link = "restaurant";
-                obj = new Restaurant(user);
-                break;
-            }
-            case "Drivers":{
-                user = DbConnection.findOne("drivers", object);
-                link = "driver";
-                obj = new Driver(user);
-                break;
-            }
-        }
+        login obj = tryValidate(accountType, object);
         RequestDispatcher view = null;
         HttpSession session = request.getSession(true);
         session.setAttribute("failedLogin", false);
         boolean pass = false;
-        if (user != null){
+        if (obj != null){
             boolean doc = obj.verify(password);
             response.getWriter().println(doc ? "Yes" : "No");
             session.setAttribute("failedLogin", !doc);
             if (doc) {
+                String link= obj.getAccountType();
                 session.setAttribute("user", obj);
                 session.setAttribute("accountType", link);
-                response.sendRedirect(request.getContextPath() + "/home-" + link);
+                response.sendRedirect(request.getContextPath() + "/" + link + "-landing");
                 pass = true;
             }
         }
         if(!pass) {
             response.sendRedirect(request.getContextPath() + "/index.jsp");
         }
+    }
+
+    private login tryValidate(String accountType, Document object) {
+        Document user = null;
+        login obj = null;
+        switch (accountType) {
+            case "Customers":{
+                user = DbConnection.findOne("consumers", object);
+                if (user == null) {
+                    return obj;
+                }
+                obj = new Consumer(user);
+                break;
+            }
+            case "Restaurants":{
+                user = DbConnection.findOne("restaurants", object);
+                if (user == null) {
+                    return obj;
+                }
+                obj = new Restaurant(user);
+                break;
+            }
+            case "Drivers":{
+                user = DbConnection.findOne("drivers", object);
+                if (user == null) {
+                    return obj;
+                }
+                obj = new Driver(user);
+                break;
+            }
+        }
+        return obj;
     }
 }

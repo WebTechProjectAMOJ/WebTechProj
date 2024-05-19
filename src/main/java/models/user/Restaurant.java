@@ -1,8 +1,10 @@
 package models.user;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.result.InsertOneResult;
 import dbconnection.DbConnection;
 import models.ui_util.ItemBoxUi;
+import models.foodItems.Fooditem;
 import org.bson.BsonObjectId;
 import org.bson.Document;
 import org.bson.codecs.pojo.annotations.BsonProperty;
@@ -29,7 +31,7 @@ public class Restaurant extends User implements login {
     }
 
     public Restaurant(Document document) {
-        super(document);
+        super(document, "restaurant");
         setAddress(document.get("address"));
         setTags((ArrayList<ObjectId>) document.get("tags"));
         setDeliveryServices((ArrayList<ObjectId>) document.get("delivery_services"));
@@ -49,7 +51,7 @@ public class Restaurant extends User implements login {
                       ArrayList<ObjectId> deliveryServices,
                       ArrayList<ObjectId> tags,
                       JsonObject address) {
-        super(username, password, name, email, orders);
+        super(username, password, name, email, orders, "restaurant");
         setFoodItems(foodItems);
         setRatings(ratings);
         setDeliveryServices(deliveryServices);
@@ -118,6 +120,15 @@ public class Restaurant extends User implements login {
 
     public void setCombos(ArrayList<ObjectId> combos) {
         this.combos = combos;
+    }
+
+    public boolean addFoodItem(Document foodItem){
+        ObjectId id = (ObjectId) foodItem.get("_id");
+        Document find = new Document("_id", this.getId());
+        BasicDBObject update = new BasicDBObject("food_items", id);
+        BasicDBObject updatequery = new BasicDBObject("$push", update);
+        this.foodItems.add(id);
+        return DbConnection.updateOne("restaurants", find, updatequery).wasAcknowledged();
     }
 
     public JsonObject getJsonAddress() {

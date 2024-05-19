@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import models.ui_util.ItemBoxUi;
 import models.user.Restaurant;
 import org.bson.Document;
@@ -23,12 +24,13 @@ public class restaurantLanding extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         // Gets the restaurant from the db
         // TODO: Change with retrieving from session
-        Document to_find = new Document("_id", new ObjectId("6645179c3418530bd4e7e158"));
-        Document found = DbConnection.findOne(
-                "restaurants",
-                to_find
-        );
-        Restaurant resto = new Restaurant(found);
+//        Document to_find = new Document("_id", new ObjectId("6645179c3418530bd4e7e158"));
+//        Document found = DbConnection.findOne(
+//                "restaurants",
+//                to_find
+//        );
+        HttpSession session = req.getSession(false);
+        Restaurant resto = (Restaurant) session.getAttribute("user");
 
         // Makes a hashmap with list of all status and a list of all orders
         HashMap<String, ArrayList<ItemBoxUi>> order_hash = resto.getUIHashOrderStatus();
