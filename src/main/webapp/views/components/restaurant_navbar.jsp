@@ -12,8 +12,8 @@
     <a href="../homepages/restaurant_orders_pending.jsp">Pending</a>
     <a href="../homepages/restaurant_orders_open.jsp">Open</a>
     <a href="../homepages/restaurant_orders_history.jsp">History</a>
-    <a href=""><h3>Menu</h3></a>
-    <a href="">Manage</a>
+    <a href="../homepages/restaurant_menu_management.jsp"><h3>Manage</h3></a>
+    <a href="../homepages/restaurant_menu_management.jsp">Menu</a>
     <a href="">Offers</a>
     <a href=""><h3>Reviews</h3></a>
 
