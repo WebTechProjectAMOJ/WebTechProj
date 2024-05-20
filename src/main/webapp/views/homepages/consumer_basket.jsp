@@ -20,9 +20,16 @@
     <jsp:include page="../components/user_navbar.jsp" />
     <div class="window">
         <jsp:include page="../components/search_header.jsp" />
-        <jsp:include page="../components/section_grid_scroll.jsp" />
-        <button class="confirm_button">Go to checkout</button>
+            <jsp:include page="../components/section_grid_scroll.jsp" />
+        <div class="footer">
+            <button class="confirm_button" onclick="orderSummary()">Go to checkout</button>
+        </div>
     </div>
 </div>
 </body>
 </html>
+<script>
+    function orderSummary() {
+        window.location.href = "./order_summary.jsp";
+    }
+</script>

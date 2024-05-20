@@ -7,8 +7,70 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<a class="section_title">category</a>
-<div class="grid_container">
-    <jsp:include page="./item_box.jsp" />
+<div class ="grid">
+    <a class="section_title">category</a>
+    <div class="grid_container">
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+        <jsp:include page="./item_box.jsp" />
+    </div>
+
 </div>
 
