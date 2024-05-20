@@ -331,12 +331,12 @@ table th {
     padding: 2rem;
     height: 50vh;
     display: none;
+    overflow: auto;
 }
 
 .form_add {
     display:flex;
     flex-direction: column;
-    overflow: auto;
     justify-content: flex-start;
     font-size: large;
 }
@@ -368,6 +368,20 @@ table th {
     font-size: larger;
     padding: .25rem;
     align-self: flex-start
+}
+
+.add_button {
+    color: #ffffff;
+    background-color: #B5C964;
+    border: 5px solid #B5C964;
+    height: 5vh;
+    width: 5vh;
+    border-radius: 5rem;
+    font-size: larger;
+}
+
+.add_button:hover {
+    cursor: pointer;
 }
 
 

@@ -14,7 +14,7 @@
     <a href="../homepages/restaurant_orders_history.jsp">History</a>
     <a href="../homepages/restaurant_menu_management.jsp"><h3>Manage</h3></a>
     <a href="../homepages/restaurant_menu_management.jsp">Menu</a>
-    <a href="">Offers</a>
+    <a href="../homepages/restaurant_offer_management.jsp">Offers</a>
     <a href=""><h3>Reviews</h3></a>
 
     <div class="user_nav">
