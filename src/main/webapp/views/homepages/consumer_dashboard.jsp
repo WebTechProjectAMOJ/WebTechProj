@@ -17,6 +17,20 @@
         <jsp:include page="../components/search_header.jsp" />
         <jsp:include page="../components/section_row_scroll.jsp" />
     </div>
+
+    <!-- Show all restaurant data -->
+    <div class="all-restaurants-section">
+        <h2>All Restaurants</h2>
+        <ul>
+            <c:forEach var="restaurant" items="${allRestaurants}">
+                <li>
+                    <h3>${restaurant.name}</h3>
+                    <p>${restaurant.description}</p>
+                    <p>Location: ${restaurant.location}</p>
+                </li>
+            </c:forEach>
+        </ul>
+    </div>
 </div>
 
 </body>
