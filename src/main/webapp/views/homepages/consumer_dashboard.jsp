@@ -18,6 +18,7 @@
         <jsp:include page="../components/section_row_scroll.jsp" />
     </div>
 
+
     <!-- Show all restaurant data -->
     <div class="all-restaurants-section">
         <h2>All Restaurants</h2>

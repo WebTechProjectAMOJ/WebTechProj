@@ -66,6 +66,7 @@ public class consumerLanding extends HttpServlet {
 
         // Sets attributes for the view
         req.setAttribute("items_to_scroll", resto_hash);
+
         // Add all restaurant data to the request property
         req.setAttribute("allRestaurants", allRestaurants);
 
