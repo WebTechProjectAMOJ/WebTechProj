@@ -232,8 +232,6 @@ img {
 }
 
 .popup_window .header_row {
-    align-items: flex-start;
-    justify-content: flex-end;
     height: auto
 }
 
@@ -363,6 +361,13 @@ table th {
 
 .grid {
     overflow: auto;
+}
+
+.order_exit {
+    margin-left: auto;
+    font-size: larger;
+    padding: .25rem;
+    align-self: flex-start
 }
 
 
