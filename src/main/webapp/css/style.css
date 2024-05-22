@@ -25,16 +25,21 @@ body {
     background-color: #4B4C49;
 }
 
-.navbar h3{
-    margin: 20% 15% 10% 20%;
+.navbar h3 {
+    font-style: normal;
     color: #ffffff;
+    text-decoration: underline;
 }
 
 .navbar a {
-    margin: 5% 5% 10% 35%;
+    text-decoration: None;
+    margin: 3vh 0 1vh 3vh;
     color: #ffffff;
     font-style: italic;
-    font-size: larger;
+    font-size: large;
+}
+.navbar a:active {
+    color: #B5C964;
 }
 
 .user_nav {
@@ -74,7 +79,6 @@ body {
     left: 10%;
     background-color: #ffffff;
     color: #4B4C49;
-    overflow: auto;
 }
 
 .header_row{
@@ -82,7 +86,7 @@ body {
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    padding: 0 3%;
+    padding: 1% 2%;
     height: 15%;
 }
 
@@ -103,8 +107,7 @@ img {
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    padding: 0 3%;
-    height: 15%;
+    padding: 1% 2%;
     font-size: large;
 }
 
@@ -121,7 +124,7 @@ img {
     justify-content: space-around;
     background-color: #D7D8D5;
     color: black;
-    height: 30%;
+    height: 5vh;
     width: 40%;
     border-radius: 5px;
     align-items: center;
@@ -141,10 +144,11 @@ img {
     justify-content: space-around;
     background-color: #4B4C49;
     color: black;
-    height: 35%;
+    height: 6vh;
     width: 70%;
     border-radius: 20px;
     align-items: center;
+    margin-top: 1rem;
 }
 .search_bar button{
     background-color: #ffffff;
@@ -185,6 +189,10 @@ img {
     justify-content: center;
 }
 
+.box_container:hover {
+    cursor: pointer;
+}
+
 .box_container h3{
     font-weight: bold;
 }
@@ -207,10 +215,10 @@ img {
 }
 
 .popup_window {
-    display: flex;
+    display: block;
     flex-direction: column;
-    width: 80%;
-    height: 78%;
+    width: 120vh;
+    height: 75vh;
     background-color: #D7D8D5;
     color: black;
     border-radius: 10px;
@@ -220,18 +228,25 @@ img {
  }
 
 .exit_button {
+    align-self: flex-end;
     display: flex;
-    justify-content: flex-end;
-    margin: 1% 2%;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 1rem 0 0;
 }
 
 .popup_window .header_row {
-    align-items: flex-start;
-    height: auto
+    height: auto;
+    align-items: normal;
+
 }
 
-.popup_window .search_bar {
-    margin-top: auto;
+.corner_popup {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 70%;
 }
 
 .popup_window .header_text_container{
@@ -246,12 +261,138 @@ img {
 }
 
 .popup_window .popup_window{
+    display: flex;
     background-color: #ffffff;
     overflow: auto;
+    width: 80%;
     height: 60%;
 }
 
 .popup_window .grid_container{
     grid-template-columns: repeat(5, 1fr);
 }
+
+.confirm_button {
+    #align-self: center;
+    background-color: #ffffff;
+    border: 5px solid #B5C964;
+    border-radius: 10px;
+    height: 5vh;
+    width: 15vh;
+    #margin-top: auto;
+    #margin-bottom: 10vh;
+}
+
+.confirm_button:hover {
+    cursor: pointer;
+}
+
+table {
+    display:table-header-group;
+    text-align: center;
+}
+
+table th {
+    text-decoration: underline;
+}
+
+.table_qty {
+    width: 10vh;
+}
+
+.table_item {
+    width: 30vh;
+}
+
+.table_custom {
+    width: 40vh;
+}
+
+.table_price {
+    width: 20vh;
+}
+
+.main_window {
+    margin-top: auto;
+    height: 80%;
+    width: 100%;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-evenly;
+    height: 5rem;
+    margin: 1rem;
+    align-items: center;
+}
+
+.add_popup {
+    position: fixed;
+    left: 30%;
+    top:25%;
+    width: 90vh;
+    border: 3px solid #B5C964;
+    border-radius: 2rem;
+    box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.16);
+    z-index: 9;
+    background: white;
+    padding: 2rem;
+    height: 50vh;
+    display: none;
+    overflow: auto;
+}
+
+.form_add {
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-size: large;
+}
+
+.form_add label {
+    margin:2rem;
+}
+
+.form_add input {
+    height: 2rem;
+    margin-left: 1rem;
+    padding: 0 .25rem;
+    width: 40vh;
+}
+
+.form_add select {
+    height: 2rem;
+    margin-left: 1rem;
+    padding: 0 .25rem;
+    width: 20vh;
+}
+
+.grid {
+    overflow: auto;
+}
+
+.order_exit {
+    margin-left: auto;
+    font-size: larger;
+    padding: .25rem;
+    align-self: flex-start
+}
+
+.add_button {
+    color: #ffffff;
+    background-color: #B5C964;
+    border: 5px solid #B5C964;
+    height: 5vh;
+    width: 5vh;
+    border-radius: 5rem;
+    font-size: larger;
+}
+
+.add_button:hover {
+    cursor: pointer;
+}
+
+
+
+
 

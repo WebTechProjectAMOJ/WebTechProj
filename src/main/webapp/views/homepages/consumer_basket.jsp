@@ -2,13 +2,13 @@
   Created by IntelliJ IDEA.
   User: margotrichez
   Date: 06/05/2024
-  Time: 13:49
+  Time: 17:17
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Restaurant Menus</title>
+    <title>Order basket</title>
 
     <link rel="stylesheet" href="../../css/login-page-style.css">
     <link rel="stylesheet" href="../../css/style.css">
@@ -20,13 +20,22 @@
     <jsp:include page="../components/user_navbar.jsp" />
     <div class="window">
         <jsp:include page="../components/search_header.jsp" />
-        <jsp:include page="../components/popup_menu.jsp"/>
+            <jsp:include page="../components/section_grid_scroll.jsp" />
+        <div class="footer">
+            <button class="confirm_button" onclick="orderSummary()">Go to checkout</button>
+        </div>
     </div>
 </div>
 </body>
 </html>
+<script>
+    function orderSummary() {
+        window.location.href = "./order_summary.jsp";
+    }
+</script>
 
-<div class="add_popup" id="add-basket">
+
+<div class="add_popup" id="edit-basket">
     <form class="form_add" method="post">
         <h3 style="align-self: center">Element Name</h3>
         <label>Cost: ...</label>
@@ -40,18 +49,23 @@
 
         <div class="footer">
             <label>Total Cost</label>
-            <button type="submit" class="confirm_button" style="background-color: #B5C964;"> Add to Basket</button>
-            <button  type="button" class="confirm_button" style="background-color: lightgrey; border-color: black;" onclick="closeBox()"> Cancel</button>
+            <button type="submit" class="confirm_button" style="background-color: #B5C964;"> Save</button>
+            <button  type="button" class="confirm_button" style="background-color: indianred; border-color: indianred;" onclick="deleteItem()">Delete</button>
+            <button  type="button" class="confirm_button" style="background-color: lightgrey; border-color: lightgrey;" onclick="closeBox()">Cancel</button>
         </div>
     </form>
 </div>
 
 <script>
     function openBox() {
-        document.getElementById("add-basket").style.display = "block";
+        document.getElementById("edit-basket").style.display = "block";
     }
 
     function closeBox() {
-        document.getElementById("add-basket").style.display = "none";
+        document.getElementById("edit-basket").style.display = "none";
+    }
+
+    function deleteItem() {
+        // code to delete item
     }
 </script>

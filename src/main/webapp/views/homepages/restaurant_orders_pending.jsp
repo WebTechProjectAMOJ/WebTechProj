@@ -3,7 +3,7 @@
 <jsp:useBean id="user" scope="application" class="models.user.User"/>
 <html>
 <head>
-    <title>Dashboard</title>
+    <title>Order Pending</title>
 
     <link rel="stylesheet" href="../../css/login-page-style.css">
     <link rel="stylesheet" href="../../css/style.css">

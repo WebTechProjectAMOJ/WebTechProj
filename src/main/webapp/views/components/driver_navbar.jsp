@@ -8,11 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="navbar">
-    <h3>Orders</h3>
-    <a>Pending</a>
-    <a>Open</a>
-    <a>History</a>
-    <h3>Reviews</h3>
+    <a href="../homepages/driver_orders_pending.jsp"><h3>Orders</h3></a>
+    <a href="">Pending</a>
+    <a href="">Open</a>
+    <a href="">History</a>
+    <a href=""><h3>Reviews</h3></a>
 
     <div class="user_nav">
         <div class="account">
