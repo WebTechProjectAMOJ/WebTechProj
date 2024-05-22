@@ -2,7 +2,10 @@ package models.delivery;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import com.mongodb.client.result.InsertOneResult;
 import dbconnection.DbConnection;
+import models.user.Driver;
+import org.bson.BsonObjectId;
 import org.bson.Document;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.codecs.pojo.annotations.BsonProperty;
@@ -29,6 +32,14 @@ public class DeliveryService {
         setName(document.getString("name"));
         setFee(document.getDouble("fee"));
         setDrivers(document.get("drivers", ArrayList.class));
+    }
+
+    public DeliveryService(String name, double fee, ArrayList<ObjectId> drivers) {
+        setName(name);
+        setFee(fee);
+        if(drivers == null)
+            setDrivers(new ArrayList<ObjectId>());
+        else setDrivers(drivers);
     }
 
     public boolean insertDriver(ObjectId driver) {
@@ -73,5 +84,21 @@ public class DeliveryService {
 
     public void addDriver(ObjectId driver) {
         this.drivers.add(driver);
+    }
+
+    public Document toDocument() {
+        Document doc = new Document();
+        doc.put("name", this.getName());
+        doc.put("fee", this.getFee());
+        doc.put("drivers", this.getDrivers());
+        return doc;
+    }
+
+    public boolean write(){
+        Document doc = this.toDocument();
+        InsertOneResult written = DbConnection.insertOne("delivery_services",doc);
+        BsonObjectId id = (BsonObjectId) written.getInsertedId();
+        this.setId(new ObjectId(String.valueOf(id.getValue())));
+        return written.wasAcknowledged();
     }
 }

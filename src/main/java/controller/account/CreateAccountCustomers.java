@@ -54,9 +54,14 @@ public class CreateAccountCustomers extends HttpServlet {
         String hashed = Pash.hashPassword(password);
         Consumer c = new Consumer(username, hashed, name, email, prefs, new ArrayList<ObjectId>(), firstname, addresses);
         boolean doc = c.write();
-        RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
         HttpSession session = request.getSession(true);
-        session.setAttribute("createdAccount", doc);
+        if(doc) {
+            session.setAttribute("message", "You have successfully created a customer account");
+        }
+        else {
+            session.setAttribute("errorMessage", "Something went wrong :(");
+        }
+        RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
         view.forward(request, response);
     }
 

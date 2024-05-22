@@ -21,6 +21,8 @@ public class Logout extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         session.invalidate();
-        response.sendRedirect("./");
+        session = request.getSession(true);
+        session.setAttribute("message", "You have been Logged out!");
+        response.sendRedirect(request.getContextPath() + "/");
     }
 }

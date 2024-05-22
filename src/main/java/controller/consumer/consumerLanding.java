@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import models.order.Order;
 import models.tags.Tag;
 import models.ui_util.ItemBoxUi;
@@ -20,11 +21,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-@WebServlet(name = "Consumer Landing", value = "/consumer-landing")
+@WebServlet(name = "Consumer Landing", value = "/customer-landing")
 public class consumerLanding extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         // Gets all tags
+        HttpSession session = req.getSession(false);
+        if (session == null || session.getAttribute("accountType") != "customer") {
+            resp.sendRedirect(req.getContextPath() + "/");
+            return;
+        }
         Document to_find = new Document("type", "preference");
         ArrayList<Document> found = DbConnection.find(
                 "tags",

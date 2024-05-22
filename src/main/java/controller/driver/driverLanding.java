@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import models.ui_util.ItemBoxUi;
 import models.user.Driver;
 import org.bson.Document;
@@ -21,14 +22,12 @@ import java.util.HashMap;
 public class driverLanding extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        // Gets the restaurant from the db
-        // TODO: Change with retrieving from session
-        Document to_find = new Document("_id", new ObjectId("6645179c00000000008daa2e"));
-        Document found = DbConnection.findOne(
-                "drivers",
-                to_find
-        );
-        Driver driver = new Driver(found);
+        HttpSession session = req.getSession(false);
+        if (session == null ||  session.getAttribute("accountType") != "driver") {
+            resp.sendRedirect(req.getContextPath() + "/");
+            return;
+        }
+        Driver driver = (Driver) session.getAttribute("user");
 
         // Makes a hashmap with list of all status and a list of all orders
         HashMap<String, ArrayList<ItemBoxUi>> order_hash = driver.getUIHashOrderStatus();

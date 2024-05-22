@@ -22,14 +22,11 @@ import java.util.HashMap;
 public class restaurantLanding extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        // Gets the restaurant from the db
-        // TODO: Change with retrieving from session
-//        Document to_find = new Document("_id", new ObjectId("6645179c3418530bd4e7e158"));
-//        Document found = DbConnection.findOne(
-//                "restaurants",
-//                to_find
-//        );
         HttpSession session = req.getSession(false);
+        if (session == null ||  session.getAttribute("accountType") != "restaurant") {
+            resp.sendRedirect(req.getContextPath() + "/");
+            return;
+        }
         Restaurant resto = (Restaurant) session.getAttribute("user");
 
         // Makes a hashmap with list of all status and a list of all orders

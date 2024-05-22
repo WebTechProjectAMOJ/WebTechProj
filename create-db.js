@@ -323,7 +323,22 @@ db.tags.insertMany([
 
 db.tools.insertOne({
     name: "bike",
-    type: "vehicle"
+    type: "vehicle",
+})
+
+db.tools.insertOne({
+    name: "van",
+    type: "vehicle",
+})
+
+db.tools.insertOne({
+    name: "freezer",
+    type: "storage"
+})
+
+db.tools.insertOne({
+    name: "container-plastic",
+    type: "packaging"
 })
 
 db.ratings.insertOne({
