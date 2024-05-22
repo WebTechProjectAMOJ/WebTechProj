@@ -44,7 +44,12 @@ public class CreateAccountDrivers extends HttpServlet {
         }
         RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
         HttpSession session = request.getSession(true);
-        session.setAttribute("createdAccount", doc);
+        if(doc) {
+            session.setAttribute("message", "You have successfully created a driver account");
+        }
+        else {
+            session.setAttribute("errorMessage", "Something went wrong :(");
+        }
         view.forward(request, response);
     }
 
