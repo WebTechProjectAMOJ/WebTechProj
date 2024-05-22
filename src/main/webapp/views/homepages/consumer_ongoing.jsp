@@ -25,3 +25,9 @@
 </div>
 </body>
 </html>
+
+<script>
+    function openBox() {
+        window.location.href = "./order_summary.jsp";
+    }
+</script>

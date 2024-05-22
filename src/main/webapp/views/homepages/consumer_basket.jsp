@@ -33,3 +33,39 @@
         window.location.href = "./order_summary.jsp";
     }
 </script>
+
+
+<div class="add_popup" id="edit-basket">
+    <form class="form_add" method="post">
+        <h3 style="align-self: center">Element Name</h3>
+        <label>Cost: ...</label>
+        <label> Description: ...</label>
+        <label> Customisations:
+            <input type="text" name="custom" required/>
+        </label>
+        <label> Quantity:
+            <input type="number" name="quantity" required/>
+        </label>
+
+        <div class="footer">
+            <label>Total Cost</label>
+            <button type="submit" class="confirm_button" style="background-color: #B5C964;"> Save</button>
+            <button  type="button" class="confirm_button" style="background-color: indianred; border-color: indianred;" onclick="deleteItem()">Delete</button>
+            <button  type="button" class="confirm_button" style="background-color: lightgrey; border-color: lightgrey;" onclick="closeBox()">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function openBox() {
+        document.getElementById("edit-basket").style.display = "block";
+    }
+
+    function closeBox() {
+        document.getElementById("edit-basket").style.display = "none";
+    }
+
+    function deleteItem() {
+        // code to delete item
+    }
+</script>

@@ -25,10 +25,10 @@
                     <div class="box"></div>
                 </div>
                 <div class="header_text_container">
-                    <h2>ORDER# [Consumer Name]</h2>
+                    <h1> ORDER# [Consumer Name]</h1>
                     <h3>Order time</h3>
+                    <h2 id="status">Order Status</h2>
                 </div>
-                <button class="order_exit" onclick="closeSummary()">X</button>
             </div>
             <div class="popup_window" style="top:0; margin: 5% 0;">
                 <table>
@@ -52,24 +52,55 @@
                     </tr>
                 </table>
             </div>
-            <div class="header_row">
-                <div class="header_text_container">
-                    <h2>TOTAL:  Amount </h2>
-                </div>
-                <button class="confirm_button" onclick="payOrder()">Confirm & Pay</button>
+
+            <div class="footer">
+                <h2>TOTAL:  Amount </h2>
+                <!-- If status === basket show pay button-->
+               <button class="confirm_button" onclick="payOrder()">Confirm & Pay</button>
+               <button  type="button" class="confirm_button" style="background-color: lightgrey; border-color: black;" onclick="closeBox()">Close</button>
+               <!-- If status == history && consumer session
+               <button  type="button" class="confirm_button" style="background-color: darkorange; border-color: white;" onclick="openReview()">Review</button>
+
+               delete button for history orders
+                <button  type="button" class="confirm_button" style="background-color: indianred; border-color: indianred;" onclick="deleteOrder()">Delete</button>
+
+               purchase again button for history orders
+               <button  type="button" class="confirm_button" style="background-color: cornflowerblue; border-color: cornflowerblue;" onclick="payOrder()">Order Again</button>
+               -->
             </div>
         </div>
     </div>
 </body>
 </html>
+
 <script>
     function payOrder() {
         window.location.href = "./consumer_ongoing.jsp";
         //add status change of order and send order to restaurant
     }
-</script>
-<script>
-    function closeSummary() {
-        window.location.href = "./consumer_basket.jsp";
+
+    function closeBox() {
+        window.location.href = "./consumer_basket.jsp"; //temporary
+
+        var status = document.getElementById("status").textContent;
+        var session = request.getSession(false);
+
+        if (status === "Basket") {
+            window.location.href = "./consumer_basket.jsp";
+        }
+        if (status === "History" && session.getAttribute("accountType")==="consumer") {
+            window.location.href = "./consumer_history.jsp";
+        }
+        if (session.getAttribute("accountType")==="consumer") {
+            window.location.href = "./consumer_ongoing.jsp";
+        }
+
+        // need to create return to restaurant views and drivers
+
+    }
+
+    function openReview() {
+        // connect to review view
+
     }
 </script>

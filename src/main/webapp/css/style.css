@@ -189,6 +189,10 @@ img {
     justify-content: center;
 }
 
+.box_container:hover {
+    cursor: pointer;
+}
+
 .box_container h3{
     font-weight: bold;
 }
@@ -211,7 +215,7 @@ img {
 }
 
 .popup_window {
-    display: flex;
+    display: block;
     flex-direction: column;
     width: 120vh;
     height: 75vh;
@@ -232,7 +236,9 @@ img {
 }
 
 .popup_window .header_row {
-    height: auto
+    height: auto;
+    align-items: normal;
+
 }
 
 .corner_popup {
@@ -255,6 +261,7 @@ img {
 }
 
 .popup_window .popup_window{
+    display: flex;
     background-color: #ffffff;
     overflow: auto;
     width: 80%;
@@ -316,6 +323,7 @@ table th {
     justify-content: space-evenly;
     height: 5rem;
     margin: 1rem;
+    align-items: center;
 }
 
 .add_popup {
@@ -383,6 +391,7 @@ table th {
 .add_button:hover {
     cursor: pointer;
 }
+
 
 
 

@@ -7,8 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div class="box_container">
+<div class="box_container" onclick="openBox()">
     <div class="box"></div>
     <h3>Element Name </h3>
     <a>sub name</a>
 </div>
+

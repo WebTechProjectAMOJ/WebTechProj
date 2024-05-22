@@ -20,12 +20,10 @@
     <jsp:include page="../components/user_navbar.jsp" />
     <div class="window">
         <jsp:include page="../components/search_header.jsp" />
-        <grid>
-            <jsp:include page="../components/section_row_scroll.jsp" />
-            <jsp:include page="../components/section_row_scroll.jsp" />
-            <jsp:include page="../components/section_row_scroll.jsp" />
-            <jsp:include page="../components/section_row_scroll.jsp" />
-        </grid>
+        <div class="grid">
+            <jsp:include page="../components/section_row_scroll.jsp" /> <!-- display history -->
+            <jsp:include page="../components/section_row_scroll.jsp" /> <!-- display offers -->
+        </div>
     </div>
 </div>
 </body>
