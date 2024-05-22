@@ -2,12 +2,14 @@ package dbconnection;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.*;
+import com.mongodb.client.result.InsertOneResult;
+import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 
 import java.util.ArrayList;
 
 public class DbConnection {
-    static String dbname = "admin";
+    static String dbname = "food_dispatch";
     static String uri = "mongodb://mongo:example@localhost:27017/";
 
     public static Document findOne(String collectionName, Document searchQuery){
@@ -27,11 +29,11 @@ public class DbConnection {
         }
     }
 
-    public static boolean insertOne(String collectionName, Document object){
+    public static InsertOneResult insertOne(String collectionName, Document object){
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase(dbname);
             MongoCollection<Document> collection = database.getCollection(collectionName);
-            return collection.insertOne(object).wasAcknowledged();
+            return collection.insertOne(object);
         }
     }
 
@@ -51,11 +53,19 @@ public class DbConnection {
         }
     }
 
-    public static boolean updateOne(String collectionName, Document searchQuery, BasicDBObject updateQuery){
+    public static UpdateResult updateOne(String collectionName, Document searchQuery, BasicDBObject updateQuery){
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase(dbname);
             MongoCollection<Document> collection = database.getCollection(collectionName);
-            return collection.updateOne(searchQuery, updateQuery).wasAcknowledged();
+            return collection.updateOne(searchQuery, updateQuery);
+        }
+    }
+
+    public static long getCount(String collectionName, Document searchQuery){
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase(dbname);
+            MongoCollection<Document> collection = database.getCollection(collectionName);
+            return collection.countDocuments(searchQuery);
         }
     }
 

@@ -34,10 +34,10 @@ public class TestDBConnection extends HttpServlet {
         System.out.println(num);
         Document object = new Document();
         object.put("x", num);
-        boolean doc = DbConnection.insertOne("testData", object);
+//        boolean doc = DbConnection.insertOne("testData", object);
         PrintWriter out = response.getWriter();
         out.println("<html><body>");
-        out.println("<h1>" + doc + "</h1>");
+//        out.println("<h1>" + doc + "</h1>");
         out.println("</body></html>");
     }
 
