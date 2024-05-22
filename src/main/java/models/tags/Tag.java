@@ -1,5 +1,8 @@
 package models.tags;
 
+import com.mongodb.client.result.InsertOneResult;
+import dbconnection.DbConnection;
+import org.bson.BsonObjectId;
 import org.bson.Document;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.codecs.pojo.annotations.BsonProperty;
@@ -19,6 +22,11 @@ public class Tag {
         this.id = doc.getObjectId("_id");
         this.name = doc.getString("name");
         this.type = doc.getString("type");
+    }
+
+    public Tag(String name, String type) {
+        setName(name);
+        setType(type);
     }
 
     public ObjectId getId() {
@@ -43,5 +51,20 @@ public class Tag {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Document toDocument() {
+        Document doc = new Document();
+        doc.put("name", getName());
+        doc.put("type", getType());
+        return doc;
+    }
+
+    public boolean write(){
+        Document doc = this.toDocument();
+        InsertOneResult written = DbConnection.insertOne("tags",doc);
+        BsonObjectId id = (BsonObjectId) written.getInsertedId();
+        this.setId(new ObjectId(String.valueOf(id.getValue())));
+        return written.wasAcknowledged();
     }
 }

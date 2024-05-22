@@ -69,4 +69,23 @@ public class DbConnection {
         }
     }
 
+    public static ArrayList<String> distinct(String collectionName, String fieldName, Document searchQuery){
+        ArrayList<String> result = new ArrayList<>();
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase(dbname);
+            MongoCollection<Document> collection = database.getCollection(collectionName);
+            DistinctIterable iter = null;
+            if(searchQuery == null){
+                iter = collection.distinct(fieldName, String.class);
+            }
+            else{
+                iter = collection.distinct(fieldName, searchQuery, String.class);
+            }
+            for(Object i : iter){
+                result.add((String) i);
+            }
+        }
+        return result;
+    }
+
 }
