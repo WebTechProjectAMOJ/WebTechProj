@@ -82,6 +82,7 @@
     function closeBox() {
         window.location.href = "./consumer_basket.jsp"; //temporary
 
+        /*
         var status = document.getElementById("status").textContent;
         var session = request.getSession(false);
 
@@ -94,7 +95,7 @@
         if (session.getAttribute("accountType")==="consumer") {
             window.location.href = "./consumer_ongoing.jsp";
         }
-
+        */
         // need to create return to restaurant views and drivers
 
     }
