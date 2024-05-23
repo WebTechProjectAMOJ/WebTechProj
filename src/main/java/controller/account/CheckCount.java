@@ -15,8 +15,6 @@ public class CheckCount extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String key = request.getParameter("key");
         String value = request.getParameter("value");
-        System.out.println(key);
-        System.out.println(value);
         long returnValue = -1;
         switch (key){
             case "username":
