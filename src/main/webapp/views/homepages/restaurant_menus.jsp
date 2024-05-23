@@ -9,11 +9,9 @@
 <html>
 <head>
     <title>Restaurant Menus</title>
-
-    <link rel="stylesheet" href="../../css/login-page-style.css">
-    <link rel="stylesheet" href="../../css/style.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <jsp:useBean id="currentRestaurant" scope="application" class="models.user.Restaurant"/>
 </head>
+<jsp:include page="../includes.jsp"/>
 
 <body>
 <div class="page">
@@ -27,17 +25,19 @@
 </html>
 
 <div class="add_popup" id="add-basket">
-    <form class="form_add" method="post">
-        <h3 style="align-self: center">Element Name</h3>
-        <label>Cost: ...</label>
-        <label> Description: ...</label>
+    <form class="form_add" method="post" action="${pageContext.request.contextPath}/add-to-basket">
+        <h3 style="align-self: center" id="element-name">Element Name</h3>
+        <input style="display: none" id="element-name-data" name="name"/>
+        <label>Cost: <span id="element-cost"></span></label>
+            <label> Description: <span id="element-desc"></span></label>
+        <input style="display: none" id="element-cost-data" name="cost"/>
         <label> Customisations:
-            <input type="text" name="custom" required/>
+            <input type="text" name="custom" value="N/A" required/>
         </label>
         <label> Quantity:
-            <input type="number" name="quantity" required/>
+            <input type="number" name="quantity" step="1" value="1" required/>
         </label>
-
+        <input style="display: none" value="${param.id}" name="forwardto"/>
         <div class="footer">
             <label>Total Cost</label>
             <button type="submit" class="confirm_button" style="background-color: #B5C964;"> Add to Basket</button>
@@ -47,6 +47,21 @@
 </div>
 
 <script>
+    let link = window.location.origin + '/' + window.location.pathname.split('/')[1] + '/';
+
+    $(".box_container").on("click", function (){
+        let hash = $(this).children('.id-data').text();
+        $.get("${link}get-food-item-details", {id:hash}, function (data){
+            console.log(data)
+            $("#element-name").text(data.name);
+            $("#element-name-data").val(data.name);
+            $("#element-cost").text(data.price);
+            $("#element-cost-data").val(data.price);
+            $("#element-desc").text(data.description);
+        })
+        openBox()
+    })
+
     function openBox() {
         document.getElementById("add-basket").style.display = "block";
     }

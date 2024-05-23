@@ -13,6 +13,7 @@ import models.user.*;
 import org.bson.Document;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 @WebServlet(name = "Verify Details", value = "/verify-login")
@@ -31,6 +32,9 @@ public class VerifyLogin extends HttpServlet {
             session.setAttribute("admin", true);
             response.sendRedirect(request.getContextPath() + "/admin-landing");
             return;
+        }
+        if(session.getAttribute("currentbasket") == null) {
+            session.setAttribute("currentbasket", new ArrayList<>());
         }
         String accountType = request.getParameter("account-type");
         Document object = new Document();

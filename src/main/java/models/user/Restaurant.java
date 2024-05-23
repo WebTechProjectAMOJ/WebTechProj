@@ -60,6 +60,10 @@ public class Restaurant extends User implements login {
         setCombos(combos);
     }
 
+    public Restaurant(ObjectId id){
+        this(DbConnection.findOne("restaurants", new Document("_id", id)));
+    }
+
     public boolean write() {
         Document doc = this.toDocument();
         doc.put("address", getAddress());
@@ -153,6 +157,17 @@ public class Restaurant extends User implements login {
                 this.getName(),
                 addrs_str.toString(),
                 "",
-                "");
+                this.getId().toString());
+    }
+
+    public ArrayList<Fooditem> getFoodItemList() {
+        ArrayList<Fooditem> soln = new ArrayList<Fooditem>();
+        for(ObjectId i: this.foodItems){
+            System.out.println(i);
+            Document d = DbConnection.findOne("food_items", new Document("_id", i));
+            Fooditem fooditem = new Fooditem(d);
+            soln.add(fooditem);
+        }
+        return soln;
     }
 }

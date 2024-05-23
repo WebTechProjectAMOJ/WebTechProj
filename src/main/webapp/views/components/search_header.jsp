@@ -15,7 +15,7 @@
         </div>
         <div class="search_bar">
             <div class="search_block">
-                <a> Search for restaurant or food </a>
+                <input id="search-input" name="search-term" placeholder="Search for restaurant or food"/>
             </div>
             <button>SEARCH</button>
         </div>
