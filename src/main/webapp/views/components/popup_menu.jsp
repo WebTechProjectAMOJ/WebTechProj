@@ -13,8 +13,8 @@
             <jsp:include page="../components/rating_stars.jsp" />
         </div>
         <div class="header_text_container">
-            <h2>Restaurant Name</h2>
-            <h3> distance  <u>more info.</u> </h3>
+            <h2>${currentRestaurant.getName()}</h2>
+            <h3> 5kms  <u>more info.</u> </h3>
         </div>
         <div class="corner_popup">
             <button  type="button" class="confirm_button" style="background-color: lightgrey; border-color: black;" onclick="closeMenu()">Close</button>

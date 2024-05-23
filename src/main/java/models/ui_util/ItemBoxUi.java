@@ -1,11 +1,14 @@
 package models.ui_util;
 
+import models.user.login;
+
 public class ItemBoxUi {
     //* A class to be used to represent an Order/Restaurant/Food Item in the UI
     private String name;
     private String sub_name;
     private String photo_url;
     private String action_url;
+    private login user;
 
     public ItemBoxUi() {
     }

@@ -2,6 +2,7 @@ package models.foodItems;
 
 import com.mongodb.client.result.InsertOneResult;
 import dbconnection.DbConnection;
+import models.ui_util.ItemBoxUi;
 import models.user.Restaurant;
 import org.bson.BsonObjectId;
 import org.bson.Document;
@@ -34,6 +35,16 @@ public class Fooditem {
         setTools_req(tools_req);
         setPhoto_url(photo_url);
         setRatings(ratings);
+    }
+
+    public Fooditem(Document document) {
+        setName(document.getString("name"));
+        setPrice(document.getDouble("price"));
+        setId(document.getObjectId("_id"));
+        setTags(document.get("tags", ArrayList.class));
+        setTools_req(document.get("tools_req", ArrayList.class));
+        setPhoto_url(document.getString("photo_url"));
+        setRatings(document.get("ratings", ArrayList.class));
     }
 
     public ObjectId getId() {
@@ -110,5 +121,17 @@ public class Fooditem {
         this.setId(new ObjectId(String.valueOf(id.getValue())));
         boolean res = restaurant.addFoodItem(doc);
         return written.wasAcknowledged() && res;
+    }
+
+    public ItemBoxUi getUiItemBox() {
+        //*Creates a ItemBox object to display in an item box element
+        //*Creates the string from an address object
+
+        /*TODO:Change photo_url and action url*/
+        return new ItemBoxUi(
+                this.getName(),
+                this.getPrice().toString(),
+                this.photo_url,
+                this.getId().toString());
     }
 }
