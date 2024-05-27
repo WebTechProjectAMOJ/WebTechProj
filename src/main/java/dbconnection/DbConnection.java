@@ -7,6 +7,7 @@ import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DbConnection {
     static String dbname = "food_dispatch";
@@ -67,6 +68,20 @@ public class DbConnection {
             MongoCollection<Document> collection = database.getCollection(collectionName);
             return collection.countDocuments(searchQuery);
         }
+    }
+    public static List<Document> getReviews() {
+        List<Document> reviewList = new ArrayList<>();
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase(dbname);
+            MongoCollection<Document> collection = database.getCollection("reviews");
+            FindIterable<Document> reviews = collection.find().sort(new Document("date", -1));
+            for (Document review : reviews) {
+                reviewList.add(review);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return reviewList;
     }
 
 }
