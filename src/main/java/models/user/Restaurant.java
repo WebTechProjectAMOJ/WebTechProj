@@ -156,7 +156,7 @@ public class Restaurant extends User implements login {
         return new ItemBoxUi(
                 this.getName(),
                 addrs_str.toString(),
-                "",
+                "https://uxwing.com/wp-content/themes/uxwing/download/location-travel-map/restaurant-icon.png",
                 this.getId().toString());
     }
 

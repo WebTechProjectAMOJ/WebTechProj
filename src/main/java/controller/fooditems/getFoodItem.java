@@ -33,6 +33,7 @@ public class getFoodItem extends HttpServlet {
         Document json = new Document();
         json.put("name", foodItem.getString("name"));
         json.put("price", foodItem.getDouble("price"));
+        json.put("photo_url", foodItem.getString("photo_url"));
         json.put("description", foodItem.get("tags", ArrayList.class).toString());
         JsonObject jsonObject = new JsonObject(json.toJson());
         PrintWriter out = response.getWriter();
