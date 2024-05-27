@@ -23,7 +23,7 @@ public class viewBasket extends HttpServlet {
         ArrayList<HashMap<String, String>> list = (ArrayList<HashMap<String, String>>) session.getAttribute("currentbasket");
         HashMap<String, ArrayList<ItemBoxUi>> itemHash = new HashMap<>();
         for(HashMap<String, String> item : list) {
-            ItemBoxUi i = new ItemBoxUi(item.get("name"),item.get("cost") + "x" + item.get("quantity"),"","");
+            ItemBoxUi i = new ItemBoxUi(item.get("name"),item.get("cost") + "x" + item.get("quantity"),item.get("photo_url"),"");
             String resname = item.get("forwardto");
             ArrayList<ItemBoxUi> items = new ArrayList<>();
             if(itemHash.containsKey(resname)) {
