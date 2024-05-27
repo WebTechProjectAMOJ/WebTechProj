@@ -29,11 +29,13 @@ public class addToBasket extends HttpServlet {
         String quantity = request.getParameter("quantity");
         String forwardto = request.getParameter("forwardto");
         String customization = request.getParameter("custom");
+        String photo_url = request.getParameter("photo_url");
         orde.put("name", name);
         orde.put("cost", cost);
         orde.put("quantity", quantity);
         orde.put("customization", customization);
         orde.put("restaurant", forwardto);
+        orde.put("photo_url", photo_url);
         getList.add(orde);
         session.setAttribute("currentbasket", getList);
         response.sendRedirect(request.getContextPath() + "/restaurant?id=" + forwardto);

@@ -38,6 +38,7 @@
             <input type="number" name="quantity" step="1" value="1" required/>
         </label>
         <input style="display: none" value="${param.id}" name="forwardto"/>
+        <input style="display: none" value="${param.id}" name="photo_url" id="photo-url"/>
         <div class="footer">
             <label>Total Cost</label>
             <button type="submit" class="confirm_button" style="background-color: #B5C964;"> Add to Basket</button>
@@ -58,6 +59,7 @@
             $("#element-cost").text(data.price);
             $("#element-cost-data").val(data.price);
             $("#element-desc").text(data.description);
+            $("#photo-url").val(data.photo_url)
         })
         openBox()
     })

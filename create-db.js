@@ -135,7 +135,7 @@ db.food_items.insertOne(
     {
         _id: americano_id,
         name: "The americano",
-        price: 2.0,
+        price: 2.10,
         tags: [],
         tools_req: [],
         photo_url: "",
