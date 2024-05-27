@@ -1,31 +1,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="dbconnection.DbConnection"%>
-<%@ page import="org.bson.Document"%>
-<%@ page import="java.util.List"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Reviews</title>
+    <link rel="stylesheet" type="text/css" href="path/to/your/css/file.css">
 </head>
 <body>
-<h1>Comments</h1>
-<%
-    List<Document> reviews = DbConnection.getReviews();
-    for (Document review : reviews) {
-        String username = review.getString("username");
-        int rating = review.getInteger("rating", 0);
-        String comment = review.getString("comment");
-        String date = review.getDate("date").toString();
-%>
-<div class="review">
-    <div class="user">Commenter: <%=username %></div>
-    <div class="star-rating">Stars: <% for (int i = 0; i < rating; i++) { %>&#9733;<% } %></div>
-    <div class="comment"><%=comment %></div>
-    <div class="date"><%=date %></div>
+<div class="reviews_container">
+    <h1>Comments</h1>
+    <c:forEach var="rating" items="${ratings}">
+        <div class="review">
+            <div class="user">Commenter: <c:out value="${rating.consumerId}" /></div>
+            <div class="star-rating">
+                Stars:
+                <c:forEach var="i" begin="1" end="${rating.rating}">
+                    &#9733;
+                </c:forEach>
+            </div>
+            <div class="comment"><c:out value="${rating.feedback}" /></div>
+            <div class="date"><c:out value="${rating.id}" /></div> <!-- Assuming `id` contains date info, adjust as needed -->
+        </div>
+    </c:forEach>
 </div>
-<%
-    }
-%>
 </body>
 </html>
