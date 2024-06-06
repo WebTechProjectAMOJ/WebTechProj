@@ -9,8 +9,8 @@
 
 <div class="navbar">
     <a href="${pageContext.request.contextPath}/customer-landing"> <h3>Dashboard</h3> </a>
-    <a href="${pageContext.request.contextPath}/view-basket"> <h3>Orders</h3> </a>
-    <a href="${pageContext.request.contextPath}/customer-landing">Basket</a>
+    <a href="${pageContext.request.contextPath}/customer-landing"> <h3>Orders</h3> </a>
+    <a href="${pageContext.request.contextPath}/view-basket">Basket</a>
     <a href="../homepages/consumer_ongoing.jsp">Ongoing</a>
     <a href="../homepages/consumer_history.jsp">History</a>
 

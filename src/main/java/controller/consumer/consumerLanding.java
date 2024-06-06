@@ -98,7 +98,7 @@ public class consumerLanding extends HttpServlet {
                 } else {
                     ArrayList<ItemBoxUi> new_cat = new ArrayList<ItemBoxUi>();
                     new_cat.add(order.getUiItemBox());
-                    orders_scroll.put("Recent", new_cat);
+                    orders_scroll.put("Recent Orders", new_cat);
                 }
             }
         }
