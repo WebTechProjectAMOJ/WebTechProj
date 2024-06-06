@@ -18,19 +18,24 @@ import org.bson.types.ObjectId;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Objects;
 
 
 @WebServlet(name = "Consumer Landing", value = "/customer-landing")
 public class consumerLanding extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        // Gets all tags
+        // Check if login
         HttpSession session = req.getSession(false);
         if (session == null || session.getAttribute("accountType") != "customer") {
             resp.sendRedirect(req.getContextPath() + "/");
             return;
         }
+
+        // Create the tags to display
+
         Document to_find = new Document("type", "preference");
         ArrayList<Document> found = DbConnection.find(
                 "tags",
@@ -73,10 +78,34 @@ public class consumerLanding extends HttpServlet {
             resto_hash.remove(tag_name);
         }
 
+        // Create the recent Orders collection
+
+        to_find = new Document("status", "complete");
+        found = DbConnection.find(
+                "orders",
+                to_find
+        );
+
+        HashMap<String, ArrayList<ItemBoxUi>> orders_scroll = new HashMap<String, ArrayList<ItemBoxUi>>();
+
+        for (Document order_doc : found) {
+            Order order = new Order(order_doc);
+
+            if (Objects.equals(order.getStatus(), "complete")) {
+                if (orders_scroll.get("Recent Orders") != null) {
+                    orders_scroll.get("Recent Orders").add(order.getUiItemBox());
+                    Collections.reverse(orders_scroll.get("Recent Orders"));
+                } else {
+                    ArrayList<ItemBoxUi> new_cat = new ArrayList<ItemBoxUi>();
+                    new_cat.add(order.getUiItemBox());
+                    orders_scroll.put("Recent", new_cat);
+                }
+            }
+        }
+
 
         // Sets attributes for the view
-        //TODO: Change the orders to either history or recent
-        req.setAttribute("orders_to_scroll", resto_hash);
+        req.setAttribute("orders_to_scroll", orders_scroll);
         req.setAttribute("tags_to_scroll", resto_hash);
 
         RequestDispatcher dispatcher = req
