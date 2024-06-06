@@ -4,9 +4,12 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.*;
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.client.result.UpdateResult;
+import org.bson.BsonDocument;
 import org.bson.Document;
 
 import java.util.ArrayList;
+
+import static com.mongodb.client.model.Filters.not;
 
 public class DbConnection {
     static String dbname = "food_dispatch";
@@ -86,6 +89,16 @@ public class DbConnection {
             }
         }
         return result;
+    }
+
+
+    public static ArrayList<Document> find_with_not_filter(String collectionName, Document searchQuery){
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase(dbname);
+            MongoCollection<Document> collection = database.getCollection(collectionName);
+            ArrayList<Document> soln = collection.find(not(searchQuery)).into(new ArrayList<>());
+            return soln;
+        }
     }
 
 }
