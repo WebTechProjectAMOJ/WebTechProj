@@ -107,7 +107,7 @@ db.consumers.insertOne(
             allergens: []
         },
         email: "pierre@france.fr",
-        credentials: {username: "Pierre", password: "1234"}
+        credentials: {username: "Pierre", password: "A6xnQhbz4Vx2HuGl4lXwZ5U2I8iziLRFnhP5eNfIRvQ="}
     })
 
 var rating_id1 = ObjectId()
@@ -196,7 +196,7 @@ db.restaurants.insertOne(
         delivery_services: [delivery_service_id],
         orders: [],
         email: "panini.land@france.fr",
-        credentials: {username: "panini", password: "1234"},
+        credentials: {username: "panini", password: "A6xnQhbz4Vx2HuGl4lXwZ5U2I8iziLRFnhP5eNfIRvQ="},
     })
 
 db.restaurants.updateOne({name: "Panini Land"},
@@ -218,7 +218,7 @@ db.drivers.insertOne({
     name: "Star",
     ratings: [rating_id2],
     email: "under.rock@france.fr",
-    credentials: {username: "patric", password: "1234"},
+    credentials: {username: "patric", password: "A6xnQhbz4Vx2HuGl4lXwZ5U2I8iziLRFnhP5eNfIRvQ="},
     tools: [],
     current_pos: "",
     orders: []
