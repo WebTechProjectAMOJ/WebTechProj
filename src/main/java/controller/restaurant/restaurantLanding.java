@@ -34,9 +34,8 @@ public class restaurantLanding extends HttpServlet {
 
 
         // Sets attributes for the view
-        //TODO: Change to new setup
         req.setAttribute("user", resto);
-        req.setAttribute("items_to_scroll", order_hash);
+        req.setAttribute("orders_to_scroll", order_hash);
 
         RequestDispatcher dispatcher = req
                 .getRequestDispatcher("/views/homepages/restaurant_orders_pending.jsp");

@@ -1,4 +1,4 @@
-<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="user" scope="application" class="models.user.User"/>
 <html>
@@ -12,6 +12,7 @@
 </head>
 
 <jsp:include page="../includes.jsp"/>
+<jsp:useBean id="orders_to_scroll" scope="request" type="java.util.HashMap"/>
 
 <body>
 <div class="page">
@@ -24,6 +25,7 @@
             <c:remove var="message"/>
         </c:if>
         <jsp:include page="../components/header.jsp"/>
+        <c:set var="items_to_scroll" value="${orders_to_scroll}" scope="request"/>
         <jsp:include page="../components/section_grid_scroll.jsp"/>
     </div>
 </div>
