@@ -61,6 +61,18 @@ public class consumerLanding extends HttpServlet {
             }
         }
 
+        ArrayList<String> empty_tags = new ArrayList<>();
+
+        for (String tag_name : resto_hash.keySet()) {
+            if (resto_hash.get(tag_name).isEmpty()) {
+                empty_tags.add(tag_name);
+            }
+        }
+
+        for (String tag_name : empty_tags) {
+            resto_hash.remove(tag_name);
+        }
+
 
         // Sets attributes for the view
         req.setAttribute("items_to_scroll", resto_hash);
