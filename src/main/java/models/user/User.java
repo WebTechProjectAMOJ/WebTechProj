@@ -160,5 +160,29 @@ public class User {
         return orders_scroll;
     }
 
+        public HashMap<String, ArrayList<ItemBoxUi>> get_complete_orders() {
+        HashMap<String, ArrayList<ItemBoxUi>> orders_scroll = new HashMap<String, ArrayList<ItemBoxUi>>();
+
+        Document to_find = new Document("status", "complete");
+        ArrayList<Document> found = DbConnection.find(
+                "orders",
+                to_find
+        );
+
+        for (Document order_doc : found) {
+            Order order = new Order(order_doc);
+
+            if (orders_scroll.get(order.getStatus()) != null && this.getOrders().contains(order.getId())) {
+                orders_scroll.get(order.getStatus()).add(order.getUiItemBox());
+            } else {
+                ArrayList<ItemBoxUi> new_cat = new ArrayList<ItemBoxUi>();
+                new_cat.add(order.getUiItemBox());
+                orders_scroll.put(order.getStatus(), new_cat);
+            }
+        }
+
+        return orders_scroll;
+    }
+
 
 }

@@ -9,12 +9,9 @@
 
 <div class="navbar">
     <a href="${pageContext.request.contextPath}/customer-landing"><h3>Dashboard</h3></a>
-    <%--TODO--%>
-    <a href="${pageContext.request.contextPath}/customer-landing"><h3>Orders</h3></a>
-    <%--TODO--%>
     <a href="${pageContext.request.contextPath}/view-basket">Basket</a>
     <a href="${pageContext.request.contextPath}/customer-orders-ongoing">Ongoing</a>
-    <a href="../homepages/consumer_history.jsp">History</a>
+    <a href="${pageContext.request.contextPath}/customer-history">History</a>
 
     <div class="user_nav">
         <div class="account">
