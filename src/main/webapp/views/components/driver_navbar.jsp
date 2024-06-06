@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="navbar">
-    <a href="../homepages/driver_orders_pending.jsp"><h3>Orders</h3></a>
-    <a href="">Pending</a>
+    <a href="${pageContext.request.contextPath}/driver-landing"><h3>Orders</h3></a>
+    <a href="${pageContext.request.contextPath}/driver-pending">Pending</a>
+    <%--TODO--%>
     <a href="">Open</a>
-    <a href="">History</a>
+    <a href="${pageContext.request.contextPath}/driver-history">History</a>
     <a href=""><h3>Reviews</h3></a>
 
     <div class="user_nav">
