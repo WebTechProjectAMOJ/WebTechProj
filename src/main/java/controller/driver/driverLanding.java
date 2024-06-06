@@ -33,6 +33,7 @@ public class driverLanding extends HttpServlet {
         HashMap<String, ArrayList<ItemBoxUi>> order_hash = driver.getUIHashOrderStatus();
 
         // Sets attributes for the view
+        //TODO: Change to new setup
         req.setAttribute("user", driver);
         req.setAttribute("items_to_scroll", order_hash);
 

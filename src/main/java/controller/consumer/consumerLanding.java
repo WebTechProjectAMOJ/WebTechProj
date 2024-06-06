@@ -75,7 +75,9 @@ public class consumerLanding extends HttpServlet {
 
 
         // Sets attributes for the view
-        req.setAttribute("items_to_scroll", resto_hash);
+        //TODO: Change the orders to either history or recent
+        req.setAttribute("orders_to_scroll", resto_hash);
+        req.setAttribute("tags_to_scroll", resto_hash);
 
         RequestDispatcher dispatcher = req
                 .getRequestDispatcher("/views/homepages/consumer_dashboard.jsp");
