@@ -160,14 +160,16 @@ public class Consumer extends User implements login {
         for (Document order_doc : found) {
             Order order = new Order(order_doc);
 
-            if (Objects.equals(order.getStatus(), "complete") && this.getOrders().contains(order.getId())) {
-                if (orders_scroll.get("Recent Orders") != null) {
-                    orders_scroll.get("Recent Orders").add(order.getUiItemBox());
-                    Collections.reverse(orders_scroll.get("Recent Orders"));
-                } else {
-                    ArrayList<ItemBoxUi> new_cat = new ArrayList<ItemBoxUi>();
-                    new_cat.add(order.getUiItemBox());
-                    orders_scroll.put("Recent Orders", new_cat);
+            if (this.getOrders().contains(order.getId())) {
+                if (Objects.equals(order.getStatus(), "complete")) {
+                    if (orders_scroll.get("Recent Orders") != null) {
+                        orders_scroll.get("Recent Orders").add(order.getUiItemBox());
+                        Collections.reverse(orders_scroll.get("Recent Orders"));
+                    } else {
+                        ArrayList<ItemBoxUi> new_cat = new ArrayList<ItemBoxUi>();
+                        new_cat.add(order.getUiItemBox());
+                        orders_scroll.put("Recent Orders", new_cat);
+                    }
                 }
             }
         }
