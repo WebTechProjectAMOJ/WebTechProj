@@ -3,6 +3,8 @@ package models.user;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.result.InsertOneResult;
 import dbconnection.DbConnection;
+import models.items.Combo;
+import models.order.Order;
 import models.ui_util.ItemBoxUi;
 import models.foodItems.Fooditem;
 import org.bson.BsonObjectId;
@@ -10,7 +12,9 @@ import org.bson.Document;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.json.JsonObject;
 import org.bson.types.ObjectId;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Restaurant extends User implements login {
     @BsonProperty(value = "food_items")
@@ -60,7 +64,7 @@ public class Restaurant extends User implements login {
         setCombos(combos);
     }
 
-    public Restaurant(ObjectId id){
+    public Restaurant(ObjectId id) {
         this(DbConnection.findOne("restaurants", new Document("_id", id)));
     }
 
@@ -126,7 +130,7 @@ public class Restaurant extends User implements login {
         this.combos = combos;
     }
 
-    public boolean addFoodItem(Document foodItem){
+    public boolean addFoodItem(Document foodItem) {
         ObjectId id = (ObjectId) foodItem.get("_id");
         Document find = new Document("_id", this.getId());
         BasicDBObject update = new BasicDBObject("food_items", id);
@@ -162,12 +166,59 @@ public class Restaurant extends User implements login {
 
     public ArrayList<Fooditem> getFoodItemList() {
         ArrayList<Fooditem> soln = new ArrayList<Fooditem>();
-        for(ObjectId i: this.foodItems){
+        for (ObjectId i : this.foodItems) {
             System.out.println(i);
             Document d = DbConnection.findOne("food_items", new Document("_id", i));
             Fooditem fooditem = new Fooditem(d);
             soln.add(fooditem);
         }
         return soln;
+    }
+
+    public HashMap<String, ArrayList<ItemBoxUi>> get_food_items_ui() {
+        HashMap<String, ArrayList<ItemBoxUi>> food_items = new HashMap<String, ArrayList<ItemBoxUi>>();
+
+        for (ObjectId food_item_id : this.getFoodItems()) {
+            Document food_item_to_find = new Document("_id", food_item_id);
+            Document found = DbConnection.findOne(
+                    "food_items",
+                    food_item_to_find
+            );
+            Fooditem food_item = new Fooditem(found);
+
+            if (food_items.get("Food Items") != null) {
+                food_items.get("Food Items").add(food_item.getUiItemBox());
+            } else {
+                ArrayList<ItemBoxUi> new_cat = new ArrayList<ItemBoxUi>();
+                new_cat.add(food_item.getUiItemBox());
+                food_items.put("Food Items", new_cat);
+            }
+        }
+
+        return food_items;
+
+    }
+
+    public HashMap<String, ArrayList<ItemBoxUi>> get_offers_ui() {
+                HashMap<String, ArrayList<ItemBoxUi>> food_items = new HashMap<String, ArrayList<ItemBoxUi>>();
+
+        for (ObjectId combo_id : this.getCombos()) {
+            Document combos_to_find = new Document("_id", combo_id);
+            Document found = DbConnection.findOne(
+                    "combos",
+                    combos_to_find
+            );
+            Combo combo = new Combo(found);
+
+            if (food_items.get("Offers") != null) {
+                food_items.get("Offers").add(combo.getUiItemBox());
+            } else {
+                ArrayList<ItemBoxUi> new_cat = new ArrayList<ItemBoxUi>();
+                new_cat.add(combo.getUiItemBox());
+                food_items.put("Offers", new_cat);
+            }
+        }
+
+        return food_items;
     }
 }
