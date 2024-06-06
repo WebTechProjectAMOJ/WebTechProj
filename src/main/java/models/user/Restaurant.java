@@ -3,6 +3,7 @@ package models.user;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.result.InsertOneResult;
 import dbconnection.DbConnection;
+import models.items.Combo;
 import models.order.Order;
 import models.ui_util.ItemBoxUi;
 import models.foodItems.Fooditem;
@@ -196,5 +197,28 @@ public class Restaurant extends User implements login {
 
         return food_items;
 
+    }
+
+    public HashMap<String, ArrayList<ItemBoxUi>> get_offers_ui() {
+                HashMap<String, ArrayList<ItemBoxUi>> food_items = new HashMap<String, ArrayList<ItemBoxUi>>();
+
+        for (ObjectId combo_id : this.getCombos()) {
+            Document combos_to_find = new Document("_id", combo_id);
+            Document found = DbConnection.findOne(
+                    "combos",
+                    combos_to_find
+            );
+            Combo combo = new Combo(found);
+
+            if (food_items.get("Offers") != null) {
+                food_items.get("Offers").add(combo.getUiItemBox());
+            } else {
+                ArrayList<ItemBoxUi> new_cat = new ArrayList<ItemBoxUi>();
+                new_cat.add(combo.getUiItemBox());
+                food_items.put("Offers", new_cat);
+            }
+        }
+
+        return food_items;
     }
 }

@@ -19,7 +19,6 @@
     <div class="window">
         <jsp:include page="../components/header.jsp"/>
         <c:set var="items_to_scroll" value="${food_items_to_scroll}" scope="request"/>
-
         <jsp:include page="../components/section_grid_scroll.jsp"/>
         <div class="footer">
             <button type="button" class="confirm_button" style="background-color: #B5C964" onclick="openCat()"> Add Menu

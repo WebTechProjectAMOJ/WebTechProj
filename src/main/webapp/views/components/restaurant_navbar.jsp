@@ -11,7 +11,7 @@
     <a href=""><h3>Manage</h3></a>
     <a href="${pageContext.request.contextPath}/restaurant-menu-management">Menu</a>
     <%--TODO--%>
-    <a href="${pageContext.request.contextPath}/views/homepages/restaurant_offer_management.jsp">Offers</a>
+    <a href="${pageContext.request.contextPath}/restaurant-offer-management">Offers</a>
     <%--TODO--%>
     <a href="${pageContext.request.contextPath}/views/create-food-item">Add Food Item</a>
     <%--TODO--%>
