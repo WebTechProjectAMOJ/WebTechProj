@@ -14,9 +14,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
-@WebServlet(name = "Consumer Landing", value = "/customer-landing")
-public class consumerLanding extends HttpServlet {
+@WebServlet(name = "Consumer History", value = "/customer-history")
+public class consumerHistory extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         // Check if login
@@ -28,16 +27,13 @@ public class consumerLanding extends HttpServlet {
 
         Consumer user = (Consumer) session.getAttribute("user");
 
-        HashMap<String, ArrayList<ItemBoxUi>> resto_hash = user.get_restaurant_options();
-        HashMap<String, ArrayList<ItemBoxUi>> orders_scroll = user.get_recent_orders();
-
+        HashMap<String, ArrayList<ItemBoxUi>> orders_scroll = user.get_complete_orders();
 
         // Sets attributes for the view
         req.setAttribute("orders_to_scroll", orders_scroll);
-        req.setAttribute("tags_to_scroll", resto_hash);
 
         RequestDispatcher dispatcher = req
-                .getRequestDispatcher("/views/homepages/consumer_dashboard.jsp");
+                .getRequestDispatcher("/views/homepages/consumer_history.jsp");
 
         dispatcher.forward(req, resp);
 

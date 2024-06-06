@@ -79,6 +79,7 @@ body {
     left: 10%;
     background-color: #ffffff;
     color: #4B4C49;
+    overflow: scroll;
 }
 
 .header_row{
@@ -379,7 +380,7 @@ table th {
 }
 
 .grid {
-    overflow: auto;
+    overflow: visible;
 }
 
 .order_exit {
@@ -405,5 +406,10 @@ table th {
 
 
 
-
+.background-colour-gray {
+    background: lightgray;
+    border: 2px solid #B5C964;
+    border-radius: 25px;
+    margin: 10px;
+}
 

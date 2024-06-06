@@ -1,5 +1,6 @@
 package controller.consumer;
 
+import dbconnection.DbConnection;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,8 +16,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-@WebServlet(name = "Consumer Landing", value = "/customer-landing")
-public class consumerLanding extends HttpServlet {
+@WebServlet(name = "Consumer Ongoing", value = "/customer-orders-ongoing")
+public class consumerOngoing extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         // Check if login
@@ -27,17 +28,14 @@ public class consumerLanding extends HttpServlet {
         }
 
         Consumer user = (Consumer) session.getAttribute("user");
-
-        HashMap<String, ArrayList<ItemBoxUi>> resto_hash = user.get_restaurant_options();
-        HashMap<String, ArrayList<ItemBoxUi>> orders_scroll = user.get_recent_orders();
+        HashMap<String, ArrayList<ItemBoxUi>> orders_scroll = user.get_not_complete_orders();
 
 
         // Sets attributes for the view
         req.setAttribute("orders_to_scroll", orders_scroll);
-        req.setAttribute("tags_to_scroll", resto_hash);
 
         RequestDispatcher dispatcher = req
-                .getRequestDispatcher("/views/homepages/consumer_dashboard.jsp");
+                .getRequestDispatcher("/views/homepages/consumer_ongoing.jsp");
 
         dispatcher.forward(req, resp);
 

@@ -119,7 +119,7 @@ public class User {
     public HashMap<String, ArrayList<ItemBoxUi>> getUIHashOrderStatus() {
         HashMap<String, ArrayList<ItemBoxUi>> order_hash = new HashMap<String, ArrayList<ItemBoxUi>>();
         for (Order ord : this.getListOrders()) {
-            if (order_hash.get(ord.getStatus()) != null) {
+            if (order_hash.get(ord.getStatus()) != null && this.getOrders().contains(ord.getId())) {
                 order_hash.get(ord.getStatus()).add(ord.getUiItemBox());
             } else {
                 ArrayList<ItemBoxUi> new_stat = new ArrayList<ItemBoxUi>();
@@ -130,8 +130,59 @@ public class User {
         return order_hash;
     }
 
-    public String getAccountType(){
+    public String getAccountType() {
         return accountType;
     }
+
+
+    public HashMap<String, ArrayList<ItemBoxUi>> get_not_complete_orders() {
+        HashMap<String, ArrayList<ItemBoxUi>> orders_scroll = new HashMap<String, ArrayList<ItemBoxUi>>();
+
+        Document to_find = new Document("status", "complete");
+        ArrayList<Document> found = DbConnection.find_with_not_filter(
+                "orders",
+                to_find
+        );
+
+
+        for (Document order_doc : found) {
+            Order order = new Order(order_doc);
+
+            if (orders_scroll.get(order.getStatus()) != null && this.getOrders().contains(order.getId())) {
+                orders_scroll.get(order.getStatus()).add(order.getUiItemBox());
+            } else {
+                ArrayList<ItemBoxUi> new_cat = new ArrayList<ItemBoxUi>();
+                new_cat.add(order.getUiItemBox());
+                orders_scroll.put(order.getStatus(), new_cat);
+            }
+        }
+
+        return orders_scroll;
+    }
+
+        public HashMap<String, ArrayList<ItemBoxUi>> get_complete_orders() {
+        HashMap<String, ArrayList<ItemBoxUi>> orders_scroll = new HashMap<String, ArrayList<ItemBoxUi>>();
+
+        Document to_find = new Document("status", "complete");
+        ArrayList<Document> found = DbConnection.find(
+                "orders",
+                to_find
+        );
+
+        for (Document order_doc : found) {
+            Order order = new Order(order_doc);
+
+            if (orders_scroll.get(order.getStatus()) != null && this.getOrders().contains(order.getId())) {
+                orders_scroll.get(order.getStatus()).add(order.getUiItemBox());
+            } else {
+                ArrayList<ItemBoxUi> new_cat = new ArrayList<ItemBoxUi>();
+                new_cat.add(order.getUiItemBox());
+                orders_scroll.put(order.getStatus(), new_cat);
+            }
+        }
+
+        return orders_scroll;
+    }
+
 
 }
