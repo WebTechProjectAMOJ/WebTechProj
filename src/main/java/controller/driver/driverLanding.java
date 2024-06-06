@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-@WebServlet(name = "Driver Landing", urlPatterns = {"/driver-landing", "/driver-pending"})
+@WebServlet(name = "Driver Landing", urlPatterns = {"/driver-landing", "/driver-pending", "/driver-history"})
 public class driverLanding extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -41,6 +41,10 @@ public class driverLanding extends HttpServlet {
 
         if (url.equals("driver-pending")) {
             order_hash = driver.get_not_complete_orders();
+        }
+
+        if (url.equals("driver-history")) {
+            order_hash = driver.get_complete_orders();
         }
 
         // Sets attributes for the view

@@ -3,8 +3,9 @@
 <div class="navbar">
     <a href="${pageContext.request.contextPath}/driver-landing"><h3>Orders</h3></a>
     <a href="${pageContext.request.contextPath}/driver-pending">Pending</a>
+    <%--TODO--%>
     <a href="">Open</a>
-    <a href="">History</a>
+    <a href="${pageContext.request.contextPath}/driver-history">History</a>
     <a href=""><h3>Reviews</h3></a>
 
     <div class="user_nav">
