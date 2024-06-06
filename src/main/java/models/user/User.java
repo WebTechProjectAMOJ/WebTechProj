@@ -160,7 +160,7 @@ public class User {
         return orders_scroll;
     }
 
-        public HashMap<String, ArrayList<ItemBoxUi>> get_complete_orders() {
+    public HashMap<String, ArrayList<ItemBoxUi>> get_complete_orders() {
         HashMap<String, ArrayList<ItemBoxUi>> orders_scroll = new HashMap<String, ArrayList<ItemBoxUi>>();
 
         Document to_find = new Document("status", "complete");

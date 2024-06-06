@@ -1,21 +1,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="navbar">
-    <a href="${pageContext.request.contextPath}/restaurant-landing"><h3>Orders</h3></a>
-    <%--TODO--%>
-    <a href="../homepages/restaurant_orders_pending.jsp">Pending</a>
+    <a href=""><h3>Orders</h3></a>
+    <a href="${pageContext.request.contextPath}/restaurant-landing">All</a>
+    <a href="${pageContext.request.contextPath}/restaurant-orders-pending">Pending</a>
     <%--TODO--%>
     <a href="../homepages/restaurant_orders_open.jsp">Open</a>
+    <a href="${pageContext.request.contextPath}/restaurant-orders-history">History</a>
+
+    <a href=""><h3>Manage</h3></a>
+    <a href="${pageContext.request.contextPath}/restaurant-menu-management">Menu</a>
     <%--TODO--%>
-    <a href="../homepages/restaurant_orders_history.jsp">History</a>
+    <a href="${pageContext.request.contextPath}/views/homepages/restaurant_offer_management.jsp">Offers</a>
     <%--TODO--%>
-    <a href="../homepages/restaurant_menu_management.jsp"><h3>Manage</h3></a>
-    <%--TODO--%>
-    <a href="../homepages/restaurant_menu_management.jsp">Menu</a>
-    <%--TODO--%>
-    <a href="../homepages/restaurant_offer_management.jsp">Offers</a>
-    <%--TODO--%>
-    <a href="./create-food-item">Add Food Item</a>
+    <a href="${pageContext.request.contextPath}/views/create-food-item">Add Food Item</a>
     <%--TODO--%>
     <a href=""><h3>Reviews</h3></a>
 
