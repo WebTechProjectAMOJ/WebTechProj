@@ -8,6 +8,7 @@ import org.bson.BsonDocument;
 import org.bson.Document;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.mongodb.client.model.Filters.not;
 
@@ -69,6 +70,13 @@ public class DbConnection {
             MongoDatabase database = mongoClient.getDatabase(dbname);
             MongoCollection<Document> collection = database.getCollection(collectionName);
             return collection.countDocuments(searchQuery);
+        }
+    }
+    public static List<Document> getReviews(String collectionName) {
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase(dbname);
+            MongoCollection<Document> collection = database.getCollection(collectionName);
+            return collection.find().sort(new Document("date", -1)).into(new ArrayList<>());
         }
     }
 
