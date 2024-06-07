@@ -2,6 +2,8 @@ package models.user;
 
 import com.mongodb.client.result.InsertOneResult;
 import dbconnection.DbConnection;
+import models.ratings.Rating;
+import models.ui_util.RatingBoxUi;
 import org.bson.BsonObjectId;
 import org.bson.Document;
 import org.bson.codecs.pojo.annotations.BsonProperty;
@@ -9,6 +11,7 @@ import org.bson.json.JsonObject;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Driver extends User implements login {
@@ -96,5 +99,39 @@ public class Driver extends User implements login {
 
     public boolean equals(Object O){
         return O instanceof Driver && this.getId().equals(((Driver) O).getId());
+    }
+
+    public HashMap<Integer, ArrayList<RatingBoxUi>> getReviewsHash() {
+        HashMap<Integer, ArrayList<RatingBoxUi>> driver_reviews = new HashMap<Integer, ArrayList<RatingBoxUi>>();
+
+        for (ObjectId rating_id : this.getRatings()) {
+            Document ratings_to_find = new Document("_id", rating_id);
+            Document found = DbConnection.findOne(
+                    "ratings",
+                    ratings_to_find
+            );
+            Rating rating = new Rating(found);
+
+            RatingBoxUi rating_ui =
+                    new RatingBoxUi(
+                            "",
+                            "By " + rating.get_author().getName(),
+                            "",
+                            "",
+                            rating.getRating(),
+                            rating.getFeedback()
+                    );
+
+
+            if (driver_reviews.get(rating.getRating()) != null) {
+                driver_reviews.get(rating.getRating()).add(rating_ui);
+            } else {
+                ArrayList<RatingBoxUi> new_cat = new ArrayList<RatingBoxUi>();
+                new_cat.add(rating_ui);
+                driver_reviews.put(rating.getRating(), new_cat);
+            }
+        }
+
+        return driver_reviews;
     }
 }

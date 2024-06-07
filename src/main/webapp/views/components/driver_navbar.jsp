@@ -6,7 +6,7 @@
     <%--TODO--%>
     <a href="">Open</a>
     <a href="${pageContext.request.contextPath}/driver-history">History</a>
-    <a href=""><h3>Reviews</h3></a>
+    <a href="${pageContext.request.contextPath}/driver-reviews"><h3>Reviews</h3></a>
 
     <div class="user_nav">
         <div class="account">
