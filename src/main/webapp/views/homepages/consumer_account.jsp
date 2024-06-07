@@ -19,14 +19,14 @@
     <div class="window">
         <jsp:include page="../components/header.jsp" />
         <div class="popup_window" style="align-self: center; position: static; overflow-y: auto; padding: 1rem ; width: 100vh;">
-            <a class="section_title" style="border:None;">Username & Password</a>
+            <a class="section_title" style="border:None;">Personal Details</a>
             <div class="divider"></div>
             <div class="grid_container" style="grid-template-columns: auto auto;">
                 <a> Change Username: </a>
                 <div class="setting_inputs">
                     <form action="" method="POST" id="change-username-form">
                         <input type="text" class="form-control" placeholder="New username"
-                               aria-label="New username" aria-describedby="button-addon2" name="username">
+                               aria-label="New username" name="username">
                         <input type="hidden" name="update" value="username"/>
                     </form>
                     <button class="confirm_button" form="change-username-form" type="button" id="edit_user_btn">Confirm Change</button>
@@ -35,7 +35,7 @@
                 <div class="setting_inputs">
                     <form action="" method="POST" id="change-pwd-form">
                         <input type="text" class="form-control" placeholder="New password" id="password" name="password"
-                               aria-label="New password" aria-describedby="button-addon2">
+                               aria-label="New password">
                         <input type="hidden" name="update" value="password"/>
                     </form>
                     <button class="confirm_button" form="change-pwd-form" type="button" id="edit_pass_btn">Confirm Change</button>
@@ -44,7 +44,7 @@
                 <div class="setting_inputs">
                     <form action="" method="POST" id="change-name-form">
                         <input type="text" class="form-control" name="name" id="name" placeholder="New name"
-                               aria-label="New name" aria-describedby="button-addon2">
+                               aria-label="New name">
                         <input type="hidden" name="update" value="name"/>
                     </form>
                     <button class="confirm_button" form="change-name-form" type="button" id="edit_name_btn">Confirm Change</button>
@@ -53,7 +53,7 @@
                 <div class="setting_inputs">
                     <form action="" method="POST" id="change-firstname-form">
                         <input type="text" class="form-control" name="firstname" id="firstname" placeholder="New first name"
-                               aria-label="New firstname" aria-describedby="button-addon2">
+                               aria-label="New firstname">
                         <input type="hidden" name="update" value="name"/>
                     </form>
                     <button class="confirm_button" form="change-firstname-form" type="button" id="edit_firstname_btn">Confirm Change</button>
@@ -62,7 +62,7 @@
                 <div class="setting_inputs">
                     <form action="" method="POST" id="change-email-form">
                         <input type="text" class="form-control" name="email" id="email" placeholder="New email"
-                               aria-label="New email" aria-describedby="button-addon2">
+                               aria-label="New email">
                         <input type="hidden" name="update" value="email"/>
                     </form>
                     <button class="confirm_button" form="change-email-form" type="button" id="edit_email_btn">Confirm Change</button>
