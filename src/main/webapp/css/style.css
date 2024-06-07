@@ -467,6 +467,54 @@ table th {
     cursor: pointer;
 }
 
+.grid_container {
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1% 2%;
+    margin-bottom: 2rem;
+}
+
+.setting_inputs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.setting_inputs input {
+    height: 2rem;
+    width: 20rem;
+}
+
+.setting_inputs textarea {
+    height: auto;
+    width: 20rem;
+}
+
+.address_select {
+    height: 2rem;
+    font-size: medium;
+    border-radius: .5rem;
+    width: 20rem;
+}
+
+.divider {
+    height: .2rem;
+    width: 100%;
+    background-color: black;
+}
+
+.grid_container .chosen-container-multi .chosen-choices {
+    width: 20rem;
+    overflow: auto;
+}
+
+.grid_container .chosen-container-single .chosen-default {
+    width: 20rem;
+    height: 2rem;
+    font-size: medium;
+}
+
 .background-colour-gray {
     background: lightgray;
     border: 2px solid #B5C964;
