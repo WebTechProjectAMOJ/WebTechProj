@@ -4,9 +4,10 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.result.InsertOneResult;
 import dbconnection.DbConnection;
 import models.items.Combo;
-import models.order.Order;
+import models.ratings.Rating;
 import models.ui_util.ItemBoxUi;
 import models.foodItems.Fooditem;
+import models.ui_util.RatingBoxUi;
 import org.bson.BsonObjectId;
 import org.bson.Document;
 import org.bson.codecs.pojo.annotations.BsonProperty;
@@ -210,7 +211,7 @@ public class Restaurant extends User implements login {
     }
 
     public HashMap<String, ArrayList<ItemBoxUi>> get_offers_ui() {
-                HashMap<String, ArrayList<ItemBoxUi>> food_items = new HashMap<String, ArrayList<ItemBoxUi>>();
+        HashMap<String, ArrayList<ItemBoxUi>> food_items = new HashMap<String, ArrayList<ItemBoxUi>>();
 
         for (ObjectId combo_id : this.getCombos()) {
             Document combos_to_find = new Document("_id", combo_id);
@@ -232,6 +233,118 @@ public class Restaurant extends User implements login {
         return food_items;
     }
 
+    public HashMap<String, ArrayList<RatingBoxUi>> get_food_item_reviews() {
+        HashMap<String, ArrayList<RatingBoxUi>> foodItem_reviews = new HashMap<String, ArrayList<RatingBoxUi>>();
+
+        for (ObjectId food_item_id : this.getFoodItems()) {
+            Document food_item_to_find = new Document("_id", food_item_id);
+            Document found = DbConnection.findOne(
+                    "food_items",
+                    food_item_to_find
+            );
+            Fooditem food_item = new Fooditem(found);
+
+            ArrayList<Rating> ratings = food_item.getRatingsBuilt();
+            ArrayList<RatingBoxUi> ratings_ui = new ArrayList<>();
+
+            for (Rating rating : ratings) {
+                ratings_ui.add(
+                        new RatingBoxUi(
+                                food_item.getName(),
+                                "By " + rating.get_author().getName(),
+                                "",
+                                "",
+                                rating.getRating(),
+                                rating.getFeedback()
+                        ));
+            }
+
+
+            if (foodItem_reviews.get(food_item.getName()) != null) {
+                foodItem_reviews.get(food_item.getName()).addAll(ratings_ui);
+            } else {
+                ArrayList<RatingBoxUi> new_cat = new ArrayList<RatingBoxUi>(ratings_ui);
+                foodItem_reviews.put(food_item.getName(), new_cat);
+            }
+        }
+
+        return foodItem_reviews;
+    }
+
+    public HashMap<String, ArrayList<RatingBoxUi>> get_offer_reviews() {
+        HashMap<String, ArrayList<RatingBoxUi>> offer_reviews = new HashMap<String, ArrayList<RatingBoxUi>>();
+
+        for (ObjectId combo_id : this.getCombos()) {
+            Document combo_to_find = new Document("_id", combo_id);
+            Document found = DbConnection.findOne(
+                    "combos",
+                    combo_to_find
+            );
+            Combo combo = new Combo(found);
+
+            ArrayList<Rating> ratings = combo.getRatingsBuilt();
+            ArrayList<RatingBoxUi> ratings_ui = new ArrayList<>();
+
+            for (Rating rating : ratings) {
+                ratings_ui.add(
+                        new RatingBoxUi(
+                                combo.getName(),
+                                "By " + rating.get_author().getName(),
+                                "",
+                                "",
+                                rating.getRating(),
+                                rating.getFeedback()
+                        ));
+            }
+
+
+            if (offer_reviews.get(combo.getName()) != null) {
+                offer_reviews.get(combo.getName()).addAll(ratings_ui);
+            } else {
+                ArrayList<RatingBoxUi> new_cat = new ArrayList<RatingBoxUi>(ratings_ui);
+                offer_reviews.put(combo.getName(), new_cat);
+            }
+        }
+
+        return offer_reviews;
+    }
+
+    public HashMap<Integer, ArrayList<RatingBoxUi>> get_resto_reviews() {
+        HashMap<Integer, ArrayList<RatingBoxUi>> resto_reviews = new HashMap<Integer, ArrayList<RatingBoxUi>>();
+
+        for (ObjectId rating_id : this.getRatings()) {
+            Document ratings_to_find = new Document("_id", rating_id);
+            Document found = DbConnection.findOne(
+                    "ratings",
+                    ratings_to_find
+            );
+            Rating rating = new Rating(found);
+
+            RatingBoxUi rating_ui =
+                    new RatingBoxUi(
+                            "",
+                            "By " + rating.get_author().getName(),
+                            "",
+                            "",
+                            rating.getRating(),
+                            rating.getFeedback()
+                    );
+
+
+            if (resto_reviews.get(rating.getRating()) != null) {
+                resto_reviews.get(rating.getRating()).add(rating_ui);
+            } else {
+                ArrayList<RatingBoxUi> new_cat = new ArrayList<RatingBoxUi>();
+                new_cat.add(rating_ui);
+                resto_reviews.put(rating.getRating(), new_cat);
+            }
+        }
+
+        System.out.println(resto_reviews);
+
+        return resto_reviews;
+    }
+  
     @Override
     public boolean equals(Object O){
         return O instanceof Restaurant && this.getId().equals(((Restaurant) O).getId());

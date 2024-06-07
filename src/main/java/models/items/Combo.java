@@ -1,5 +1,8 @@
 package models.items;
 
+import dbconnection.DbConnection;
+import models.foodItems.Fooditem;
+import models.ratings.Rating;
 import models.ui_util.ItemBoxUi;
 import org.bson.Document;
 import org.bson.codecs.pojo.annotations.BsonId;
@@ -25,7 +28,7 @@ public class Combo {
         setPrice(document.getDouble("price"));
         setId(document.getObjectId("_id"));
         setTags(document.get("tags", ArrayList.class));
-        setTags(document.get("food_items", ArrayList.class));
+        setFoodItems(document.get("food_items", ArrayList.class));
     }
 
     public ObjectId getId() {
@@ -76,5 +79,23 @@ public class Combo {
                 "",
                 ""
         );
+    }
+
+
+    public ArrayList<Rating> getRatingsBuilt() {
+        ArrayList<Rating> ratings = new ArrayList<>();
+
+        for (ObjectId food_item_id : this.getFoodItems()) {
+            Document to_find = new Document("_id", food_item_id);
+            Document found = DbConnection.findOne(
+                    "food_items",
+                    to_find
+            );
+            Fooditem fooditem = new Fooditem(found);
+
+            ratings.addAll(fooditem.getRatingsBuilt());
+        }
+
+        return ratings;
     }
 }
