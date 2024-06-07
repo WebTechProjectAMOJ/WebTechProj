@@ -7,6 +7,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import models.order.Order;
+import models.order.OrderItems;
+import models.user.Consumer;
+import models.user.Restaurant;
+import models.user.login;
 import org.bson.Document;
 import org.bson.json.JsonObject;
 import org.bson.types.ObjectId;
@@ -22,22 +27,30 @@ public class addToBasket extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        ArrayList<HashMap<String, String>> getList = (ArrayList<HashMap<String, String>>) session.getAttribute("currentbasket");
-        HashMap<String, String> orde = new HashMap<>();
-        String name = request.getParameter("name");
-        String cost = request.getParameter("cost");
+        HashMap<Restaurant, Order> orders = (HashMap<Restaurant, Order>) session.getAttribute("Basket");
+        String idHash = request.getParameter("idHash");
+        ObjectId id = new ObjectId(idHash);
         String quantity = request.getParameter("quantity");
+        int quantityInt = Integer.parseInt(quantity);
         String forwardto = request.getParameter("forwardto");
         String customization = request.getParameter("custom");
-        String photo_url = request.getParameter("photo_url");
-        orde.put("name", name);
-        orde.put("cost", cost);
-        orde.put("quantity", quantity);
-        orde.put("customization", customization);
-        orde.put("restaurant", forwardto);
-        orde.put("photo_url", photo_url);
-        getList.add(orde);
-        session.setAttribute("currentbasket", getList);
+        String restaurantId = request.getParameter("restaurantId");
+        System.out.println(id);
+        ObjectId restaurantIdObj = new ObjectId(restaurantId);
+        Restaurant restaurant = new Restaurant(restaurantIdObj);
+        OrderItems newOrder = new OrderItems(id, quantityInt, customization);
+        Consumer user = (Consumer) session.getAttribute("user");
+        Order order = null;
+        if(orders.containsKey(restaurant)) {
+            System.out.println("Restaurant already exists");
+            order = orders.get(restaurant);
+        }
+        else{
+            order = new Order(user.getId(), restaurantIdObj);
+        }
+        order.addOrder_item(newOrder);
+        orders.put(restaurant, order);
+        session.setAttribute("Basket", orders);
         response.sendRedirect(request.getContextPath() + "/restaurant?id=" + forwardto);
     }
 

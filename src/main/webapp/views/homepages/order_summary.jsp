@@ -9,10 +9,7 @@
 <html>
 <head>
     <title>Order Summary</title>
-
-    <link rel="stylesheet" href="../../css/login-page-style.css">
-    <link rel="stylesheet" href="../../css/style.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <jsp:include page="../includes.jsp"/>
 </head>
 
 <body>
@@ -58,7 +55,7 @@
                 <!-- If status === basket show pay button-->
                <button class="confirm_button" onclick="payOrder()">Confirm & Pay</button>
                <button  type="button" class="confirm_button" style="background-color: lightgrey; border-color: black;" onclick="closeBox()">Close</button>
-               <!-- If status == history && consumer session
+               <!-- If status == history && customer session
                <button  type="button" class="confirm_button" style="background-color: darkorange; border-color: white;" onclick="openReview()">Review</button>
 
                delete button for history orders
@@ -89,10 +86,10 @@
         if (status === "Basket") {
             window.location.href = "./consumer_basket.jsp";
         }
-        if (status === "History" && session.getAttribute("accountType")==="consumer") {
+        if (status === "History" && session.getAttribute("accountType")==="customer") {
             window.location.href = "./consumer_history.jsp";
         }
-        if (session.getAttribute("accountType")==="consumer") {
+        if (session.getAttribute("accountType")==="customer") {
             window.location.href = "./consumer_ongoing.jsp";
         }
         */

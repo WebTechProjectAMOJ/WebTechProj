@@ -1,4 +1,4 @@
-package controller.consumer;
+package controller.restaurant;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -8,35 +8,33 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.ui_util.ItemBoxUi;
-import models.user.Consumer;
+import models.user.Restaurant;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
-@WebServlet(name = "Consumer Landing", value = "/customer-landing")
-public class consumerLanding extends HttpServlet {
+@WebServlet(name = "Restaurants Menu Management", value = "/restaurant-menu-management")
+public class restaurantMenuManagement extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        // Check if login
         HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("accountType") != "customer") {
+        if (session == null ||  session.getAttribute("accountType") != "restaurant") {
             resp.sendRedirect(req.getContextPath() + "/");
             return;
         }
+        Restaurant resto = (Restaurant) session.getAttribute("user");
 
-        Consumer user = (Consumer) session.getAttribute("user");
+        // Makes a hashmap with list of all status and a list of all orders
+        HashMap<String, ArrayList<ItemBoxUi>> food_items = resto.get_food_items_ui();
 
-        HashMap<String, ArrayList<ItemBoxUi>> resto_hash = user.get_restaurant_options();
-        HashMap<String, ArrayList<ItemBoxUi>> orders_scroll = user.get_recent_orders();
 
         // Sets attributes for the view
-        req.setAttribute("orders_to_scroll", orders_scroll);
-        req.setAttribute("tags_to_scroll", resto_hash);
+        req.setAttribute("user", resto);
+        req.setAttribute("food_items_to_scroll", food_items);
 
         RequestDispatcher dispatcher = req
-                .getRequestDispatcher("/views/homepages/consumer_dashboard.jsp");
+                .getRequestDispatcher("/views/homepages/restaurant_menu_management.jsp");
 
         dispatcher.forward(req, resp);
 

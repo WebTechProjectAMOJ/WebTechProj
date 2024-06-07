@@ -38,6 +38,7 @@ body {
     font-style: italic;
     font-size: large;
 }
+
 .navbar a:active {
     color: #B5C964;
 }
@@ -79,9 +80,11 @@ body {
     left: 10%;
     background-color: #ffffff;
     color: #4B4C49;
+    overflow: scroll;
 }
 
-.header_row{
+
+.header_row {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -94,7 +97,7 @@ img {
     height: 100%;
 }
 
-.header_text_container{
+.header_text_container {
     text-align: left;
 }
 
@@ -120,7 +123,7 @@ img {
     height: 100%;
 }
 
-#search-input{
+#search-input {
     width: 100%;
     box-sizing: border-box;
     text-align: left;
@@ -141,6 +144,28 @@ img {
     padding: 0 2%;
 }
 
+select#address-select {
+    width: 95%;
+    height: 2em;
+    border: none;
+}
+
+.box > img {
+    margin: auto;
+
+    width: 100%;
+}
+
+.price_bar {
+    margin: 1% 2%;
+    font-size: larger;
+    border-top: 5px solid #4B4C49;
+}
+
+.disappear{
+    display: none !important;
+}
+
 .search_block {
     align-content: center;
     background-color: #ffffff;
@@ -149,7 +174,45 @@ img {
     border-radius: 5px;
 }
 
-.search_bar{
+.order-accept-boundary {
+    margin: 1% 2%;
+}
+
+.order-accept {
+    border: 3px solid #4B4C49;
+    padding: 1em;
+    border-radius: 1em;
+    margin: 2em;
+    display: flex;
+}
+
+.order-accept-nameblock {
+    width: 60%;
+}
+
+.order-accept-priceblock{
+    vertical-align: middle;
+    margin: auto;
+}
+
+.order-accept-buttonbar {
+    width: 10em;
+}
+.order-accept-buttonbar button {
+    width: 45%;
+    height: 3em;
+    border-radius: 0.5em;
+}
+.order-accept-buttonbar .accept-order {
+    background: forestgreen;
+    color: antiquewhite;
+}
+.order-accept-buttonbar .reject-order {
+    background: darkred;
+    color: aliceblue;
+}
+
+.search_bar {
     display: flex;
     justify-content: space-around;
     background-color: #4B4C49;
@@ -160,7 +223,8 @@ img {
     align-items: center;
     margin-top: 1rem;
 }
-.search_bar button{
+
+.search_bar button {
     background-color: #ffffff;
     color: black;
     height: 70%;
@@ -197,18 +261,18 @@ img {
     flex-direction: column;
     text-align: left;
     justify-content: center;
-    margin:1em;
+    margin: 1em;
 }
 
 .box_container:hover {
     cursor: pointer;
 }
 
-.box_container h3{
+.box_container h3 {
     font-weight: bold;
 }
 
-.box_container a{
+.box_container a {
     font-style: italic;
 }
 
@@ -236,7 +300,7 @@ img {
     position: relative;
     left: 10%;
     top: 5%;
- }
+}
 
 .exit_button {
     align-self: flex-end;
@@ -260,7 +324,7 @@ img {
     width: 70%;
 }
 
-.popup_window .header_text_container{
+.popup_window .header_text_container {
     margin: 0 2%
 }
 
@@ -271,7 +335,7 @@ img {
     fill: #F09B1C;
 }
 
-.popup_window .popup_window{
+.popup_window .popup_window {
     display: flex;
     background-color: #ffffff;
     overflow: auto;
@@ -279,7 +343,7 @@ img {
     height: 60%;
 }
 
-.popup_window .grid_container{
+.popup_window .grid_container {
     grid-template-columns: repeat(5, 1fr);
 }
 
@@ -299,7 +363,7 @@ img {
 }
 
 table {
-    display:table-header-group;
+    display: table-header-group;
     text-align: center;
 }
 
@@ -340,11 +404,11 @@ table th {
 .add_popup {
     position: fixed;
     left: 30%;
-    top:25%;
+    top: 25%;
     width: 90vh;
     border: 3px solid #B5C964;
     border-radius: 2rem;
-    box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.16);
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.16);
     z-index: 9;
     background: white;
     padding: 2rem;
@@ -354,14 +418,14 @@ table th {
 }
 
 .form_add {
-    display:flex;
+    display: flex;
     flex-direction: column;
     justify-content: flex-start;
     font-size: large;
 }
 
 .form_add label {
-    margin:2rem;
+    margin: 2rem;
 }
 
 .form_add input {
@@ -379,7 +443,7 @@ table th {
 }
 
 .grid {
-    overflow: auto;
+    overflow: visible;
 }
 
 .order_exit {
@@ -451,4 +515,46 @@ table th {
     font-size: medium;
 }
 
+.background-colour-gray {
+    background: lightgray;
+    border: 2px solid #B5C964;
+    border-radius: 25px;
+    margin: 10px;
+}
 
+
+.border-rating {
+    border: 2px solid lightgray;
+    border-radius: 25px;
+    margin: 10px;
+}
+
+.rating_container {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    justify-content: space-around;
+    margin: 1em;
+    padding: 5px;
+    height: 15vh;
+}
+
+
+.rating_container:hover {
+    cursor: pointer;
+}
+
+.rating_container h3 {
+    font-weight: bold;
+}
+
+.rating_container a {
+    font-style: italic;
+}
+
+
+.sub_section_title {
+    margin: 1% 2%;
+    font-size: larger;
+    border-bottom: 5px solid #B5C964;
+}

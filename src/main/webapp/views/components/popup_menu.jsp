@@ -9,7 +9,9 @@
 <div class="popup_window">
     <div class="header_row">
         <div class="box_container" style="cursor: auto;">
-            <div class="box"></div>
+            <div class="box">
+                <img src="${currentRestaurant.getIcon_url()}">
+            </div>
             <jsp:include page="../components/rating_stars.jsp" />
         </div>
         <div class="header_text_container">
@@ -32,6 +34,6 @@
 
 <script>
     function closeMenu() {
-        window.location.href = "./search_restaurant.jsp";
+        history.back();
     }
 </script>

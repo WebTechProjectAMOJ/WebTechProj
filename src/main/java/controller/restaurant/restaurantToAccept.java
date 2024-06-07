@@ -1,4 +1,4 @@
-package controller.consumer;
+package controller.restaurant;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -7,36 +7,36 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import models.order.Order;
 import models.ui_util.ItemBoxUi;
-import models.user.Consumer;
+import models.user.Restaurant;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 
-@WebServlet(name = "Consumer Landing", value = "/customer-landing")
-public class consumerLanding extends HttpServlet {
+@WebServlet(name = "Restaurants Pending Accepts", value = "/restaurant-orders-to-accept")
+public class restaurantToAccept extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        // Check if login
         HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("accountType") != "customer") {
+        if (session == null ||  session.getAttribute("accountType") != "restaurant") {
             resp.sendRedirect(req.getContextPath() + "/");
             return;
         }
+        Restaurant resto = (Restaurant) session.getAttribute("user");
 
-        Consumer user = (Consumer) session.getAttribute("user");
-
-        HashMap<String, ArrayList<ItemBoxUi>> resto_hash = user.get_restaurant_options();
-        HashMap<String, ArrayList<ItemBoxUi>> orders_scroll = user.get_recent_orders();
+        // Makes a hashmap with list of all status and a list of all orders
+        ArrayList<Order> orders = resto.getOrdersNotAccepted();
+        System.out.println(orders.size());
 
         // Sets attributes for the view
-        req.setAttribute("orders_to_scroll", orders_scroll);
-        req.setAttribute("tags_to_scroll", resto_hash);
+        req.setAttribute("user", resto);
+        req.setAttribute("order_list", orders);
 
         RequestDispatcher dispatcher = req
-                .getRequestDispatcher("/views/homepages/consumer_dashboard.jsp");
+                .getRequestDispatcher("/views/homepages/restaurant_orders_to_accept.jsp");
 
         dispatcher.forward(req, resp);
 
