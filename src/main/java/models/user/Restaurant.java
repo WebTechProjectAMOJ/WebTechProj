@@ -4,9 +4,10 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.result.InsertOneResult;
 import dbconnection.DbConnection;
 import models.items.Combo;
-import models.order.Order;
+import models.ratings.Rating;
 import models.ui_util.ItemBoxUi;
 import models.foodItems.Fooditem;
+import models.ui_util.RatingBoxUi;
 import org.bson.BsonObjectId;
 import org.bson.Document;
 import org.bson.codecs.pojo.annotations.BsonProperty;
@@ -200,7 +201,7 @@ public class Restaurant extends User implements login {
     }
 
     public HashMap<String, ArrayList<ItemBoxUi>> get_offers_ui() {
-                HashMap<String, ArrayList<ItemBoxUi>> food_items = new HashMap<String, ArrayList<ItemBoxUi>>();
+        HashMap<String, ArrayList<ItemBoxUi>> food_items = new HashMap<String, ArrayList<ItemBoxUi>>();
 
         for (ObjectId combo_id : this.getCombos()) {
             Document combos_to_find = new Document("_id", combo_id);
@@ -220,5 +221,43 @@ public class Restaurant extends User implements login {
         }
 
         return food_items;
+    }
+
+    public HashMap<String, ArrayList<RatingBoxUi>> get_food_item_reviews() {
+        HashMap<String, ArrayList<RatingBoxUi>> foodItem_reviews = new HashMap<String, ArrayList<RatingBoxUi>>();
+
+        for (ObjectId food_item_id : this.getFoodItems()) {
+            Document food_item_to_find = new Document("_id", food_item_id);
+            Document found = DbConnection.findOne(
+                    "food_items",
+                    food_item_to_find
+            );
+            Fooditem food_item = new Fooditem(found);
+
+            ArrayList<Rating> ratings = food_item.getRatingsBuilt();
+            ArrayList<RatingBoxUi> ratings_ui = new ArrayList<>();
+
+            for (Rating rating : ratings) {
+                ratings_ui.add(
+                        new RatingBoxUi(
+                                food_item.getName(),
+                                "By " + rating.get_author().getName(),
+                                "",
+                                "",
+                                rating.getRating(),
+                                rating.getFeedback()
+                        ));
+            }
+
+
+            if (foodItem_reviews.get(food_item.getName()) != null) {
+                foodItem_reviews.get(food_item.getName()).addAll(ratings_ui);
+            } else {
+                ArrayList<RatingBoxUi> new_cat = new ArrayList<RatingBoxUi>(ratings_ui);
+                foodItem_reviews.put(food_item.getName(), new_cat);
+            }
+        }
+
+        return foodItem_reviews;
     }
 }

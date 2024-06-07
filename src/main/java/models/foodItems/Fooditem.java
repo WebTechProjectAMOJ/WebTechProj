@@ -2,6 +2,7 @@ package models.foodItems;
 
 import com.mongodb.client.result.InsertOneResult;
 import dbconnection.DbConnection;
+import models.ratings.Rating;
 import models.ui_util.ItemBoxUi;
 import models.user.Restaurant;
 import org.bson.BsonObjectId;
@@ -28,7 +29,7 @@ public class Fooditem {
     @BsonProperty(value = "ratings")
     private ArrayList<ObjectId> ratings;
 
-    public Fooditem(String name, Double price, ArrayList<ObjectId> tags, ArrayList<ObjectId> tools_req, String photo_url,ArrayList<ObjectId> ratings) {
+    public Fooditem(String name, Double price, ArrayList<ObjectId> tags, ArrayList<ObjectId> tools_req, String photo_url, ArrayList<ObjectId> ratings) {
         setName(name);
         setPrice(price);
         setTags(tags);
@@ -103,7 +104,7 @@ public class Fooditem {
         this.photo_url = photo_url;
     }
 
-    public Document toDocument(){
+    public Document toDocument() {
         Document doc = new Document();
         doc.put("name", getName());
         doc.put("price", getPrice());
@@ -114,9 +115,9 @@ public class Fooditem {
         return doc;
     }
 
-    public boolean write(Restaurant restaurant){
+    public boolean write(Restaurant restaurant) {
         Document doc = this.toDocument();
-        InsertOneResult written = DbConnection.insertOne("food_items",doc);
+        InsertOneResult written = DbConnection.insertOne("food_items", doc);
         BsonObjectId id = (BsonObjectId) written.getInsertedId();
         this.setId(new ObjectId(String.valueOf(id.getValue())));
         boolean res = restaurant.addFoodItem(doc);
@@ -133,5 +134,24 @@ public class Fooditem {
                 this.getPrice().toString(),
                 this.photo_url,
                 this.getId().toString());
+    }
+
+    public ArrayList<Rating> getRatingsBuilt() {
+
+        ArrayList<Rating> ratings = new ArrayList<>();
+
+        for (ObjectId rating_id : this.ratings) {
+            Document rating_to_find = new Document("_id", rating_id);
+            Document found = DbConnection.findOne(
+                    "ratings",
+                    rating_to_find
+            );
+
+            Rating rating = new Rating(found);
+
+            ratings.add(rating);
+        }
+
+        return ratings;
     }
 }

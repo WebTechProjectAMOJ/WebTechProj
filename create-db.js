@@ -15,6 +15,7 @@ var consumer_id = ObjectId()
 var t1 = ObjectId()
 var rating_id1 = ObjectId()
 var rating_id2 = ObjectId()
+var rating_id3 = ObjectId()
 var coke_id = ObjectId()
 var americano_id = ObjectId()
 
@@ -130,7 +131,7 @@ db.food_items.insertOne(
         tags: [],
         tools_req: [],
         photo_url: "",
-        ratings: []
+        ratings: [rating_id3]
     }
 )
 
@@ -154,7 +155,7 @@ db.restaurants.insertOne(
         name: "Panini Land",
         food_items: [coke_id, americano_id],
         combos: [combo_id],
-        ratings: [],
+        ratings: [rating_id1],
         address: {
             address_components: [
                 {
@@ -201,9 +202,6 @@ db.restaurants.insertOne(
         email: "panini.land@france.fr",
         credentials: {username: "panini", password: "A6xnQhbz4Vx2HuGl4lXwZ5U2I8iziLRFnhP5eNfIRvQ="},
     })
-
-db.restaurants.updateOne({name: "Panini Land"},
-    {$push: {ratings: {_id: rating_id1, feedback: "Great Value", value: 5, consumer_id: consumer_id}}})
 
 db.restaurants.find({name: "Panini Land"}, {ratings: {consumer_id: 1}})
 db.restaurants.find({name: "Panini Land"})
@@ -390,9 +388,21 @@ db.tools.insertOne({
     type: "packaging"
 })
 
-db.ratings.insertOne({
+db.ratings.insertMany([{
     _id: rating_id2,
     feedback: "All the food arrived soaked wet",
     value: 1,
     consumer_id: consumer_id
-})
+}, {
+    _id: rating_id1,
+    feedback: "Great Value",
+    value: 5,
+    consumer_id: consumer_id
+}, {
+    _id: rating_id3,
+    feedback: "Overpriced",
+    value: 2,
+    consumer_id: consumer_id
+}
+
+])

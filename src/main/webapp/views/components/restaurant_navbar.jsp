@@ -14,7 +14,7 @@
     <%--TODO--%>
     <a href="${pageContext.request.contextPath}/views/create-food-item">Add Food Item</a>
     <%--TODO--%>
-    <a href=""><h3>Reviews</h3></a>
+    <a href="${pageContext.request.contextPath}/restaurant-reviews"><h3>Reviews</h3></a>
 
     <div class="user_nav">
         <div class="account">
