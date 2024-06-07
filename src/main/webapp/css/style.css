@@ -445,4 +445,10 @@ table th {
     overflow: auto;
 }
 
+.grid_container .chosen-container-single .chosen-default {
+    width: 20rem;
+    height: 2rem;
+    font-size: medium;
+}
+
 
