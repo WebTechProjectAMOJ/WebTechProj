@@ -30,6 +30,8 @@ public class Restaurant extends User implements login {
     @BsonProperty(value = "combos")
     private ArrayList<ObjectId> combos;
 
+    private String icon_url = "https://uxwing.com/wp-content/themes/uxwing/download/location-travel-map/restaurant-icon.png";
+
     public Restaurant() {
         super();
     }
@@ -130,6 +132,14 @@ public class Restaurant extends User implements login {
         this.combos = combos;
     }
 
+    public String getIcon_url() {
+        return icon_url;
+    }
+
+    public void setIcon_url(String icon_url) {
+        this.icon_url = icon_url;
+    }
+
     public boolean addFoodItem(Document foodItem) {
         ObjectId id = (ObjectId) foodItem.get("_id");
         Document find = new Document("_id", this.getId());
@@ -160,7 +170,7 @@ public class Restaurant extends User implements login {
         return new ItemBoxUi(
                 this.getName(),
                 addrs_str.toString(),
-                "https://uxwing.com/wp-content/themes/uxwing/download/location-travel-map/restaurant-icon.png",
+                this.getIcon_url(),
                 this.getId().toString());
     }
 
@@ -220,5 +230,10 @@ public class Restaurant extends User implements login {
         }
 
         return food_items;
+    }
+
+    @Override
+    public boolean equals(Object O){
+        return O instanceof Restaurant && this.getId().equals(((Restaurant) O).getId());
     }
 }

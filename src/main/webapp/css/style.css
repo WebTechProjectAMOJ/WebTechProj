@@ -142,6 +142,28 @@ img {
     padding: 0 2%;
 }
 
+select#address-select {
+    width: 95%;
+    height: 2em;
+    border: none;
+}
+
+.box > img {
+    margin: auto;
+
+    width: 100%;
+}
+
+.price_bar {
+    margin: 1% 2%;
+    font-size: larger;
+    border-top: 5px solid #4B4C49;
+}
+
+.disappear{
+    display: none !important;
+}
+
 .search_block {
     align-content: center;
     background-color: #ffffff;

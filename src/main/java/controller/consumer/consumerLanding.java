@@ -31,7 +31,6 @@ public class consumerLanding extends HttpServlet {
         HashMap<String, ArrayList<ItemBoxUi>> resto_hash = user.get_restaurant_options();
         HashMap<String, ArrayList<ItemBoxUi>> orders_scroll = user.get_recent_orders();
 
-
         // Sets attributes for the view
         req.setAttribute("orders_to_scroll", orders_scroll);
         req.setAttribute("tags_to_scroll", resto_hash);
