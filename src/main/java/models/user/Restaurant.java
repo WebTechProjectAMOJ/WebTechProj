@@ -249,7 +249,7 @@ public class Restaurant extends User implements login {
 
             for (Rating rating : ratings) {
                 ratings_ui.add(
-                        new RatingBoxUi(
+                        new RatingBoxUi( //TODO
                                 food_item.getName(),
                                 "By " + rating.get_author().getName(),
                                 "",
@@ -287,7 +287,7 @@ public class Restaurant extends User implements login {
 
             for (Rating rating : ratings) {
                 ratings_ui.add(
-                        new RatingBoxUi(
+                        new RatingBoxUi( //TODO
                                 combo.getName(),
                                 "By " + rating.get_author().getName(),
                                 "",
@@ -320,7 +320,7 @@ public class Restaurant extends User implements login {
             );
             Rating rating = new Rating(found);
 
-            RatingBoxUi rating_ui =
+            RatingBoxUi rating_ui = //TODO
                     new RatingBoxUi(
                             "",
                             "By " + rating.get_author().getName(),
@@ -339,8 +339,6 @@ public class Restaurant extends User implements login {
                 resto_reviews.put(rating.getRating(), new_cat);
             }
         }
-
-        System.out.println(resto_reviews);
 
         return resto_reviews;
     }
