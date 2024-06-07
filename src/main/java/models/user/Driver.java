@@ -93,4 +93,8 @@ public class Driver extends User implements login {
         org.bson.Document doc = (Document) this.currentPos;
         return new JsonObject(doc.toJson());
     }
+
+    public boolean equals(Object O){
+        return O instanceof Driver && this.getId().equals(((Driver) O).getId());
+    }
 }

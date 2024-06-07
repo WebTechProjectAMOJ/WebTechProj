@@ -1,5 +1,6 @@
 package models.order;
 
+import com.mongodb.client.result.InsertOneResult;
 import dbconnection.DbConnection;
 import models.ui_util.ItemBoxUi;
 import org.bson.Document;
@@ -21,13 +22,25 @@ public class Order {
     @BsonProperty(value = "driver")
     private Driver driver;
     @BsonProperty(value = "delivery_address")
-    private Document delivery_address;
+    private Object delivery_address;
     @BsonProperty(value = "payment")
     private Document payment;
     @BsonProperty(value = "items")
     private ArrayList<ObjectId> items;
+    @BsonProperty(value = "order_items")
+    private ArrayList<OrderItems> order_items;
+    @BsonProperty(value = "restaurant")
+    private ObjectId restaurant;
+    @BsonProperty(value = "consumer")
+    private ObjectId consumer;
 
     public Order() {
+    }
+
+    public Order(ObjectId consumer, ObjectId restaurant) {
+        this.consumer = consumer;
+        this.restaurant = restaurant;
+        this.order_items = new ArrayList<OrderItems>();
     }
 
     public Order(Document orderFound) {
@@ -55,7 +68,29 @@ public class Order {
     }
 
     public double getTotal() {
-        return total;
+        double price = 0;
+        for(OrderItems i : this.order_items){
+            price += i.getPrice() * i.getQuantity();
+        }
+        setTotal(price);
+        return price;
+    }
+
+    public Document toDocument(){
+        Document doc = new Document();
+        doc.put("total", this.getTotal());
+        doc.put("status", this.getStatus());
+        if(this.driver != null){
+            doc.put("driver", getDriver().getId());
+        }
+        doc.put("delivery_address", this.getDelivery_address());
+        doc.put("payment", this.getPayment());
+        ArrayList<Document> items = new ArrayList<>();
+        for(OrderItems i : this.order_items){
+            items.add(i.toDocument());
+        }
+        doc.put("items", items);
+        return doc;
     }
 
     public void setTotal(double total) {
@@ -78,7 +113,7 @@ public class Order {
         this.driver = driver;
     }
 
-    public Document getDelivery_address() {
+    public Object getDelivery_address() {
         return delivery_address;
     }
 
@@ -106,20 +141,60 @@ public class Order {
     public ItemBoxUi getUiItemBox() {
         //*Creates a ItemBox object to display in an item box element
         //*Creates the string from an address object
-        ArrayList<Object> addrs_doc = (ArrayList<Object>) this.delivery_address.get("address_components");
+//        ArrayList<Object> addrs_doc = (ArrayList<Object>) this.delivery_address.get("address_components");
+
         StringBuilder addrs_str = new StringBuilder();
-        for (Object obj : addrs_doc) {
-            Document doc = (Document) obj;
-            addrs_str.append(doc.getString("short_name"));
-            addrs_str.append(", ");
-        }
+//        for (Object obj : addrs_doc) {
+//            Document doc = (Document) obj;
+//            addrs_str.append(doc.getString("short_name"));
+//            addrs_str.append(", ");
+//        }
 
         /*TODO:Change photo_url and action url*/
         return new ItemBoxUi(
-                addrs_str.toString(),
+//                addrs_str.toString(),
+                "address",
                 this.id.toString(),
                 "",
                 "");
     }
 
+    public ArrayList<OrderItems> getOrder_items() {
+        return order_items;
+    }
+
+    public void setOrder_items(ArrayList<OrderItems> order_items) {
+        this.order_items = order_items;
+    }
+
+    public void addOrder_item(OrderItems order_item) {
+        this.order_items.add(order_item);
+    }
+
+    public ObjectId getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(ObjectId restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public ObjectId getConsumer() {
+        return consumer;
+    }
+
+    public void setConsumer(ObjectId consumer) {
+        this.consumer = consumer;
+    }
+
+    @Override
+    public String toString() {
+        return getRestaurant().toString() + ", " + getConsumer().toString();
+    }
+
+    public boolean write(){
+        Document doc = this.toDocument();
+        InsertOneResult result =  DbConnection.insertOne("orders", doc);
+        return result.wasAcknowledged();
+    }
 }

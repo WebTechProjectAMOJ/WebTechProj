@@ -134,6 +134,13 @@ public class User {
         return accountType;
     }
 
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result;
+        return result;
+    }
+
 
     public HashMap<String, ArrayList<ItemBoxUi>> get_not_complete_orders() {
         HashMap<String, ArrayList<ItemBoxUi>> orders_scroll = new HashMap<String, ArrayList<ItemBoxUi>>();
