@@ -262,7 +262,7 @@ public class Restaurant extends User implements login {
     }
 
     public HashMap<String, ArrayList<RatingBoxUi>> get_offer_reviews() {
-        HashMap<String, ArrayList<RatingBoxUi>> foodItem_reviews = new HashMap<String, ArrayList<RatingBoxUi>>();
+        HashMap<String, ArrayList<RatingBoxUi>> offer_reviews = new HashMap<String, ArrayList<RatingBoxUi>>();
 
         for (ObjectId combo_id : this.getCombos()) {
             Document combo_to_find = new Document("_id", combo_id);
@@ -288,14 +288,50 @@ public class Restaurant extends User implements login {
             }
 
 
-            if (foodItem_reviews.get(combo.getName()) != null) {
-                foodItem_reviews.get(combo.getName()).addAll(ratings_ui);
+            if (offer_reviews.get(combo.getName()) != null) {
+                offer_reviews.get(combo.getName()).addAll(ratings_ui);
             } else {
                 ArrayList<RatingBoxUi> new_cat = new ArrayList<RatingBoxUi>(ratings_ui);
-                foodItem_reviews.put(combo.getName(), new_cat);
+                offer_reviews.put(combo.getName(), new_cat);
             }
         }
 
-        return foodItem_reviews;
+        return offer_reviews;
+    }
+
+    public HashMap<Integer, ArrayList<RatingBoxUi>> get_resto_reviews() {
+        HashMap<Integer, ArrayList<RatingBoxUi>> resto_reviews = new HashMap<Integer, ArrayList<RatingBoxUi>>();
+
+        for (ObjectId rating_id : this.getRatings()) {
+            Document ratings_to_find = new Document("_id", rating_id);
+            Document found = DbConnection.findOne(
+                    "ratings",
+                    ratings_to_find
+            );
+            Rating rating = new Rating(found);
+
+            RatingBoxUi rating_ui =
+                    new RatingBoxUi(
+                            "",
+                            "By " + rating.get_author().getName(),
+                            "",
+                            "",
+                            rating.getRating(),
+                            rating.getFeedback()
+                    );
+
+
+            if (resto_reviews.get(rating.getRating()) != null) {
+                resto_reviews.get(rating.getRating()).add(rating_ui);
+            } else {
+                ArrayList<RatingBoxUi> new_cat = new ArrayList<RatingBoxUi>();
+                new_cat.add(rating_ui);
+                resto_reviews.put(rating.getRating(), new_cat);
+            }
+        }
+
+        System.out.println(resto_reviews);
+
+        return resto_reviews;
     }
 }

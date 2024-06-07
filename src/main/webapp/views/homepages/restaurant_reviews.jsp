@@ -14,6 +14,7 @@
 <jsp:include page="../includes.jsp"/>
 <jsp:useBean id="fi_reviews_to_scroll" scope="request" type="java.util.HashMap"/>
 <jsp:useBean id="combos_reviews_to_scroll" scope="request" type="java.util.HashMap"/>
+<jsp:useBean id="resto_reviews_to_scroll" scope="request" type="java.util.HashMap"/>
 
 
 <body>
@@ -23,7 +24,10 @@
         <jsp:include page="../components/header.jsp"/>
 
         <a class="sub_section_title">Restaurant</a>
-
+        <c:set var="items_to_scroll" value="${resto_reviews_to_scroll}" scope="request"/>
+        <jsp:include page="../components/section_grid_scroll.jsp">
+            <jsp:param name="type" value="rating"/>
+        </jsp:include>
 
         <a class="sub_section_title">Combos</a>
         <c:set var="items_to_scroll" value="${combos_reviews_to_scroll}" scope="request"/>

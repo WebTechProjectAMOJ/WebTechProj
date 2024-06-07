@@ -30,12 +30,13 @@ public class restaurantReview extends HttpServlet {
 
         HashMap<String, ArrayList<RatingBoxUi>> reviews_food_items_hash = resto.get_food_item_reviews();
         HashMap<String, ArrayList<RatingBoxUi>> reviews_offers_hash = resto.get_offer_reviews();
-//        HashMap<String, ArrayList<RatingBoxUi>> reviews_resto_hash = resto.get_resto_reviews();
+        HashMap<Integer, ArrayList<RatingBoxUi>> reviews_resto_hash = resto.get_resto_reviews();
 
 
         // Sets attributes for the view
         req.setAttribute("fi_reviews_to_scroll", reviews_food_items_hash);
         req.setAttribute("combos_reviews_to_scroll", reviews_offers_hash);
+        req.setAttribute("resto_reviews_to_scroll", reviews_resto_hash);
 
 
         RequestDispatcher dispatcher = req
