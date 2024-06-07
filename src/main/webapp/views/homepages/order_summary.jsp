@@ -55,7 +55,7 @@
                 <!-- If status === basket show pay button-->
                <button class="confirm_button" onclick="payOrder()">Confirm & Pay</button>
                <button  type="button" class="confirm_button" style="background-color: lightgrey; border-color: black;" onclick="closeBox()">Close</button>
-               <!-- If status == history && consumer session
+               <!-- If status == history && customer session
                <button  type="button" class="confirm_button" style="background-color: darkorange; border-color: white;" onclick="openReview()">Review</button>
 
                delete button for history orders
@@ -86,10 +86,10 @@
         if (status === "Basket") {
             window.location.href = "./consumer_basket.jsp";
         }
-        if (status === "History" && session.getAttribute("accountType")==="consumer") {
+        if (status === "History" && session.getAttribute("accountType")==="customer") {
             window.location.href = "./consumer_history.jsp";
         }
-        if (session.getAttribute("accountType")==="consumer") {
+        if (session.getAttribute("accountType")==="customer") {
             window.location.href = "./consumer_ongoing.jsp";
         }
         */

@@ -12,6 +12,14 @@ public class OrderItems {
     public OrderItems(ObjectId id, int quantity, String customizations) {
         this.fooditem = new Fooditem(DbConnection.findOne("food_items", new Document("_id", id)));
         this.quantity = quantity;
+        this.customizations = customizations;
+    }
+
+    public OrderItems(Document document) {
+        ObjectId id = document.getObjectId("fooditem");
+        this.fooditem = new Fooditem(DbConnection.findOne("food_items", new Document("_id", id)));
+        this.quantity = document.getInteger("quantity");
+        this.customizations = document.getString("customizations");
     }
 
     @BsonId

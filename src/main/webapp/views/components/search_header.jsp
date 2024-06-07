@@ -10,6 +10,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="header_user_row">
+    <c:if test="${sessionScope.message != null}">
+        <script>
+            alert("${sessionScope.message}")
+        </script>
+        <c:remove var="message"/>
+    </c:if>
     <div class="search_container">
         <div class="address_bar">
             <a> Selected Address: </a>
