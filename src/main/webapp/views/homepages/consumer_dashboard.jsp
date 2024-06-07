@@ -26,12 +26,4 @@
 </div>
 
 </body>
-<script>
-    let link = window.location.origin + '/' + window.location.pathname.split('/')[1] + '/';
-    $(".box_container").on("click", function () {
-        let hash = $(this).children('.id-data').text();
-        console.log(hash);
-        window.location.href = link + "restaurant?id=" + hash
-    })
-</script>
 </html>

@@ -156,7 +156,7 @@ public class Order {
                 "address",
                 this.id.toString(),
                 "",
-                "");
+                "order?id=" + this.getId().toString());
     }
 
     public ArrayList<OrderItems> getOrder_items() {
