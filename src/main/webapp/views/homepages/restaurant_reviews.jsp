@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard</title>
+    <title>Restaurant Reviews</title>
 
     <link rel="stylesheet" href="../../css/login-page-style.css">
     <link rel="stylesheet" href="../../css/style.css">
