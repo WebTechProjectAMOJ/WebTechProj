@@ -6,7 +6,7 @@
     <a href="${pageContext.request.contextPath}/restaurant-orders-to-accept">Pending Acceptance</a>
     <a href="${pageContext.request.contextPath}/restaurant-orders-pending">Pending</a>
     <%--TODO--%>
-    <a href="../homepages/restaurant_orders_open.jsp">Open</a>
+    <a href="${pageContext.request.contextPath}/open-orders">Open</a>
     <a href="${pageContext.request.contextPath}/restaurant-orders-history">History</a>
 
     <a href=""><h3>Manage</h3></a>

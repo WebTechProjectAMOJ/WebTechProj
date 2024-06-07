@@ -184,6 +184,11 @@ select#address-select {
     border-radius: 1em;
     margin: 2em;
     display: flex;
+    transition: background 0.3s ease;
+}
+
+.order-accepted:hover {
+    background: springgreen;
 }
 
 .order-accept-nameblock {
