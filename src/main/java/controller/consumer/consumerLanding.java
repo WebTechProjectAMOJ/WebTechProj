@@ -55,21 +55,9 @@ public class consumerLanding extends HttpServlet {
             }
         }
 
-        //Get all restaurant data
-        ArrayList<Document> restaurantDocs = DbConnection.find("restaurants", new Document());
-        ArrayList<Restaurant> allRestaurants = new ArrayList<>();
-        for (Document doc : restaurantDocs) {
-            Restaurant restaurant = new Restaurant(doc);
-            allRestaurants.add(restaurant);
-        }
-
 
         // Sets attributes for the view
         req.setAttribute("items_to_scroll", resto_hash);
-
-        // Add all restaurant data to the request property
-        req.setAttribute("allRestaurants", allRestaurants);
-
 
         RequestDispatcher dispatcher = req
                 .getRequestDispatcher("/views/homepages/consumer_dashboard.jsp");
