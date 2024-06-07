@@ -340,8 +340,6 @@ public class Restaurant extends User implements login {
             }
         }
 
-        System.out.println(resto_reviews);
-
         return resto_reviews;
     }
   
