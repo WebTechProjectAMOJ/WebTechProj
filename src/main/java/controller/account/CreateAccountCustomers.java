@@ -49,8 +49,8 @@ public class CreateAccountCustomers extends HttpServlet {
         prefs.put("likes", likes);
         prefs.put("dislikes", dislikes);
         prefs.put("allergens", allergens);
-        ArrayList<JsonObject> addresses = new ArrayList<>();
-        addresses.add(new JsonObject(address));
+        ArrayList<Object> addresses = new ArrayList<>();
+        addresses.add(Document.parse(address));
         String hashed = Pash.hashPassword(password);
         Consumer c = new Consumer(username, hashed, name, email, prefs, new ArrayList<ObjectId>(), firstname, addresses);
         boolean doc = c.write();

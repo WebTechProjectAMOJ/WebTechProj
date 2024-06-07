@@ -9,11 +9,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import models.order.Order;
 import models.user.*;
 import org.bson.Document;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 @WebServlet(name = "Verify Details", value = "/verify-login")
@@ -53,6 +55,9 @@ public class VerifyLogin extends HttpServlet {
                 System.out.println(request.getContextPath() + "/" + link + "-landing");
                 response.sendRedirect(request.getContextPath() + "/" + link + "-landing");
                 pass = true;
+                if(link.equals("customer")) {
+                    session.setAttribute("Basket", new HashMap<Restaurant, Order>());
+                }
             }
         }
         if(!pass) {

@@ -24,10 +24,10 @@ public class Consumer extends User implements login {
     public Consumer(Document document) {
         super(document, "customer");
         setFirst_name(document.getString("first_name"));
-        setAddress((ArrayList<JsonObject>) document.get("address"));
+        setAddress((ArrayList<Object>) document.get("address"));
     }
 
-    public Consumer(String username, String password, String name, String email, Document preferences, ArrayList<ObjectId> orders, String first_name, ArrayList<JsonObject> address) {
+    public Consumer(String username, String password, String name, String email, Document preferences,ArrayList<ObjectId> orders, String first_name, ArrayList<Object> address){
         super(username, password, name, email, orders, "customer");
         setFirst_name(first_name);
         setAddress(address);
@@ -37,7 +37,7 @@ public class Consumer extends User implements login {
     @BsonProperty(value = "first_name")
     private String first_name;
     @BsonProperty(value = "address")
-    private ArrayList<JsonObject> address;
+    private ArrayList<Object> address;
     @BsonProperty(value = "preferences")
     private Document preferences;
 
@@ -81,23 +81,27 @@ public class Consumer extends User implements login {
         this.first_name = first_name;
     }
 
-    public ArrayList<JsonObject> getAddress() {
+    public ArrayList<Object> getAddress() {
         return address;
     }
 
-    public void setAddress(ArrayList<JsonObject> address) {
+    public void setAddress(ArrayList<Object> address) {
         this.address = address;
     }
 
-    public boolean write() {
+    public boolean write(){
         Document doc = this.toDocument();
         doc.put("first_name", getFirst_name());
         doc.put("address", getAddress());
         doc.put("preferences", getPreferences());
-        InsertOneResult written = DbConnection.insertOne("consumers", doc);
+        InsertOneResult written = DbConnection.insertOne("consumers",doc);
         BsonObjectId id = (BsonObjectId) written.getInsertedId();
         this.setId(new ObjectId(String.valueOf(id.getValue())));
         return written.wasAcknowledged();
+    }
+
+    public boolean equals(Object O){
+        return O instanceof Consumer && this.getId().equals(((Consumer) O).getId());
     }
 
     public HashMap<String, ArrayList<ItemBoxUi>> get_restaurant_options() {

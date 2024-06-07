@@ -97,7 +97,11 @@ public class Fooditem {
     }
 
     public String getPhoto_url() {
-        return photo_url;
+        String ph_url = this.photo_url;
+        if (ph_url.length() < 2){
+            ph_url = "https://cdn-icons-png.flaticon.com/512/2771/2771401.png";
+        }
+        return ph_url;
     }
 
     public void setPhoto_url(String photo_url) {
@@ -132,7 +136,7 @@ public class Fooditem {
         return new ItemBoxUi(
                 this.getName(),
                 this.getPrice().toString(),
-                this.photo_url,
+                getPhoto_url(),
                 this.getId().toString());
     }
 
