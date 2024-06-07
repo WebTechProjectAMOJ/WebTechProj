@@ -444,3 +444,10 @@ table th {
 .rating_container a {
     font-style: italic;
 }
+
+
+.sub_section_title {
+    margin: 1% 2%;
+    font-size: larger;
+    border-bottom: 5px solid #B5C964;
+}

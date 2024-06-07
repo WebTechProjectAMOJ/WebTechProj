@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import models.ui_util.ItemBoxUi;
 import models.ui_util.RatingBoxUi;
 import models.user.Restaurant;
 
@@ -16,22 +15,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-@WebServlet(name = "Restaurants Reviews", value = "/restaurant-reviews")
+@WebServlet(name = "Restaurants Reviews", urlPatterns = {"/restaurant-reviews"})
 public class restaurantReview extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         HttpSession session = req.getSession(false);
-        if (session == null ||  session.getAttribute("accountType") != "restaurant") {
+        if (session == null || session.getAttribute("accountType") != "restaurant") {
             resp.sendRedirect(req.getContextPath() + "/");
             return;
         }
         Restaurant resto = (Restaurant) session.getAttribute("user");
-
+        String url = req.getRequestURI().split("/")[req.getRequestURI().split("/").length - 1];
         // Makes a hashmap with list of all status and a list of all orders
-        HashMap<String, ArrayList<RatingBoxUi>> reviews_hash = resto.get_food_item_reviews();
+
+        HashMap<String, ArrayList<RatingBoxUi>> reviews_food_items_hash = resto.get_food_item_reviews();
+        HashMap<String, ArrayList<RatingBoxUi>> reviews_offers_hash = resto.get_offer_reviews();
+//        HashMap<String, ArrayList<RatingBoxUi>> reviews_resto_hash = resto.get_resto_reviews();
+
 
         // Sets attributes for the view
-        req.setAttribute("reviews_to_scroll", reviews_hash);
+        req.setAttribute("fi_reviews_to_scroll", reviews_food_items_hash);
+        req.setAttribute("combos_reviews_to_scroll", reviews_offers_hash);
 
 
         RequestDispatcher dispatcher = req

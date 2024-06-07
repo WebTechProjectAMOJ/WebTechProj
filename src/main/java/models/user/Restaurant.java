@@ -260,4 +260,42 @@ public class Restaurant extends User implements login {
 
         return foodItem_reviews;
     }
+
+    public HashMap<String, ArrayList<RatingBoxUi>> get_offer_reviews() {
+        HashMap<String, ArrayList<RatingBoxUi>> foodItem_reviews = new HashMap<String, ArrayList<RatingBoxUi>>();
+
+        for (ObjectId combo_id : this.getCombos()) {
+            Document combo_to_find = new Document("_id", combo_id);
+            Document found = DbConnection.findOne(
+                    "combos",
+                    combo_to_find
+            );
+            Combo combo = new Combo(found);
+
+            ArrayList<Rating> ratings = combo.getRatingsBuilt();
+            ArrayList<RatingBoxUi> ratings_ui = new ArrayList<>();
+
+            for (Rating rating : ratings) {
+                ratings_ui.add(
+                        new RatingBoxUi(
+                                combo.getName(),
+                                "By " + rating.get_author().getName(),
+                                "",
+                                "",
+                                rating.getRating(),
+                                rating.getFeedback()
+                        ));
+            }
+
+
+            if (foodItem_reviews.get(combo.getName()) != null) {
+                foodItem_reviews.get(combo.getName()).addAll(ratings_ui);
+            } else {
+                ArrayList<RatingBoxUi> new_cat = new ArrayList<RatingBoxUi>(ratings_ui);
+                foodItem_reviews.put(combo.getName(), new_cat);
+            }
+        }
+
+        return foodItem_reviews;
+    }
 }
