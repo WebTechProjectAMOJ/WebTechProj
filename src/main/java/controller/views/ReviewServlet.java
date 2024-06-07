@@ -22,8 +22,8 @@ import java.util.List;
 public class ReviewServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ArrayList<Document> reviews = DbConnection.find("ratings", new Document());
-        ArrayList<Rating> ratings = new ArrayList<>();
+        List<Document> reviews = DbConnection.getReviews("ratings");
+        List<Rating> ratings = new ArrayList<>();
         for (Document review : reviews) {
             ratings.add(new Rating(review));
         }
