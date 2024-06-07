@@ -113,7 +113,7 @@ public class Driver extends User implements login {
             Rating rating = new Rating(found);
 
             RatingBoxUi rating_ui =
-                    new RatingBoxUi(
+                    new RatingBoxUi( //TODO
                             "",
                             "By " + rating.get_author().getName(),
                             "",
