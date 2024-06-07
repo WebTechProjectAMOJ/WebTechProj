@@ -3,6 +3,7 @@
 <div class="navbar">
     <a href=""><h3>Orders</h3></a>
     <a href="${pageContext.request.contextPath}/restaurant-landing">All</a>
+    <a href="${pageContext.request.contextPath}/restaurant-orders-to-accept">Pending Acceptance</a>
     <a href="${pageContext.request.contextPath}/restaurant-orders-pending">Pending</a>
     <%--TODO--%>
     <a href="../homepages/restaurant_orders_open.jsp">Open</a>
@@ -12,7 +13,7 @@
     <a href="${pageContext.request.contextPath}/restaurant-menu-management">Menu</a>
     <a href="${pageContext.request.contextPath}/restaurant-offer-management">Offers</a>
     <%--TODO--%>
-    <a href="${pageContext.request.contextPath}/views/create-food-item">Add Food Item</a>
+    <a href="${pageContext.request.contextPath}/create-food-item">Add Food Item</a>
     <%--TODO--%>
     <a href="${pageContext.request.contextPath}/restaurant-reviews"><h3>Reviews</h3></a>
 

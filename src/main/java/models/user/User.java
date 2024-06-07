@@ -141,6 +141,17 @@ public class User {
         return result;
     }
 
+    public ArrayList<Order> getOrdersNotAccepted(){
+        ArrayList<Document> orderDocs = DbConnection.find("orders",
+                new Document("status", "Placed").append(this.accountType, this.getId()));
+        ArrayList<Order> orders = new ArrayList<>();
+        for (Document orderDoc : orderDocs) {
+            Order order = new Order(orderDoc);
+            orders.add(order);
+        }
+        return orders;
+    }
+
 
     public HashMap<String, ArrayList<ItemBoxUi>> get_not_complete_orders() {
         HashMap<String, ArrayList<ItemBoxUi>> orders_scroll = new HashMap<String, ArrayList<ItemBoxUi>>();

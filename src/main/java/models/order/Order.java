@@ -9,7 +9,6 @@ import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 import models.user.Driver;
 
-import javax.print.Doc;
 import java.util.ArrayList;
 
 public class Order {
@@ -31,14 +30,14 @@ public class Order {
     private ArrayList<OrderItems> order_items;
     @BsonProperty(value = "restaurant")
     private ObjectId restaurant;
-    @BsonProperty(value = "consumer")
-    private ObjectId consumer;
+    @BsonProperty(value = "customer")
+    private ObjectId customer;
 
     public Order() {
     }
 
     public Order(ObjectId consumer, ObjectId restaurant) {
-        this.consumer = consumer;
+        this.customer = consumer;
         this.restaurant = restaurant;
         this.order_items = new ArrayList<OrderItems>();
     }
@@ -52,11 +51,20 @@ public class Order {
                 "drivers",
                 to_find
         );
-        this.driver = new Driver(found);
-        ;
-        this.delivery_address = (Document) orderFound.get("delivery_address");
+        if(found != null){
+            this.driver = new Driver(found);
+        }
+        this.restaurant = orderFound.getObjectId("restaurant");
+        this.customer = orderFound.getObjectId("customer");
+        this.delivery_address = orderFound.get("delivery_address");
         this.payment = (Document) orderFound.get("payment");
-        this.items = (ArrayList<ObjectId>) orderFound.get("items");
+        ArrayList<OrderItems> some_items = new ArrayList<OrderItems>();
+        ArrayList<Document> items = orderFound.get("items", ArrayList.class);
+        for(Document item : items){
+            OrderItems i = new OrderItems(item);
+            some_items.add(i);
+        }
+        this.order_items = some_items;
     }
 
     public ObjectId getId() {
@@ -83,6 +91,8 @@ public class Order {
         if(this.driver != null){
             doc.put("driver", getDriver().getId());
         }
+        doc.put("restaurant", getRestaurant());
+        doc.put("customer", getCustomer());
         doc.put("delivery_address", this.getDelivery_address());
         doc.put("payment", this.getPayment());
         ArrayList<Document> items = new ArrayList<>();
@@ -179,17 +189,17 @@ public class Order {
         this.restaurant = restaurant;
     }
 
-    public ObjectId getConsumer() {
-        return consumer;
+    public ObjectId getCustomer() {
+        return customer;
     }
 
-    public void setConsumer(ObjectId consumer) {
-        this.consumer = consumer;
+    public void setCustomer(ObjectId customer) {
+        this.customer = customer;
     }
 
     @Override
     public String toString() {
-        return getRestaurant().toString() + ", " + getConsumer().toString();
+        return getRestaurant().toString() + ", " + getCustomer().toString();
     }
 
     public boolean write(){
