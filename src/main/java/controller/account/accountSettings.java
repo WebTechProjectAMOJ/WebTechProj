@@ -33,8 +33,28 @@ public class accountSettings extends HttpServlet {
         }
     }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        response.sendRedirect(request.getContextPath() + "/account-settings");
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        HttpSession session = req.getSession(false);
+
+        if (session.getAttribute("accountType") == "customer") {
+            Consumer user = (Consumer) session.getAttribute("user");
+            if (req.getParameter("name") != null && !req.getParameter("name").isEmpty()) {
+                user.setName(req.getParameter("name"));
+            }
+            if (req.getParameter("first_name") != null && !req.getParameter("first_name").isEmpty()) {
+                user.setName(req.getParameter("first_name"));
+            }
+            if (req.getParameter("email") != null && !req.getParameter("email").isEmpty()) {
+                user.setName(req.getParameter("email"));
+            }
+            if (req.getParameter("password") != null && !req.getParameter("password").isEmpty()) {
+                user.setPassword(req.getParameter("password"));
+            }
+            session.setAttribute("user", user.update());
+            //TODO: Autocomplete fields
+        }
+
+        resp.sendRedirect(req.getContextPath() + "/account-settings");
     }
 
     public void destroy() {

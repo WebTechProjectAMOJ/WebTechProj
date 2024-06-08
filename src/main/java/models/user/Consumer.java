@@ -1,5 +1,6 @@
 package models.user;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.result.InsertOneResult;
 import dbconnection.DbConnection;
 import models.order.Order;
@@ -98,6 +99,13 @@ public class Consumer extends User implements login {
         BsonObjectId id = (BsonObjectId) written.getInsertedId();
         this.setId(new ObjectId(String.valueOf(id.getValue())));
         return written.wasAcknowledged();
+    }
+
+    public Consumer update() {
+        BasicDBObject set = new BasicDBObject();
+        set.append("$set", this.toBasicDBObject());
+        DbConnection.updateOne("consumers", new Document("_id", this.getId()),set);
+        return this;
     }
 
     public boolean equals(Object O){

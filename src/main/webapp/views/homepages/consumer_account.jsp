@@ -166,7 +166,6 @@
                 </div>
                 <a> Remove address: </a>
                 <form action="${pageContext.request.contextPath}/account-settings" method="POST" id="delete-address-form">
-
                     <div class="setting_inputs">
                         <label for="address"></label>
                         <select class="address_select" name="registered_addresses" id="address">
