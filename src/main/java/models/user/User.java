@@ -222,5 +222,8 @@ public class User {
         this.credentials.setUsername(username);
     }
 
+    public String getUsername() {
+        return this.credentials.getUsername();
+    }
 
 }

@@ -378,7 +378,6 @@ public class Restaurant extends User implements login {
     public Restaurant update() {
         BasicDBObject set = new BasicDBObject();
         set.append("$set", this.toBasicDBObject());
-        System.out.println(set);;
         DbConnection.updateOne("restaurants", new Document("_id", this.getId()), set);
         return this;
     }

@@ -20,6 +20,8 @@
     }
 </style>
 
+<jsp:useBean id="user" scope="request" type="models.user.Restaurant"/>
+
 <body>
 <div class="page">
     <jsp:include page="../components/restaurant_navbar.jsp"/>
@@ -35,7 +37,7 @@
                 <a> Change Username: </a>
                 <form action="" method="POST" id="change-username-form">
                     <div class="setting_inputs">
-                        <input type="text" class="form-control" placeholder="New username"
+                        <input type="text" class="form-control" placeholder="${user.getUsername()}"
                                aria-label="New username" name="username">
                         <input type="hidden" name="update" value="username"/>
                         <button class="confirm_button" form="change-username-form" type="submit" id="edit_user_btn">
@@ -63,7 +65,7 @@
                 <form action="" method="POST" id="change-email-form">
 
                     <div class="setting_inputs">
-                        <input type="text" class="form-control" name="email" id="email" placeholder="New email"
+                        <input type="text" class="form-control" name="email" id="email" placeholder="${user.getEmail()}"
                                aria-label="New email">
                         <input type="hidden" name="update" value="email"/>
                         <button class="confirm_button" form="change-email-form" type="submit" id="edit_email_btn">
@@ -85,7 +87,7 @@
                 <form action="" method="POST" id="change-name-form">
 
                     <div class="setting_inputs">
-                        <input type="text" class="form-control" name="name" id="name" placeholder="New name"
+                        <input type="text" class="form-control" name="name" id="name" placeholder="${user.getName()}"
                                aria-label="New name">
                         <input type="hidden" name="update" value="name"/>
                         <button class="confirm_button" form="change-name-form" type="submit" id="edit_name_btn">Confirm

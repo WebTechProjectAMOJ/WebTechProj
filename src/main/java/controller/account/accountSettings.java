@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.user.Consumer;
+import models.user.Driver;
 import models.user.Restaurant;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -30,17 +31,22 @@ public class accountSettings extends HttpServlet {
 
         if (session.getAttribute("accountType") == "customer") {
             Consumer user = (Consumer) session.getAttribute("user");
-
-
+            req.setAttribute("user", user);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/views/homepages/consumer_account.jsp");
-
             dispatcher.forward(req, resp);
         }
 
         if (session.getAttribute("accountType") == "restaurant") {
             Restaurant user = (Restaurant) session.getAttribute("user");
+            req.setAttribute("user", user);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/views/homepages/restaurant_account.jsp");
+            dispatcher.forward(req, resp);
+        }
 
+        if (session.getAttribute("accountType") == "driver") {
+            Driver user = (Driver) session.getAttribute("user");
+            req.setAttribute("user", user);
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/views/homepages/driver_account.jsp");
             dispatcher.forward(req, resp);
         }
 
@@ -129,9 +135,11 @@ public class accountSettings extends HttpServlet {
             if (req.getParameter("password") != null && !req.getParameter("password").isEmpty()) {
                 user.setPassword(req.getParameter("password"));
             }
+
             if (req.getParameter("email") != null && !req.getParameter("email").isEmpty()) {
                 user.setName(req.getParameter("email"));
             }
+
             if (req.getParameter("name") != null && !req.getParameter("name").isEmpty()) {
                 user.setName(req.getParameter("name"));
             }
@@ -149,6 +157,34 @@ public class accountSettings extends HttpServlet {
             if (req.getParameter("placedata") != null) {
                 user.setAddress(Document.parse(req.getParameter("placedata")));
             }
+
+            //TODO: Delivery Services
+
+            session.setAttribute("user", user.update());
+        }
+
+
+        if (session.getAttribute("accountType") == "driver") {
+            Driver user = (Driver) session.getAttribute("user");
+
+            if (req.getParameter("username") != null && !req.getParameter("username").isEmpty()) {
+                user.setUsername(req.getParameter("username"));
+            }
+
+            if (req.getParameter("password") != null && !req.getParameter("password").isEmpty()) {
+                user.setPassword(req.getParameter("password"));
+            }
+
+            if (req.getParameter("email") != null && !req.getParameter("email").isEmpty()) {
+                user.setName(req.getParameter("email"));
+            }
+
+            if (req.getParameter("name") != null && !req.getParameter("name").isEmpty()) {
+                user.setName(req.getParameter("name"));
+            }
+
+            //TODO: Delivery Services
+            //TODO: Tools
 
             session.setAttribute("user", user.update());
         }
