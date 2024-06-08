@@ -45,7 +45,7 @@
                                 <p>${fooditem2.customizations}</p>
                             <hr>
                         </c:forEach>
-                        <input class="disappear" value="${order.id}">
+                        <input class="disappear" value="${order.id}" name="order_id">
                         <div class="footer">
                             <label>€${order.total}</label>
                             <button type="submit" class="confirm_button" style="background-color: #B5C964;">Ready For Delivery</button>

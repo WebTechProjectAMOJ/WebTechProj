@@ -36,10 +36,12 @@ public class makePayment extends HttpServlet {
         order.setRestaurant(restaurant.getId());
         order.setDelivery_address((Document) user.getAddress().get(addressKey));
         boolean written = order.write();
+        user.addOrder(order.getId());
         if(written){
-            session.setAttribute("message", "Successfully added food item!");
+            session.setAttribute("message", "Successfully placed Order!");
             list.remove(restaurant);
             session.setAttribute("Basket", list);
+            session.setAttribute("user", user);
         }
         response.sendRedirect(request.getContextPath() + "/" + session.getAttribute("accountType") + "-landing");
     }
