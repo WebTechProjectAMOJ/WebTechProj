@@ -134,4 +134,25 @@ public class Driver extends User implements login {
 
         return driver_reviews;
     }
+
+        public ArrayList<Rating> getRatingsBuilt() {
+        ArrayList<Rating> ratings = new ArrayList<>();
+        for (ObjectId rating_id : this.ratings) {
+            ratings.add(new Rating(DbConnection.findOne("ratings", new Document("_id",rating_id))));
+        }
+        return ratings;
+    }
+
+
+    public Integer get_avg_rating() {
+        int rating_total = 0;
+        int rating_count = 0;
+        for (Rating rating: this.getRatingsBuilt()) {
+            rating_count++;
+            rating_total+= rating.getRating();
+        }
+        return rating_count/rating_total;
+    }
+
+
 }
