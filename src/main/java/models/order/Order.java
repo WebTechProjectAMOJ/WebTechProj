@@ -3,6 +3,7 @@ package models.order;
 import com.mongodb.client.result.InsertOneResult;
 import dbconnection.DbConnection;
 import models.ui_util.ItemBoxUi;
+import org.bson.BsonObjectId;
 import org.bson.Document;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.codecs.pojo.annotations.BsonProperty;
@@ -205,6 +206,8 @@ public class Order {
     public boolean write(){
         Document doc = this.toDocument();
         InsertOneResult result =  DbConnection.insertOne("orders", doc);
+        BsonObjectId id = (BsonObjectId) result.getInsertedId();
+        this.setId(new ObjectId(String.valueOf(id.getValue())));
         return result.wasAcknowledged();
     }
 }

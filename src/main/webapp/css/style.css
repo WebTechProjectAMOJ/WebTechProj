@@ -212,9 +212,35 @@ select#address-select {
     background: forestgreen;
     color: antiquewhite;
 }
+
 .order-accept-buttonbar .reject-order {
     background: darkred;
     color: aliceblue;
+}
+
+.order-details {
+    margin: 1% 2%;
+    background: #a2a8d3;
+    padding: 1em;
+    border-radius: 1em;
+}
+
+.order-details > div > * {
+    margin: 5px;
+}
+
+.driver-card {
+    width: 5em;
+    background: lightgrey;
+    padding: 1em;
+    border: 2px solid black;
+    border-radius: 1em;
+    margin: 1em;
+}
+
+.driver-card-region {
+    display: flex;
+    flex-flow: wrap;
 }
 
 .search_bar {

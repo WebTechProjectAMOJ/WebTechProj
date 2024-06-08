@@ -1,5 +1,6 @@
 package models.user;
 
+import com.mongodb.BasicDBObject;
 import dbconnection.DbConnection;
 import dbconnection.Pash;
 import models.order.Order;
@@ -92,6 +93,7 @@ public class User {
 
     public ArrayList<ObjectId> addOrder(ObjectId order) {
         this.orders.add(order);
+        DbConnection.updateOne("consumers", new Document("_id", this.getId()), new BasicDBObject("$push", new Document("orders", order)));
         return orders;
     }
 

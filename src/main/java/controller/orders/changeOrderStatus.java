@@ -1,5 +1,6 @@
 package controller.orders;
 
+import com.mongodb.BasicDBObject;
 import dbconnection.DbConnection;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -32,6 +33,10 @@ public class changeOrderStatus extends HttpServlet {
         switch (type) {
             case "accept":{
                 DbConnection.setOne("orders", new Document("_id", order_id), "status", "accepted");
+                Document orderDoc = DbConnection.findOne("orders", new Document("_id", order_id));
+                ObjectId resto_id = orderDoc.getObjectId("restaurant");
+                DbConnection.updateOne("restaurants", new Document("_id", resto_id),
+                        new BasicDBObject("$push", new Document("orders", order_id)));
                 break;
             }
             case "reject":{
