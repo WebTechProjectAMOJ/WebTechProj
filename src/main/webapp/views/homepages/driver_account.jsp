@@ -139,13 +139,7 @@
 <script src="${pageContext.request.contextPath}/js/loginflow/login-flow.js">
 </script>
 <script>
-    $("#Likes").chosen().change(function () {
-        $("textarea[name='likes']").get(0).value = $(this).val()
-    })
-    $("#Dislikes").chosen().change(function () {
-        $("textarea[name='dislikes']").get(0).value = $(this).val()
-    })
-    $("#Allergens").chosen().change(function () {
-        $("textarea[name='allergens']").get(0).value = $(this).val()
+    $("#Tools").chosen().change(function (){
+        $("textarea[name='tools']").get(0).value = $(this).val()
     })
 </script>
