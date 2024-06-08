@@ -204,8 +204,18 @@ public class User {
                 }
             }
         }
-
         return orders_scroll;
+    }
+
+    public BasicDBObject toBasicDBObject() {
+        BasicDBObject obj = new BasicDBObject(this.toDocument());
+        obj.append("_id", this.getId());
+        return obj;
+    }
+
+
+    public void setPassword(String psw) {
+        this.credentials.setPassword(Pash.hashPassword(psw));
     }
 
 
