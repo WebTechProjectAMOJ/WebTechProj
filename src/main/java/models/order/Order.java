@@ -7,6 +7,7 @@ import org.bson.BsonObjectId;
 import org.bson.Document;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.codecs.pojo.annotations.BsonProperty;
+import org.bson.json.JsonObject;
 import org.bson.types.ObjectId;
 import models.user.Driver;
 
@@ -114,6 +115,7 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
+        DbConnection.setOne("orders", new Document("_id", this.getId()), "status", status);
     }
 
     public Driver getDriver() {
@@ -126,6 +128,14 @@ public class Order {
 
     public Object getDelivery_address() {
         return delivery_address;
+    }
+
+    public Document getDelivery_address_document() {
+        return (Document) delivery_address;
+    }
+
+    public JsonObject getDelivery_address_json(){
+        return new JsonObject(((Document) delivery_address).toJson());
     }
 
     public void setDelivery_address(Document delivery_address) {

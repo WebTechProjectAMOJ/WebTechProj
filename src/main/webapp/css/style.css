@@ -243,6 +243,36 @@ select#address-select {
     flex-flow: wrap;
 }
 
+.driver-order-card {
+    background: #ffb677;
+    margin-top: 1em;
+    padding: 2em;
+    border: 3px solid #914a0c;
+    border-radius: 2em;
+    transition: transform 0.2s ease;
+}
+
+.driver-order-card:hover {
+    cursor: pointer;
+    transform: scale(1.005);
+}
+
+button#complete-order-btn {
+    width: 850px;
+    margin-top: 1em;
+    background: darkorange;
+    height: 3em;
+    border: none;
+    border-radius: 2em;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button#complete-order-btn:hover {
+    transform: scale(1.005);
+    border: 3px solid black;
+}
+
 .search_bar {
     display: flex;
     justify-content: space-around;

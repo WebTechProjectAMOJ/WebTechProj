@@ -4,18 +4,6 @@
 <head>
     <title>Dashboard</title>
     <jsp:include page="../includes.jsp"/>
-    <script>
-
-        let link = window.location.origin + '/' + window.location.pathname.split('/')[1] + '/';
-        navigator.geolocation.getCurrentPosition((position) => {
-            $.post("${link}set-driver-current-location", {
-                "latitude" : position.coords.latitude,
-                "longitude" : position.coords.longitude
-            }).done(function (){
-                alert("You will now recieve orders!")
-            })
-        });
-    </script>
 </head>
 <jsp:useBean id="orders_to_scroll" scope="request" type="java.util.HashMap"/>
 
