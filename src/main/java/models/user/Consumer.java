@@ -36,6 +36,8 @@ public class Consumer extends User implements login {
         setPreferences(preferences);
     }
 
+    public Consumer() {}
+
     @BsonProperty(value = "first_name")
     private String first_name;
     @BsonProperty(value = "address")
