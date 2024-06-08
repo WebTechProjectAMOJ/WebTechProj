@@ -4,14 +4,9 @@
 <html>
 <head>
     <title>Order Pending</title>
-
-    <link rel="stylesheet" href="../../css/login-page-style.css">
-    <link rel="stylesheet" href="../../css/style.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
-            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <jsp:include page="../includes.jsp"/>
 </head>
 
-<jsp:include page="../includes.jsp"/>
 <jsp:useBean id="orders_to_scroll" scope="request" type="java.util.HashMap"/>
 
 <body>
