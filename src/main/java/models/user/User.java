@@ -143,7 +143,7 @@ public class User {
         return result;
     }
 
-    public ArrayList<Order> getOrdersNotAccepted(){
+    public ArrayList<Order> getOrdersNotAccepted() {
         ArrayList<Document> orderDocs = DbConnection.find("orders",
                 new Document("status", "Placed").append(this.accountType, this.getId()));
         ArrayList<Order> orders = new ArrayList<>();
@@ -216,6 +216,10 @@ public class User {
 
     public void setPassword(String psw) {
         this.credentials.setPassword(Pash.hashPassword(psw));
+    }
+
+    public void setUsername(String username) {
+        this.credentials.setUsername(username);
     }
 
 

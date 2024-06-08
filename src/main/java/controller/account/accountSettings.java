@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.user.Consumer;
+import models.user.Restaurant;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -35,6 +36,14 @@ public class accountSettings extends HttpServlet {
 
             dispatcher.forward(req, resp);
         }
+
+        if (session.getAttribute("accountType") == "restaurant") {
+            Restaurant user = (Restaurant) session.getAttribute("user");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/views/homepages/restaurant_account.jsp");
+
+            dispatcher.forward(req, resp);
+        }
+
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -42,6 +51,11 @@ public class accountSettings extends HttpServlet {
 
         if (session.getAttribute("accountType") == "customer") {
             Consumer user = (Consumer) session.getAttribute("user");
+
+            if (req.getParameter("username") != null && !req.getParameter("username").isEmpty()) {
+                user.setUsername(req.getParameter("username"));
+            }
+
             if (req.getParameter("name") != null && !req.getParameter("name").isEmpty()) {
                 user.setName(req.getParameter("name"));
             }
@@ -101,10 +115,44 @@ public class accountSettings extends HttpServlet {
 
             // TODO: Add the removal of an address
 
-            System.out.println(user.getPreferences());
+            session.setAttribute("user", user.update());
+        }
+
+
+        if (session.getAttribute("accountType") == "restaurant") {
+            Restaurant user = (Restaurant) session.getAttribute("user");
+
+            if (req.getParameter("username") != null && !req.getParameter("username").isEmpty()) {
+                user.setUsername(req.getParameter("username"));
+            }
+
+            if (req.getParameter("password") != null && !req.getParameter("password").isEmpty()) {
+                user.setPassword(req.getParameter("password"));
+            }
+            if (req.getParameter("email") != null && !req.getParameter("email").isEmpty()) {
+                user.setName(req.getParameter("email"));
+            }
+            if (req.getParameter("name") != null && !req.getParameter("name").isEmpty()) {
+                user.setName(req.getParameter("name"));
+            }
+
+            if (req.getParameter("Tags") != null) {
+                String tagsList = req.getParameter("Tags");
+                ArrayList<ObjectId> tags = new ArrayList<>();
+                for (String s : tagsList.split(",")) {
+                    Document tag = new Document("name", s);
+                    tags.add((ObjectId) DbConnection.findOne("tags", tag).get("_id"));
+                }
+                user.setTags(tags);
+            }
+
+            if (req.getParameter("placedata") != null) {
+                user.setAddress(Document.parse(req.getParameter("placedata")));
+            }
 
             session.setAttribute("user", user.update());
         }
+
 
         resp.sendRedirect(req.getContextPath() + "/account-settings");
     }
