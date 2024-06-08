@@ -1,5 +1,6 @@
 package controller.account;
 
+import dbconnection.DbConnection;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,8 +9,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.user.Consumer;
+import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 @WebServlet(name = "Consumer Settings", value = "/account-settings")
@@ -50,8 +54,54 @@ public class accountSettings extends HttpServlet {
             if (req.getParameter("password") != null && !req.getParameter("password").isEmpty()) {
                 user.setPassword(req.getParameter("password"));
             }
+            if (req.getParameter("placedata") != null) {
+                ArrayList<Object> addresses = user.getAddress();
+                addresses.add(Document.parse(req.getParameter("placedata")));
+                user.setAddress(addresses);
+            }
+
+            Document prefs = user.getPreferences(); // TODO: Fix the Consumer not having any preferences assigned to it
+
+            if (req.getParameter("likes") != null) {
+                String likesList = req.getParameter("likes");
+                ArrayList<ObjectId> likes = new ArrayList<>();
+                for (String s : likesList.split(",")) {
+                    Document tag = new Document("name", s);
+                    likes.add((ObjectId) DbConnection.findOne("tags", tag).get("_id"));
+                }
+                prefs.remove("likes");
+                prefs.put("likes", likes);
+                user.setPreferences(prefs);
+            }
+
+
+            if (req.getParameter("dislikes") != null) {
+                String dislikesList = req.getParameter("dislikes");
+                ArrayList<ObjectId> dislikes = new ArrayList<>();
+                for (String s : dislikesList.split(",")) {
+                    Document tag = new Document("name", s);
+                    dislikes.add((ObjectId) DbConnection.findOne("tags", tag).get("_id"));
+                }
+                prefs.remove("dislikes");
+                prefs.put("dislikes", dislikes);
+                user.setPreferences(prefs);
+            }
+
+            if (req.getParameter("allergens") != null) {
+                String allergensList = req.getParameter("allergens");
+                ArrayList<ObjectId> allergens = new ArrayList<>();
+                for (String s : allergensList.split(",")) {
+                    Document tag = new Document("name", s);
+                    allergens.add((ObjectId) DbConnection.findOne("tags", tag).get("_id"));
+                }
+                prefs.remove("allergens");
+                prefs.put("allergens", allergens);
+                user.setPreferences(prefs);
+            }
+
+            // TODO: Add the removal of an address
+
             session.setAttribute("user", user.update());
-            //TODO: Autocomplete fields
         }
 
         resp.sendRedirect(req.getContextPath() + "/account-settings");

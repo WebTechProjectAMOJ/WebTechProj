@@ -18,9 +18,9 @@
             <div class="grid_container" style="grid-template-columns: auto auto;">
 
 
-
                 <a> Change Username: </a>
-                <form action="${pageContext.request.contextPath}/account-settings" method="POST" id="change-username-form">
+                <form action="${pageContext.request.contextPath}/account-settings" method="POST"
+                      id="change-username-form">
                     <div class="setting_inputs">
                         <input type="text" class="form-control" placeholder="New username"
                                aria-label="New username" name="username">
@@ -31,7 +31,6 @@
                         </button>
                     </div>
                 </form>
-
 
 
                 <a> Change Password: </a>
@@ -48,7 +47,6 @@
                 </form>
 
 
-
                 <a> Change Name: </a>
                 <form action="${pageContext.request.contextPath}/account-settings" method="POST" id="change-name-form">
 
@@ -63,10 +61,10 @@
                 </form>
 
 
-
                 <a> Change First Name: </a>
                 <div class="setting_inputs">
-                    <form action="${pageContext.request.contextPath}/account-settings" method="POST" id="change-firstname-form">
+                    <form action="${pageContext.request.contextPath}/account-settings" method="POST"
+                          id="change-firstname-form">
                         <input type="text" class="form-control" name="firstname" id="firstname"
                                placeholder="New first name"
                                aria-label="New firstname">
@@ -76,7 +74,6 @@
                         Confirm Change
                     </button>
                 </div>
-
 
 
                 <a> Change Email: </a>
@@ -94,12 +91,10 @@
                 </form>
 
 
-
             </div>
             <a class="section_title" style="border:None;">Food Preferences</a>
             <div class="divider"></div>
             <div class="grid_container" style="grid-template-columns: auto auto;">
-
 
 
                 <a> Change Likes: </a>
@@ -119,9 +114,9 @@
                 </form>
 
 
-
                 <a> Change Dislikes: </a>
-                <form action="${pageContext.request.contextPath}/account-settings" method="POST" id="change-dislike-form">
+                <form action="${pageContext.request.contextPath}/account-settings" method="POST"
+                      id="change-dislike-form">
                     <div class="setting_inputs">
                         <label for="Dislikes"></label>
                         <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select"
@@ -136,9 +131,9 @@
                 </form>
 
 
-
                 <a> Change Allergens: </a>
-                <form action="${pageContext.request.contextPath}/account-settings" method="POST" id="change-allergens-form">
+                <form action="${pageContext.request.contextPath}/account-settings" method="POST"
+                      id="change-allergens-form">
                     <div class="setting_inputs">
                         <label for="Allergens"></label>
                         <select data-placeholder="Begin typing a name to filter..." multiple class="chosen-select"
@@ -158,14 +153,17 @@
             <div class="divider"></div>
             <div class="grid_container" style="grid-template-columns: auto auto;">
                 <a> Add address: </a>
-                <div class="setting_inputs">
-                    <form action="${pageContext.request.contextPath}/account-settings" method="POST" id="new-address-form">
+                <form action="${pageContext.request.contextPath}/account-settings" method="POST" id="new-address-form">
+                    <div class="setting_inputs">
                         <jsp:include page="../AccountCreations/googleautocomplete.html"/>
-                    </form>
-                    <button class="confirm_button" form="new-address-form" type="submit" id="new_add_btn">Add</button>
-                </div>
+                        <button class="confirm_button" form="new-address-form" type="submit" id="new_add_btn">Add
+                        </button>
+                    </div>
+                </form>
+
                 <a> Remove address: </a>
-                <form action="${pageContext.request.contextPath}/account-settings" method="POST" id="delete-address-form">
+                <form action="${pageContext.request.contextPath}/account-settings" method="POST"
+                      id="delete-address-form">
                     <div class="setting_inputs">
                         <label for="address"></label>
                         <select class="address_select" name="registered_addresses" id="address">
