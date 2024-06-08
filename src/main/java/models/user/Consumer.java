@@ -26,9 +26,10 @@ public class Consumer extends User implements login {
         super(document, "customer");
         setFirst_name(document.getString("first_name"));
         setAddress((ArrayList<Object>) document.get("address"));
+        setPreferences((Document) document.get("preferences"));
     }
 
-    public Consumer(String username, String password, String name, String email, Document preferences,ArrayList<ObjectId> orders, String first_name, ArrayList<Object> address){
+    public Consumer(String username, String password, String name, String email, Document preferences, ArrayList<ObjectId> orders, String first_name, ArrayList<Object> address) {
         super(username, password, name, email, orders, "customer");
         setFirst_name(first_name);
         setAddress(address);
@@ -90,25 +91,32 @@ public class Consumer extends User implements login {
         this.address = address;
     }
 
-    public boolean write(){
+    public boolean write() {
         Document doc = this.toDocument();
         doc.put("first_name", getFirst_name());
         doc.put("address", getAddress());
         doc.put("preferences", getPreferences());
-        InsertOneResult written = DbConnection.insertOne("consumers",doc);
+        InsertOneResult written = DbConnection.insertOne("consumers", doc);
         BsonObjectId id = (BsonObjectId) written.getInsertedId();
         this.setId(new ObjectId(String.valueOf(id.getValue())));
         return written.wasAcknowledged();
     }
 
+    public BasicDBObject toBasicDBObject() {
+        BasicDBObject obj = super.toBasicDBObject();
+        obj.append("preferences", this.getPreferences());
+        obj.append("first_name", this.getFirst_name());
+        return obj;
+    }
+
     public Consumer update() {
         BasicDBObject set = new BasicDBObject();
         set.append("$set", this.toBasicDBObject());
-        DbConnection.updateOne("consumers", new Document("_id", this.getId()),set);
+        DbConnection.updateOne("consumers", new Document("_id", this.getId()), set);
         return this;
     }
 
-    public boolean equals(Object O){
+    public boolean equals(Object O) {
         return O instanceof Consumer && this.getId().equals(((Consumer) O).getId());
     }
 

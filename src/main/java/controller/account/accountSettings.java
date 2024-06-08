@@ -60,7 +60,7 @@ public class accountSettings extends HttpServlet {
                 user.setAddress(addresses);
             }
 
-            Document prefs = user.getPreferences(); // TODO: Fix the Consumer not having any preferences assigned to it
+            Document prefs = user.getPreferences();
 
             if (req.getParameter("likes") != null) {
                 String likesList = req.getParameter("likes");
@@ -100,6 +100,8 @@ public class accountSettings extends HttpServlet {
             }
 
             // TODO: Add the removal of an address
+
+            System.out.println(user.getPreferences());
 
             session.setAttribute("user", user.update());
         }
