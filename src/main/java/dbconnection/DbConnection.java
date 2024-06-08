@@ -75,6 +75,17 @@ public class DbConnection {
         }
     }
 
+    public static boolean setOne(String collectionName, Document searchQuery, String key, Document value){
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase(dbname);
+            MongoCollection<Document> collection = database.getCollection(collectionName);
+            Document keyval = new Document(key, value);
+            Document document = new Document();
+            document.put("$set", keyval);
+            return collection.updateOne(searchQuery, document).wasAcknowledged();
+        }
+    }
+
     public static long getCount(String collectionName, Document searchQuery){
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase(dbname);

@@ -20,6 +20,11 @@ import java.io.IOException;
 public class Logout extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
+        if (session.getAttribute("accountType") == "driver") {
+            Document pos = new Document("set", false);
+            Driver d = (Driver) session.getAttribute("user");
+            DbConnection.setOne("drivers", new Document("_id", d.getId()), "current_pos", pos);
+        }
         session.invalidate();
         session = request.getSession(true);
         session.setAttribute("message", "You have been Logged out!");

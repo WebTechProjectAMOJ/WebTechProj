@@ -3,14 +3,20 @@
 <html>
 <head>
     <title>Dashboard</title>
+    <jsp:include page="../includes.jsp"/>
+    <script>
 
-    <link rel="stylesheet" href="../../css/login-page-style.css">
-    <link rel="stylesheet" href="../../css/style.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
-            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+        let link = window.location.origin + '/' + window.location.pathname.split('/')[1] + '/';
+        navigator.geolocation.getCurrentPosition((position) => {
+            $.post("${link}set-driver-current-location", {
+                "latitude" : position.coords.latitude,
+                "longitude" : position.coords.longitude
+            }).done(function (){
+                alert("You will now recieve orders!")
+            })
+        });
+    </script>
 </head>
-
-<jsp:include page="../includes.jsp"/>
 <jsp:useBean id="orders_to_scroll" scope="request" type="java.util.HashMap"/>
 
 <body>
