@@ -1,5 +1,6 @@
 package models.user;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.result.InsertOneResult;
 import dbconnection.DbConnection;
 import models.ratings.Rating;
@@ -158,5 +159,17 @@ public class Driver extends User implements login {
         return rating_count/rating_total;
     }
 
+    public BasicDBObject toBasicDBObject() {
+        BasicDBObject obj = super.toBasicDBObject();
+        obj.append("first_name", this.getFirstName());
+        obj.append("tools", this.getTools());
+        return obj;
+    }
 
+    public Driver update() {
+        BasicDBObject set = new BasicDBObject();
+        set.append("$set", this.toBasicDBObject());
+        DbConnection.updateOne("drivers", new Document("_id", this.getId()), set);
+        return this;
+    }
 }
