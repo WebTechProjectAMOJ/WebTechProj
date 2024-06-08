@@ -31,18 +31,21 @@ public class accountSettings extends HttpServlet {
 
         if (session.getAttribute("accountType") == "customer") {
             Consumer user = (Consumer) session.getAttribute("user");
+            req.setAttribute("user", user);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/views/homepages/consumer_account.jsp");
             dispatcher.forward(req, resp);
         }
 
         if (session.getAttribute("accountType") == "restaurant") {
             Restaurant user = (Restaurant) session.getAttribute("user");
+            req.setAttribute("user", user);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/views/homepages/restaurant_account.jsp");
             dispatcher.forward(req, resp);
         }
 
         if (session.getAttribute("accountType") == "driver") {
             Driver user = (Driver) session.getAttribute("user");
+            req.setAttribute("user", user);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/views/homepages/driver_account.jsp");
             dispatcher.forward(req, resp);
         }

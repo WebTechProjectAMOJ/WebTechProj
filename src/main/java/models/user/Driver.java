@@ -33,6 +33,8 @@ public class Driver extends User implements login {
         setCurrentPos(document.get("current_pos"));
     }
 
+    public Driver() {}
+
     public Driver(String username,
                   String password,
                   String name,
