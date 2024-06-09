@@ -635,3 +635,8 @@ table th {
     font-size: larger;
     border-bottom: 5px solid #B5C964;
 }
+
+.button-transparent {
+    border: none;
+    background: none;
+}

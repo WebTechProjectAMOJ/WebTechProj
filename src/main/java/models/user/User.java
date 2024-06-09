@@ -158,7 +158,7 @@ public class User {
     public HashMap<String, ArrayList<ItemBoxUi>> get_not_complete_orders() {
         HashMap<String, ArrayList<ItemBoxUi>> orders_scroll = new HashMap<String, ArrayList<ItemBoxUi>>();
 
-        Document to_find = new Document("status", "complete");
+        Document to_find = new Document("status", "done");
         ArrayList<Document> found = DbConnection.find_with_not_filter(
                 "orders",
                 to_find
@@ -179,13 +179,17 @@ public class User {
             }
         }
 
+        if (orders_scroll.isEmpty()) {
+            orders_scroll.put("No incomplete orders", new ArrayList<ItemBoxUi>());
+        }
+
         return orders_scroll;
     }
 
     public HashMap<String, ArrayList<ItemBoxUi>> get_complete_orders() {
         HashMap<String, ArrayList<ItemBoxUi>> orders_scroll = new HashMap<String, ArrayList<ItemBoxUi>>();
 
-        Document to_find = new Document("status", "complete");
+        Document to_find = new Document("status", "done");
         ArrayList<Document> found = DbConnection.find(
                 "orders",
                 to_find
@@ -204,6 +208,11 @@ public class User {
                 }
             }
         }
+
+        if (orders_scroll.isEmpty()) {
+            orders_scroll.put("No complete orders", new ArrayList<ItemBoxUi>());
+        }
+
         return orders_scroll;
     }
 

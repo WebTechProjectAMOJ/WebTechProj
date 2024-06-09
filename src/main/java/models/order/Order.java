@@ -53,7 +53,7 @@ public class Order {
                 "drivers",
                 to_find
         );
-        if(found != null){
+        if (found != null) {
             this.driver = new Driver(found);
         }
         this.restaurant = orderFound.getObjectId("restaurant");
@@ -62,7 +62,7 @@ public class Order {
         this.payment = (Document) orderFound.get("payment");
         ArrayList<OrderItems> some_items = new ArrayList<OrderItems>();
         ArrayList<Document> items = orderFound.get("items", ArrayList.class);
-        for(Document item : items){
+        for (Document item : items) {
             OrderItems i = new OrderItems(item);
             some_items.add(i);
         }
@@ -86,11 +86,11 @@ public class Order {
         return price;
     }
 
-    public Document toDocument(){
+    public Document toDocument() {
         Document doc = new Document();
         doc.put("total", this.getTotal());
         doc.put("status", this.getStatus());
-        if(this.driver != null){
+        if (this.driver != null) {
             doc.put("driver", getDriver().getId());
         }
         doc.put("restaurant", getRestaurant());
@@ -98,7 +98,7 @@ public class Order {
         doc.put("delivery_address", this.getDelivery_address());
         doc.put("payment", this.getPayment());
         ArrayList<Document> items = new ArrayList<>();
-        for(OrderItems i : this.order_items){
+        for (OrderItems i : this.order_items) {
             items.add(i.toDocument());
         }
         doc.put("items", items);
@@ -134,7 +134,7 @@ public class Order {
         return (Document) delivery_address;
     }
 
-    public JsonObject getDelivery_address_json(){
+    public JsonObject getDelivery_address_json() {
         return new JsonObject(((Document) delivery_address).toJson());
     }
 
@@ -181,21 +181,9 @@ public class Order {
 
 
     public ItemBoxUi getUiItemBox() {
-        //*Creates a ItemBox object to display in an item box element
-        //*Creates the string from an address object
-//        ArrayList<Object> addrs_doc = (ArrayList<Object>) this.delivery_address.get("address_components");
-
-        StringBuilder addrs_str = new StringBuilder();
-//        for (Object obj : addrs_doc) {
-//            Document doc = (Document) obj;
-//            addrs_str.append(doc.getString("short_name"));
-//            addrs_str.append(", ");
-//        }
-
         /*TODO:Change photo_url and action url*/
         return new ItemBoxUi(
-//                addrs_str.toString(),
-                "address",
+                this.getDelivery_address_document().getString("name"),
                 this.id.toString(),
                 "",
                 "");
@@ -234,9 +222,9 @@ public class Order {
         return getRestaurant().toString() + ", " + getCustomer().toString();
     }
 
-    public boolean write(){
+    public boolean write() {
         Document doc = this.toDocument();
-        InsertOneResult result =  DbConnection.insertOne("orders", doc);
+        InsertOneResult result = DbConnection.insertOne("orders", doc);
         BsonObjectId id = (BsonObjectId) result.getInsertedId();
         this.setId(new ObjectId(String.valueOf(id.getValue())));
         return result.wasAcknowledged();

@@ -1,5 +1,6 @@
 package controller.driver;
 
+import controller.util.session_tools;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -24,6 +25,8 @@ public class driverReviews extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/");
             return;
         }
+
+        session_tools.rebuild_user_session(session);
 
         Driver driver = (Driver) session.getAttribute("user");
 

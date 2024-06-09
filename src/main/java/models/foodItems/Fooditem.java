@@ -1,5 +1,6 @@
 package models.foodItems;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.result.InsertOneResult;
 import dbconnection.DbConnection;
 import models.ratings.Rating;
@@ -98,7 +99,7 @@ public class Fooditem {
 
     public String getPhoto_url() {
         String ph_url = this.photo_url;
-        if (ph_url.length() < 2){
+        if (ph_url.length() < 2) {
             ph_url = "https://cdn-icons-png.flaticon.com/512/2771/2771401.png";
         }
         return ph_url;
@@ -157,5 +158,18 @@ public class Fooditem {
         }
 
         return ratings;
+    }
+
+    public BasicDBObject toBasicDBObject() {
+        BasicDBObject obj = new BasicDBObject(this.toDocument());
+        obj.append("_id", this.getId());
+        return obj;
+    }
+
+    public Fooditem update() {
+        BasicDBObject set = new BasicDBObject();
+        set.append("$set", this.toBasicDBObject());
+        DbConnection.updateOne("food_items", new Document("_id", this.getId()), set);
+        return this;
     }
 }

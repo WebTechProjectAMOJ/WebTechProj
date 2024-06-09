@@ -165,6 +165,7 @@ public class Driver extends User implements login {
         BasicDBObject obj = super.toBasicDBObject();
         obj.append("first_name", this.getFirstName());
         obj.append("tools", this.getTools());
+        obj.append("ratings", this.getRatings());
         return obj;
     }
 
