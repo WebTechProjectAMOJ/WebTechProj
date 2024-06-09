@@ -273,6 +273,37 @@ div#edit-basket input {
     transform: scale(1.005);
 }
 
+.ticket-tab-menu > p {
+    width: 40%;
+    height: 2em;
+    text-align: center;
+    line-height: 100%;
+    padding-top: 1em;
+    border: beige 3px solid;
+}
+
+.ticket-tab-menu {
+    width: 100%;
+    display: inline-flex;
+    background: antiquewhite;
+}
+
+p.ticket-tab-active {
+    border: black 3px solid;
+    background: #a2a8d3;
+    border-bottom: none;
+}
+
+div#new-ticket-content > form > div {
+    margin: 3em;
+    width: 100%;
+}
+
+div#new-ticket-content {
+    background: #a2a8d3;
+    border: 3px solid black;
+}
+
 button#complete-order-btn {
     width: 850px;
     margin-top: 1em;

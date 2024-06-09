@@ -14,6 +14,7 @@
     <a href="${pageContext.request.contextPath}/restaurant-offer-management">Offers</a>
     <a href="${pageContext.request.contextPath}/create-food-item">Add Food Item</a>
     <a href="${pageContext.request.contextPath}/restaurant-reviews"><h3>Reviews</h3></a>
+    <a href="${pageContext.request.contextPath}/restaurant-tickets"><h3>Tickets</h3></a>
 
     <div class="user_nav">
         <div class="account">
