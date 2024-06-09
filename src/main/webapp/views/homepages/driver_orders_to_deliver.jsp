@@ -45,7 +45,6 @@
         let element = $(this);
         let data = element.siblings("input[datafld='order-address']").val();
         data = JSON.parse(data);
-        console.log(data);
         element.html("<strong>Address: </strong>" + data.name);
     })
 
@@ -53,7 +52,6 @@
         let element = $(this);
         let data = element.siblings("input[datafld='order-address']").val();
         data = JSON.parse(data);
-        console.log(data);
         element.html("<strong>Address: </strong>" + data.name);
     })
 
