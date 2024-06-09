@@ -48,6 +48,9 @@
         })
     }
 </script>
+<script>
+    $("h2").text("Orders to Accept");
+</script>
 </body>
 </html>
 

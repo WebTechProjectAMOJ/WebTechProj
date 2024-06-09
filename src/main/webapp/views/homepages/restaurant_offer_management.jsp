@@ -69,3 +69,6 @@
 
 </script>
 
+<script>
+    $("h2").text("Offer Management");
+</script>

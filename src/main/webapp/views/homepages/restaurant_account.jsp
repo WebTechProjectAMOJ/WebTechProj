@@ -158,3 +158,7 @@
         $("textarea[name='delivery_service']").get(0).value = $(this).val()
     })
 </script>
+
+<script>
+    $("h2").text("Restaurant Account");
+</script>

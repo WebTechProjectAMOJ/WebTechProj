@@ -94,3 +94,7 @@
     }
 </script>
 
+<script>
+    $("h2").text("Menu Management");
+</script>
+
