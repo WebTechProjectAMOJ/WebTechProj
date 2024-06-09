@@ -172,7 +172,9 @@ public class Restaurant extends User implements login {
                 this.getName(),
                 addrs_str.toString(),
                 this.getIcon_url(),
-                this.getId().toString());
+                this.getId().toString(),
+                "restaurant"
+        );
     }
 
     public ArrayList<Fooditem> getFoodItemList() {

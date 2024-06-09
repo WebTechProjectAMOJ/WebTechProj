@@ -186,7 +186,8 @@ public class Order {
                 this.getDelivery_address_document().getString("name"),
                 this.id.toString(),
                 "",
-                "");
+                "",
+                "order");
     }
 
     public ArrayList<OrderItems> getOrder_items() {
