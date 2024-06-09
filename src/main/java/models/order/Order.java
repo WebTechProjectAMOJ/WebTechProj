@@ -79,8 +79,8 @@ public class Order {
 
     public double getTotal() {
         double price = 0;
-        for (OrderItems i : this.order_items) {
-            price += i.getPrice() * i.getQuantity();
+        for(OrderItems i : this.order_items){
+            price += i.getPrice();
         }
         setTotal(price);
         return price;
@@ -156,6 +156,27 @@ public class Order {
 
     public void setItems(ArrayList<ObjectId> items) {
         this.items = items;
+    }
+
+    public boolean removeItem(ObjectId id){
+        for(OrderItems i : this.order_items){
+            if(i.getId().equals(id)){
+                this.order_items.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean editOrder(ObjectId id, String cust, int qty){
+        for(OrderItems i : this.order_items){
+            if(i.getId().equals(id)){
+                i.setCustomizations(cust);
+                i.setQuantity(qty);
+                return true;
+            }
+        }
+        return false;
     }
 
 

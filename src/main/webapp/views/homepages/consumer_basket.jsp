@@ -30,13 +30,39 @@
                 <c:forEach var="item" items="${itemslist.order_items}">
                     <c:set var="fooditem" value="${item}" scope="page"/>
                     <jsp:useBean id="fooditem" scope="page" type="models.order.OrderItems"/>
-
-                    <div class="box_container">
-                        <div class="box"><img src="${fooditem.fooditem.photo_url}"/> </div>
-                        <h3>${fooditem.quantity} x ${fooditem.fooditem.name}</h3>
-                        <p style="display: none" class="id-data">${fooditem.fooditem.id}</p>
-                        <a>€${fooditem.price}</a>
-                    </div>
+                    <c:if test="${empty param.query or fn:containsIgnoreCase(fooditem.fooditem.name, param.query)}">
+                        <div>
+                            <div class="box_container">
+                                <div class="box"><img src="${fooditem.fooditem.photo_url}"/> </div>
+                                <h3>${fooditem.quantity} x ${fooditem.fooditem.name}</h3>
+                                <p style="display: none" class="id-data">${fooditem.fooditem.id}</p>
+                                <a>€${fooditem.price}</a>
+                            </div>
+                            <div class="add_popup" id="edit-basket">
+                                    <h3 style="align-self: center">${fooditem.fooditem.name}</h3>
+                                    <div>
+                                    <div>Cost: €${fooditem.fooditem.price}</div>
+                                    <div>
+                                        <label> Customisations:
+                                            <input id="${fooditem.id}-customizations" value="${fooditem.customizations}"/>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label> Quantity:
+                                            <input id="${fooditem.id}-quantity" value="${fooditem.quantity}" type="number" min="0" max="10"/>
+                                        </label>
+                                    </div>
+                                    </div>
+                                    <div class="footer">
+                                        <label>Total Cost: ${fooditem.price}</label>
+                                        <button type="submit" class="confirm_button" style="background-color: #B5C964;" onclick="saveFoodItem('${fooditem.id}')"> Save</button>
+                                        <button  type="button" class="confirm_button" style="background-color: indianred; border-color: indianred;" onclick="deleteItem('${fooditem.id}')">Delete</button>
+                                        <button  type="button" class="confirm_button" style="background-color: lightgrey; border-color: lightgrey;" onclick="closeBox(this)">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </c:if>
                 </c:forEach>
             </div>
             <c:if test="${fn:contains(requestScope['jakarta.servlet.forward.request_uri'], 'view-basket')}">
@@ -68,43 +94,56 @@
     });
 
     function setAddressKey(){
-        console.log("address key", $("#address-select").val())
         $("#address-key").val($("#address-select").val())
     }
 </script>
 
+<script>
+    $("div[class='box_container']").on("click", function (){
+        openBox($(this).siblings('#edit-basket').get(0))
+    })
 
-<div class="add_popup" id="edit-basket">
-    <form class="form_add" method="post">
-        <h3 style="align-self: center">Element Name</h3>
-        <label>Cost: ...</label>
-        <label> Description: ...</label>
-        <label> Customisations:
-            <input type="text" name="custom" required/>
-        </label>
-        <label> Quantity:
-            <input type="number" name="quantity" required/>
-        </label>
+    function openBox(element) {
+        element.style.display = "block";
+    }
 
-        <div class="footer">
-            <label>Total Cost</label>
-            <button type="submit" class="confirm_button" style="background-color: #B5C964;"> Save</button>
-            <button  type="button" class="confirm_button" style="background-color: indianred; border-color: indianred;" onclick="deleteItem()">Delete</button>
-            <button  type="button" class="confirm_button" style="background-color: lightgrey; border-color: lightgrey;" onclick="closeBox()">Cancel</button>
-        </div>
-    </form>
-</div>
+    function closeBox(element) {
+        element = $(element).parents('#edit-basket').get(0)
+        element.style.display = "none";
+    }
+</script>
 
 <script>
-    function openBox() {
-        document.getElementById("edit-basket").style.display = "block";
+
+    let link = window.location.origin + '/' + window.location.pathname.split('/')[1] + '/';
+
+    function deleteItem(id){
+        $.ajax({
+            url: link + "/edit-basket" + '?' + $.param({"id": id}),
+            type: 'DELETE',
+            success: function(data) {
+                alert(data);
+                location.reload();
+            }
+        });
     }
 
-    function closeBox() {
-        document.getElementById("edit-basket").style.display = "none";
-    }
-
-    function deleteItem() {
-        // code to delete item
+    function saveFoodItem(id){
+        let cust = $("#"+id+"-customizations").val()
+        let qty = $("#"+id+"-quantity").val()
+        console.log(cust, qty);
+        $.ajax({
+            url: link + "/edit-basket",
+            type: 'POST',
+            data: {
+                "id" : id,
+                "cust" : cust,
+                "qty" : qty
+            },
+            success: function(data) {
+                alert(data);
+                location.reload();
+            }
+        });
     }
 </script>

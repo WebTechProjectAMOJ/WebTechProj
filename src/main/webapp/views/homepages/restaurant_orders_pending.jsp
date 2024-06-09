@@ -25,5 +25,8 @@
     </div>
 </div>
 </body>
+<script>
+    $("h2").text("Pending Orders");
+</script>
 </html>
 

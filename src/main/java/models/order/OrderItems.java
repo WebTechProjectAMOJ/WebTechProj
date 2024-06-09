@@ -13,6 +13,7 @@ public class OrderItems {
         this.fooditem = new Fooditem(DbConnection.findOne("food_items", new Document("_id", id)));
         this.quantity = quantity;
         this.customizations = customizations;
+        this.id = new ObjectId();
     }
 
     public OrderItems(Document document) {
@@ -20,6 +21,7 @@ public class OrderItems {
         this.fooditem = new Fooditem(DbConnection.findOne("food_items", new Document("_id", id)));
         this.quantity = document.getInteger("quantity");
         this.customizations = document.getString("customizations");
+        this.id = new ObjectId();
     }
 
     @BsonId

@@ -20,11 +20,11 @@
         </div>
         <div class="corner_popup">
             <button  type="button" class="confirm_button" style="background-color: lightgrey; border-color: black;" onclick="closeMenu()">Close</button>
-            <div class="search_bar">
-                <div class="search_block">
-                    <a> Search item in restaurant</a>
-                </div>
-            </div>
+<%--            <div class="search_bar">--%>
+<%--                <div class="search_block">--%>
+<%--                    <a> Search item in restaurant</a>--%>
+<%--                </div>--%>
+<%--            </div>--%>
         </div>
     </div>
     <div class="popup_window">

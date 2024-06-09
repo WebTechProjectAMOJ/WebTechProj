@@ -28,10 +28,26 @@
         </div>
         <div class="search_bar">
             <div class="search_block">
-                <input id="search-input" name="search-term" placeholder="Search for restaurant or food"/>
+                <input id="search-input" name="search-term" value="${param.query}" placeholder="Search for restaurant or food"/>
             </div>
-            <button>SEARCH</button>
+            <button onclick="makeasearch()">SEARCH</button>
+            <c:if test="${not empty param.query}">
+                <button style="background: crimson" onclick="clearsearch()">CLEAR</button>
+            </c:if>
         </div>
     </div>
     <img src="${pageContext.request.contextPath}/assets/food-dispatch-logo.png" alt="logo">
 </div>
+<script>
+    function makeasearch(){
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set('query', $("#search-input").val().trim());
+        window.location.search = urlParams;
+    }
+
+    function clearsearch(){
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.delete("query");
+        window.location.search = urlParams;
+    }
+</script>
