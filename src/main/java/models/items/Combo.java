@@ -77,7 +77,8 @@ public class Combo {
                 this.name,
                 this.price.toString(),
                 "",
-                ""
+                "",
+                "combo"
         );
     }
 

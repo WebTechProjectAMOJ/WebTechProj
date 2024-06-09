@@ -42,7 +42,7 @@ public class viewBasket extends HttpServlet {
             }
             for(OrderItems ord : order.getOrder_items()){
                 Fooditem f = ord.getFooditem();
-                ItemBoxUi i = new ItemBoxUi(ord.getQuantity() + "x" + f.getName(),"$" + ord.getPrice(), f.getPhoto_url(),"");
+                ItemBoxUi i = new ItemBoxUi(ord.getQuantity() + "x" + f.getName(),"$" + ord.getPrice(), f.getPhoto_url(),"", "order");
                 items.add(i);
             }
             itemHash.put(restaurant, items);

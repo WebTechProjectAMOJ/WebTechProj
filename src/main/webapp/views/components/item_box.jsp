@@ -19,9 +19,22 @@
                     Rate Order
                 </button>
             </div>
-
         </form>
     </c:when>
+    <c:when test="${url != history and item.getType() == 'order'}">
+        <form method="GET" action="${pageContext.request.contextPath}/order-details">
+            <input name="orderid" value="${item.sub_name}" class="disappear"/>
+            <button type="submit" class="button-transparent">
+                <div class="box_container">
+                    <div class="box"><img src="${item.photo_url}"/></div>
+                    <h3>${item.name}</h3>
+                    <p style="display: none" class="id-data">${item.action_url}</p>
+                    <a>${item.sub_name}</a>
+                </div>
+            </button>
+        </form>
+    </c:when>
+
     <c:otherwise>
         <div class="box_container">
             <div class="box"><img src="${item.photo_url}"/></div>

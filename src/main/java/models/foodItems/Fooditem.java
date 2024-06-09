@@ -138,7 +138,8 @@ public class Fooditem {
                 this.getName(),
                 "€" + this.getPrice().toString(),
                 getPhoto_url(),
-                this.getId().toString());
+                this.getId().toString(),
+                "foodItem");
     }
 
     public ArrayList<Rating> getRatingsBuilt() {
