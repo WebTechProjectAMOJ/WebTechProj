@@ -41,7 +41,7 @@
                             <div class="add_popup" id="edit-basket">
                                     <h3 style="align-self: center">${fooditem.fooditem.name}</h3>
                                     <div>
-                                    <div>Cost: €${fooditem.price}</div>
+                                    <div>Cost: €${fooditem.fooditem.price}</div>
                                     <div>
                                         <label> Customisations:
                                             <input id="${fooditem.id}-customizations" value="${fooditem.customizations}"/>
@@ -54,7 +54,7 @@
                                     </div>
                                     </div>
                                     <div class="footer">
-                                        <label>Total Cost</label>
+                                        <label>Total Cost: ${fooditem.price}</label>
                                         <button type="submit" class="confirm_button" style="background-color: #B5C964;" onclick="saveFoodItem('${fooditem.id}')"> Save</button>
                                         <button  type="button" class="confirm_button" style="background-color: indianred; border-color: indianred;" onclick="deleteItem('${fooditem.id}')">Delete</button>
                                         <button  type="button" class="confirm_button" style="background-color: lightgrey; border-color: lightgrey;" onclick="closeBox(this)">Cancel</button>
@@ -110,5 +110,40 @@
     function closeBox(element) {
         element = $(element).parents('#edit-basket').get(0)
         element.style.display = "none";
+    }
+</script>
+
+<script>
+
+    let link = window.location.origin + '/' + window.location.pathname.split('/')[1] + '/';
+
+    function deleteItem(id){
+        $.ajax({
+            url: link + "/edit-basket" + '?' + $.param({"id": id}),
+            type: 'DELETE',
+            success: function(data) {
+                alert(data);
+                location.reload();
+            }
+        });
+    }
+
+    function saveFoodItem(id){
+        let cust = $("#"+id+"-customizations").val()
+        let qty = $("#"+id+"-quantity").val()
+        console.log(cust, qty);
+        $.ajax({
+            url: link + "/edit-basket",
+            type: 'POST',
+            data: {
+                "id" : id,
+                "cust" : cust,
+                "qty" : qty
+            },
+            success: function(data) {
+                alert(data);
+                location.reload();
+            }
+        });
     }
 </script>

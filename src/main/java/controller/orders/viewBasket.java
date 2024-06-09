@@ -24,14 +24,16 @@ public class viewBasket extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("accountType") != "customer") {
+            response.sendRedirect(request.getContextPath() + "/");
+            return;
+        }
         HashMap<Restaurant, Order> list = (HashMap<Restaurant, Order>) session.getAttribute("Basket");
-        System.out.println(list);
         HashMap<Restaurant, ArrayList<ItemBoxUi>> itemHash = new HashMap<>();
         for(Map.Entry<Restaurant, Order> item : list.entrySet()) {
             ArrayList<ItemBoxUi> items = null;
             Restaurant restaurant = item.getKey();
             Order order = item.getValue();
-//            String resname = restaurant.getName();
             if(itemHash.containsKey(restaurant)) {
                 items = itemHash.get(restaurant);
             }
