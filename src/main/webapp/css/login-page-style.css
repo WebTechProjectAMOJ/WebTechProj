@@ -1,5 +1,5 @@
 #login-cloud {
-    background: #B5C964;
+    background: #B5C964;!important;
     margin: 0 auto auto;
     display: block;
     border-radius: 20px;
@@ -122,4 +122,19 @@ ul.chosen-choices{
     margin-top:0.3em;
 }
 
+.restaurants-box #login-cloud, .restaurants-box .login-tabs > div.tab-active{
+    background-color: #c97864 !important;
+}
+
+.driver-box #login-cloud, .driver-box .login-tabs > div.tab-active{
+    background-color: #64c9ba !important;
+}
+
+.consumer-box #login-cloud {
+    background: #B5C964 !important;
+}
+
+.consumer-box .login-tabs > div.tab-active {
+    background-color: #B5C964 !important;
+}
 

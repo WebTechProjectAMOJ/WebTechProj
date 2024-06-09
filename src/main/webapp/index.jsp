@@ -3,6 +3,8 @@
 <html lang="en">
 <head>
     <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="css/login-page-style.css">
+
 </head>
 <jsp:include page="./views/includes.jsp" />
 <body>
@@ -30,7 +32,8 @@
                 <label for="contactChoice3">Drivers</label>
             </div>
         </div>
-        <div id="login-cloud">
+<%--        <div id="login-cloud">--%>
+        <div id="login-cloud" class="consumer-box">
             <c:if test="${sessionScope.errorMessage != null}">
                 <p style="color: red; width: 80%; margin:auto; text-align: center">${sessionScope.errorMessage}</p>
                 <c:remove var="errorMessage"/>
