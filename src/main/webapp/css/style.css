@@ -304,6 +304,14 @@ div#new-ticket-content {
     border: 3px solid black;
 }
 
+.ticket-item {
+    width: 80%;
+    margin: 2em auto auto;
+    background: #a2a8d3;
+    padding: 1em;
+    border-radius: 1em;
+}
+
 button#complete-order-btn {
     width: 850px;
     margin-top: 1em;

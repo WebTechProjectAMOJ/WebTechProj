@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: margotrichez
@@ -66,7 +67,15 @@
                 </form>
             </div>
             <div class="old-tickets disappear" id="old-ticket-content">
-                Old
+                <jsp:useBean id="tickets" scope="request" type="java.util.ArrayList"/>
+                <c:forEach var="ticket" items="${tickets}">
+                    <jsp:useBean id="ticket" type="models.tickets.Ticket"/>
+                    <div class="ticket-item">
+                        <h3 class="ticket-title">${ticket.title}</h3><hr>
+                        <p class="ticket-status">Status: ${ticket.status}</p>
+                        <p class="ticket-desc">${ticket.description}</p>
+                    </div>
+                </c:forEach>
             </div>
         </div>
     </div>
