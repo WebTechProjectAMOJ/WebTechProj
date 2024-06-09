@@ -312,6 +312,14 @@ div#new-ticket-content {
     border-radius: 1em;
 }
 
+.message {
+    border-bottom: 1px solid black;
+}
+
+.msg-title {
+    font-weight: 800;
+}
+
 button#complete-order-btn {
     width: 850px;
     margin-top: 1em;
