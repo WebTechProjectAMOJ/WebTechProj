@@ -20,7 +20,7 @@
     <div class="window">
         <jsp:include page="../components/header.jsp" />
         <div class="order-details">
-            <jsp:useBean id="orderDetails" scope="request" type="   models.order.Order"/>
+            <jsp:useBean id="orderDetails" scope="request" type="models.order.Order"/>
             <h3>Order # ${orderDetails.id}</h3><hr>
             <jsp:useBean id="currentAddress" type="org.bson.json.JsonObject" scope="request"/>
             <input class="disappear" value='${currentAddress}' id="restaurant-address">
@@ -62,6 +62,18 @@
                 </div>
             </div>
         </c:forEach>
+            </div>
+        </div>
+        <div class="order-accept-boundary">
+            <h3>Messages</h3>
+            <div class="message-window" style="overflow-y: scroll;height: 200px;border: 2px solid black;">
+
+            </div>
+            <div class="message-entry">
+                <input name="msg" style="width: 85%;padding: 0.5em;" placeholder="Enter message"/>
+                <button type="submit" style="    padding: 0.5em; background: darkseagreen;border-radius: 1em;width: 10em;" onclick="sendMsg()">Send!</button>
+                <input class="disappear" value="${orderDetails.id}" name="orderId">
+                <input class="disappear" value="Restaurant" name="sender"/>
             </div>
         </div>
     </div>
@@ -138,6 +150,29 @@
     function closeBox(element) {
         element = $(element).closest('#add-basket').get(0)
         element.style.display = "none";
+    }
+
+    function doPoll(){
+        console.log("polling")
+        $.get(link + "get-all-messages?orderid=" + '${orderDetails.id}', function(data) {
+            $(".message-window").html(data);
+            setTimeout(doPoll,5000);
+        });
+    }
+    doPoll();
+
+    function sendMsg(){
+        let sender = $("input[name='sender']").val()
+        let orderId = $("input[name='orderId']").val()
+        let msg = $("input[name='msg']").val()
+        console.log(sender, orderId, msg)
+        $.post(link+ 'get-all-messages', {
+            "sender" : sender,
+            "orderId" : orderId,
+            "msg": msg
+        }).done(data => {
+            alert(data);
+        })
     }
 </script>
 </body>
