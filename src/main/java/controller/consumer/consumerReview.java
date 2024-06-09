@@ -11,18 +11,14 @@ import jakarta.servlet.http.HttpSession;
 import models.foodItems.Fooditem;
 import models.order.Order;
 import models.order.OrderItems;
-import models.ratings.Rating;
 import models.user.Consumer;
 import models.user.Driver;
 import models.user.Restaurant;
-import org.bson.BsonValue;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
-import javax.print.Doc;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -99,12 +95,25 @@ public class consumerReview extends HttpServlet {
 
             ObjectId rating_id = DbConnection.insertOne("ratings", resto_rating).getInsertedId().asObjectId().getValue();
 
-            ArrayList<ObjectId> rating_ids = resto.getRatings();
-            rating_ids.add(rating_id);
-            resto.setRatings(rating_ids);
+            ArrayList<ObjectId> collection_ids = resto.getRatings();
+            collection_ids.add(rating_id);
+            resto.setRatings(collection_ids);
             resto.update();
 
             // Place Driver Rating
+
+            Driver driver = new Driver(DbConnection.findOne("drivers", new Document("_id", new ObjectId(req.getParameter("driver_id")))));
+            Document driver_rating = new Document();
+            driver_rating.put("consumer_id", user.getId());
+            driver_rating.put("feedback", req.getParameter("restaurant-feedback-" + driver.getId()));
+            driver_rating.put("value", Integer.parseInt(req.getParameter("driver-rating-" + driver.getId())));
+
+            ObjectId driver_rating_id = DbConnection.insertOne("ratings", driver_rating).getInsertedId().asObjectId().getValue();
+
+            collection_ids = driver.getRatings();
+            collection_ids.add(driver_rating_id);
+            driver.setRatings(collection_ids);
+            driver.update();
 
 
             resp.sendRedirect(req.getContextPath() + "/customer-history");
