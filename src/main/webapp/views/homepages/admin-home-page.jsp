@@ -52,6 +52,7 @@
         <img id="login-logo-img" src="assets/food-dispatch-logo.png" alt="logo">
     </div>
     <h1>Admin Dashboard</h1>
+
     <c:if test="${sessionScope.adminMessage != null}">
         <p class="adminMessage">${sessionScope.adminMessage}</p>
         <c:remove var="adminMessage"/>
@@ -60,6 +61,7 @@
     <a href="${pageContext.request.contextPath}/add-tag-admin">Add a Tag</a>
     <a href="${pageContext.request.contextPath}/add-tool-admin">Add a Tool</a>
     <a href="${pageContext.request.contextPath}/add-delivery-service-admin">Add A Delivery Service</a>
+    <a href="${pageContext.request.contextPath}/admin-tickets">View Tickets</a>
     <a href="${pageContext.request.contextPath}/logout" class="logout-btn-admin">Logout</a>
 </div>
 </body>
