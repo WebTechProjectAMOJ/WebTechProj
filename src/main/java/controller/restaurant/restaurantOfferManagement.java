@@ -1,5 +1,6 @@
 package controller.restaurant;
 
+import controller.util.session_tools;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,10 +21,11 @@ public class restaurantOfferManagement extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         HttpSession session = req.getSession(false);
-        if (session == null ||  session.getAttribute("accountType") != "restaurant") {
+        if (session == null || session.getAttribute("accountType") != "restaurant") {
             resp.sendRedirect(req.getContextPath() + "/");
             return;
         }
+        session_tools.rebuild_user_session(session);
         Restaurant resto = (Restaurant) session.getAttribute("user");
 
         // Makes a hashmap with list of all status and a list of all orders

@@ -1,5 +1,6 @@
 package controller.driver;
 
+import controller.util.session_tools;
 import dbconnection.DbConnection;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -29,6 +30,8 @@ public class driverLanding extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/");
             return;
         }
+
+        session_tools.rebuild_user_session(session);
 
         String url = req.getRequestURI().split("/")[req.getRequestURI().split("/").length - 1];
 
