@@ -42,5 +42,8 @@
         </jsp:include>
     </div>
 </div>
+<script>
+    $("h2").text("Restaurant Reviews");
+</script>
 </body>
 </html>

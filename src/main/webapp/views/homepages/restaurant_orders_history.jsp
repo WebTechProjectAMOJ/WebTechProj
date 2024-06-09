@@ -23,5 +23,8 @@
     </div>
 </div>
 </body>
+<script>
+    $("h2").text("Order History");
+</script>
 </html>
 
