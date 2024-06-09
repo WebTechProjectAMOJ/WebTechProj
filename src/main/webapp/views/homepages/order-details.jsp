@@ -17,9 +17,26 @@
 </style>
 <body>
 <div class="page">
-    <jsp:include page="../components/user_navbar.jsp"/>
+    <c:choose>
+        <c:when test="${sessionScope.accountType == 'customer'}">
+            <jsp:include page="../components/user_navbar.jsp"/>
+        </c:when>
+        <c:when test="${sessionScope.accountType == 'restaurant'}">
+            <jsp:include page="../components/restaurant_navbar.jsp"/>
+        </c:when>
+        <c:otherwise>
+            <jsp:include page="../components/driver_navbar.jsp"/>
+        </c:otherwise>
+    </c:choose>
     <div class="window">
-        <jsp:include page="../components/search_header.jsp"/>
+        <c:choose>
+            <c:when test="${sessionScope.accountType == 'customer'}">
+                <jsp:include page="../components/search_header.jsp"/>
+            </c:when>
+            <c:otherwise>
+                <jsp:include page="../components/header.jsp"/>
+            </c:otherwise>
+        </c:choose>
         <div class="order-details">
             <jsp:useBean id="orderDetails" scope="request" type="   models.order.Order"/>
             <h3>Order # ${orderDetails.id}</h3><hr>
@@ -30,6 +47,7 @@
                     <p>${fooditem.fooditem.name} x ${fooditem.quantity}</p>
                 </c:forEach>
                 <hr>
+                <p>Order Status: ${orderDetails.status}</p>
                 <p>Order Total: €${orderDetails.total}</p>
             </div>
         </div>
@@ -48,7 +66,7 @@
     </div>
 </div>
 <script>
-    $("h2").text("Choose Delivery Driver");
+    $("h2").text("Order Details");
 </script>
 
 

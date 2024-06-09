@@ -185,7 +185,7 @@ public class Order {
         return new ItemBoxUi(
                 this.getDelivery_address_document().getString("name"),
                 this.id.toString(),
-                "",
+                "https://cdn-icons-png.flaticon.com/512/7217/7217494.png",
                 "",
                 "order");
     }

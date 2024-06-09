@@ -22,7 +22,8 @@
         </form>
     </c:when>
     <c:when test="${url != history and item.getType() == 'order'}">
-        <form method="POST" action="${pageContext.request.contextPath}/order-details?id=${item.sub_name}">
+        <form method="GET" action="${pageContext.request.contextPath}/order-details">
+            <input name="orderid" value="${item.sub_name}" class="disappear"/>
             <button type="submit" class="button-transparent">
                 <div class="box_container">
                     <div class="box"><img src="${item.photo_url}"/></div>
