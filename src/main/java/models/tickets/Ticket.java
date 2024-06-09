@@ -22,6 +22,10 @@ public class Ticket {
         this.status = status;
     }
 
+    public Ticket(){
+
+    }
+    
     public Ticket(String title, String description, ObjectId restaurantId) {
         this.title = title;
         this.description = description;
