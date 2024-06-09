@@ -174,7 +174,7 @@ public class Order {
         /*TODO:Change photo_url and action url*/
         return new ItemBoxUi(
 //                addrs_str.toString(),
-                "address",
+                this.getDelivery_address_document().getString("name"),
                 this.id.toString(),
                 "",
                 "");

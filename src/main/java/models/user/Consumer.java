@@ -171,7 +171,7 @@ public class Consumer extends User implements login {
 
     public HashMap<String, ArrayList<ItemBoxUi>> get_recent_orders() {
 
-        Document to_find = new Document("status", "complete");
+        Document to_find = new Document("status", "done");
         ArrayList<Document> found = DbConnection.find(
                 "orders",
                 to_find
@@ -183,7 +183,7 @@ public class Consumer extends User implements login {
             Order order = new Order(order_doc);
 
             if (this.getOrders().contains(order.getId())) {
-                if (Objects.equals(order.getStatus(), "complete")) {
+                if (Objects.equals(order.getStatus(), "done")) {
                     if (orders_scroll.get("Recent Orders") != null) {
                         orders_scroll.get("Recent Orders").add(order.getUiItemBox());
                         Collections.reverse(orders_scroll.get("Recent Orders"));
