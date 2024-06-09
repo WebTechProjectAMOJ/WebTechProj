@@ -2,9 +2,7 @@
 
 <div class="navbar">
     <a href=""><h3>Orders</h3></a>
-    <a href="${pageContext.request.contextPath}/restaurant-landing">All</a>
     <a href="${pageContext.request.contextPath}/restaurant-orders-to-accept">Pending Acceptance</a>
-    <a href="${pageContext.request.contextPath}/restaurant-orders-pending">Pending</a>
     <%--TODO--%>
     <a href="${pageContext.request.contextPath}/open-orders">Open</a>
     <a href="${pageContext.request.contextPath}/restaurant-orders-history">History</a>
