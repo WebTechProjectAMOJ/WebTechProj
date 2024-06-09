@@ -135,7 +135,7 @@ public class Fooditem {
         /*TODO:Change photo_url and action url*/
         return new ItemBoxUi(
                 this.getName(),
-                this.getPrice().toString(),
+                "€" + this.getPrice().toString(),
                 getPhoto_url(),
                 this.getId().toString());
     }

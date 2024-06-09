@@ -58,9 +58,9 @@
             console.log(data)
             $("#element-name").text(data.name);
             $("#element-name-data").val(data.name);
-            $("#element-cost").text(data.price);
+            $("#element-cost").text("€ " + data.price);
             $("#element-cost-data").val(data.price);
-            $("#element-desc").text(data.description);
+            $("#element-desc").text(data.description.trim().slice(0, -1));
             $("#photo-url").val(data.photo_url)
             $("#idHash").val(hash);
         })

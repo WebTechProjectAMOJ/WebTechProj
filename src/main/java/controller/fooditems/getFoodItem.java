@@ -27,14 +27,20 @@ public class getFoodItem extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("application/json");
         String idstr = request.getParameter("id");
-        System.out.println(idstr);
         ObjectId id = new ObjectId(idstr);
         Document foodItem = DbConnection.findOne("food_items", new Document("_id", id));
         Document json = new Document();
         json.put("name", foodItem.getString("name"));
         json.put("price", foodItem.getDouble("price"));
         json.put("photo_url", foodItem.getString("photo_url"));
-        json.put("description", foodItem.get("tags", ArrayList.class).toString());
+        ArrayList<ObjectId> tagItems = foodItem.get("tags", ArrayList.class);
+        String taglist = "";
+        for(ObjectId tagid : tagItems){
+            Document tag = DbConnection.findOne("tags", new Document("_id", tagid));
+            taglist += tag.getString("name") + ", ";
+        }
+        System.out.println(taglist);
+        json.put("description", taglist);
         JsonObject jsonObject = new JsonObject(json.toJson());
         PrintWriter out = response.getWriter();
         out.print(jsonObject);
