@@ -80,6 +80,27 @@ public class consumerReview extends HttpServlet {
                 String[] input = names.split("-");
 
                 if (input[0].equals("item")) {
+                    String food_item_id = input[2];
+                    Fooditem fooditem = null;
+                    Document food_item_rating = null;
+                    ObjectId rating_id = null;
+
+                    if (input[1].equals("feedback")) {
+                        fooditem = new Fooditem(DbConnection.findOne("food_items", new Document("_id", new ObjectId(food_item_id))));
+                        food_item_rating = new Document();
+                        food_item_rating.put("consumer_id", user.getId());
+                        food_item_rating.put("feedback", req.getParameter("item-feedback-" + food_item_id));
+                        food_item_rating.put("value", Integer.parseInt(req.getParameter("item-rating-" + food_item_id)));
+
+                        rating_id = DbConnection.insertOne("ratings", food_item_rating).getInsertedId().asObjectId().getValue();
+
+
+                        ArrayList<ObjectId> collection_ids = fooditem.getRatings();
+                        collection_ids.add(rating_id);
+                        fooditem.setRatings(collection_ids);
+                        fooditem.update();
+
+                    }
 
                 }
             }
