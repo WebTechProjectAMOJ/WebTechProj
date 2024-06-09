@@ -18,7 +18,7 @@
                     height="450"
                     referrerpolicy="no-referrer"
                     frameborder="0" style="border:0"
-                    src="https://www.google.com/maps/embed/v1/directions?key=xx
+                    src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCRvQUyNFUUfZ-_vc99VAN_EDz0KKMZaRQ
   &origin=${requestScope.curr_lat},%20${requestScope.curr_lng}
   &destination=${requestScope.home_lat},%20${requestScope.home_lng}
   &waypoints=${requestScope.restaurant_lat},%20${requestScope.restaurant_lng}
