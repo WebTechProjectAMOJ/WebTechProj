@@ -30,7 +30,8 @@
 
                     <a> Restaurant Rating: </a>
                     <div class="setting_inputs">
-                        <select name="restaurantRating-${restaurant_id}">
+                        <input type="hidden" name="restaurant_id" value="${restaurant_id}">
+                        <select name="restaurant-rating-${restaurant_id}">
                             <option value="1">&#9733;</option>
                             <option value="2">&#9733;&#9733;</option>
                             <option value="3">&#9733;&#9733;&#9733;</option>
@@ -38,14 +39,15 @@
                             <option selected value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
                         </select>
                         <label>
-                            <input name="restaurantFeedback-${restaurant_id}" type="text"
+                            <input name="restaurant-feedback-${restaurant_id}" type="text"
                                    placeholder="Add some feedback..." value="">
                         </label>
                     </div>
 
                     <a> Driver Rating: </a>
                     <div class="setting_inputs">
-                        <select name="driverRating-${driver_id}">
+                        <input type="hidden" name="driver_id" value="${driver_id}">
+                        <select name="driver-rating-${driver_id}">
                             <option value="1">&#9733;</option>
                             <option value="2">&#9733;&#9733;</option>
                             <option value="3">&#9733;&#9733;&#9733;</option>
@@ -53,30 +55,30 @@
                             <option selected value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
                         </select>
                         <label>
-                            <input name="driverFeedback-${restaurant_id}" type="text"
+                            <input name="driver-feedback-${driver_id}" type="text"
                                    placeholder="Add some feedback..." value="">
                         </label>
                     </div>
 
-                    <a> Order Rating: </a>
-                    <div class="setting_inputs">
-                        <select name="orderRating-${order.getId()}">
-                            <option value="1">&#9733;</option>
-                            <option value="2">&#9733;&#9733;</option>
-                            <option value="3">&#9733;&#9733;&#9733;</option>
-                            <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
-                            <option selected value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
-                        </select>
-                        <label>
-                            <input name="orderFeedback-${restaurant_id}" type="text"
-                                   placeholder="Add some feedback..." value="">
-                        </label>
-                    </div>
+<%--                    <a> Order Rating: </a>--%>
+<%--                    <div class="setting_inputs">--%>
+<%--                        <select name="order-rating-${order.getId()}">--%>
+<%--                            <option value="1">&#9733;</option>--%>
+<%--                            <option value="2">&#9733;&#9733;</option>--%>
+<%--                            <option value="3">&#9733;&#9733;&#9733;</option>--%>
+<%--                            <option value="4">&#9733;&#9733;&#9733;&#9733;</option>--%>
+<%--                            <option selected value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>--%>
+<%--                        </select>--%>
+<%--                        <label>--%>
+<%--                            <input name="order-feedback-${restaurant_id}" type="text"--%>
+<%--                                   placeholder="Add some feedback..." value="">--%>
+<%--                        </label>--%>
+<%--                    </div>--%>
 
                     <c:forEach var="item" items="${food_items}">
                         <a> ${item.getName()} Rating: </a>
                         <div class="setting_inputs">
-                            <select name="itemRating-${item.getId()}">
+                            <select name="item-rating-${item.getId()}">
                                 <option value="1">&#9733;</option>
                                 <option value="2">&#9733;&#9733;</option>
                                 <option value="3">&#9733;&#9733;&#9733;</option>
@@ -84,7 +86,7 @@
                                 <option selected value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
                             </select>
                             <label>
-                                <input name="itemFeedback-${item.getId()}" type="text"
+                                <input name="item-feedback-${item.getId()}" type="text"
                                        placeholder="Add some feedback..." value="">
                             </label>
                         </div>

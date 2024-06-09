@@ -11,14 +11,19 @@ import jakarta.servlet.http.HttpSession;
 import models.foodItems.Fooditem;
 import models.order.Order;
 import models.order.OrderItems;
+import models.ratings.Rating;
 import models.user.Consumer;
 import models.user.Driver;
 import models.user.Restaurant;
+import org.bson.BsonValue;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
+import javax.print.Doc;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Objects;
 
 
@@ -67,9 +72,41 @@ public class consumerReview extends HttpServlet {
             return;
         }
 
+        Consumer user = (Consumer) session.getAttribute("user");
+
+
         if (Objects.equals(req.getParameter("action"), "submit-review")) {
             //Place reviews
-            //TODO: Create review
+
+            for (Iterator<String> it = req.getParameterNames().asIterator(); it.hasNext(); ) {
+                String names = it.next();
+
+                String[] input = names.split("-");
+
+                if (input[0].equals("item")) {
+
+                }
+            }
+
+
+            // Place Restaurant Rating
+
+            Restaurant resto = new Restaurant(DbConnection.findOne("restaurants", new Document("_id", new ObjectId(req.getParameter("restaurant_id")))));
+            Document resto_rating = new Document();
+            resto_rating.put("consumer_id", user.getId());
+            resto_rating.put("feedback", req.getParameter("restaurant-feedback-" + resto.getId()));
+            resto_rating.put("value", Integer.parseInt(req.getParameter("restaurant-rating-" + resto.getId())));
+
+            ObjectId rating_id = DbConnection.insertOne("ratings", resto_rating).getInsertedId().asObjectId().getValue();
+
+            ArrayList<ObjectId> rating_ids = resto.getRatings();
+            rating_ids.add(rating_id);
+            resto.setRatings(rating_ids);
+            resto.update();
+
+            // Place Driver Rating
+
+
             resp.sendRedirect(req.getContextPath() + "/customer-history");
         } else {
             resp.sendRedirect(req.getContextPath() + "/customer-review?id=" + req.getParameter("id"));

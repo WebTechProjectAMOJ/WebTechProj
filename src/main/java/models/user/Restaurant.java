@@ -372,6 +372,7 @@ public class Restaurant extends User implements login {
         obj.append("tags", this.getTags());
         obj.append("delivery_services", this.getDeliveryServices());
         obj.append("address", this.getAddress());
+        obj.append("ratings", this.getRatings());
         return obj;
     }
 

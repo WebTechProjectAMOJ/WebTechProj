@@ -1,5 +1,6 @@
 package controller.restaurant;
 
+import controller.util.session_tools;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -24,6 +25,9 @@ public class restaurantReview extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/");
             return;
         }
+
+        session_tools.rebuild_user_session(session);
+
         Restaurant resto = (Restaurant) session.getAttribute("user");
         String url = req.getRequestURI().split("/")[req.getRequestURI().split("/").length - 1];
         // Makes a hashmap with list of all status and a list of all orders

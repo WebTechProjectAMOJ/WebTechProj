@@ -10,14 +10,16 @@
 <c:choose>
     <c:when test="${url == history}">
         <form method="POST" action="${pageContext.request.contextPath}/customer-review?id=${item.sub_name}">
-            <button type="submit" class="button-transparent">
-                <div class="box_container">
-                    <div class="box"><img src="${item.photo_url}"/></div>
-                    <h3>${item.name}</h3>
-                    <p style="display: none" class="id-data">${item.action_url}</p>
-                    <a>${item.sub_name}</a>
-                </div>
-            </button>
+            <div class="box_container">
+                <div class="box"><img src="${item.photo_url}"/></div>
+                <h3>${item.name}</h3>
+                <p style="display: none" class="id-data">${item.action_url}</p>
+                <a>${item.sub_name}</a>
+                <button type="submit" class="confirm_button">
+                    Rate Order
+                </button>
+            </div>
+
         </form>
     </c:when>
     <c:otherwise>
