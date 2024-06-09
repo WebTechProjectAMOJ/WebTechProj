@@ -40,10 +40,14 @@
 </div>
 <script>
     function makeasearch(){
-        window.location.href = window.location.pathname+"?"+$.param({'query':$("#search-input").val().trim()})
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set('query', $("#search-input").val().trim());
+        window.location.search = urlParams;
     }
 
     function clearsearch(){
-        window.location.href = window.location.pathname;
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.delete("query");
+        window.location.search = urlParams;
     }
 </script>
