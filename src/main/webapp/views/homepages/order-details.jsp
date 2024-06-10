@@ -60,7 +60,7 @@
                     <input name="msg" style="width: 85%;padding: 0.5em;" placeholder="Enter message"/>
                     <button type="submit" style="    padding: 0.5em; background: darkseagreen;border-radius: 1em;width: 10em;" onclick="sendMsg()">Send!</button>
                     <input class="disappear" value="${requestScope.orderId}" name="orderId">
-                    <input class="disappear" value="Customer" name="sender"/>
+                    <input class="disappear" value="${sessionScope.accountType}" name="sender"/>
             </div>
         </div>
     </div>
